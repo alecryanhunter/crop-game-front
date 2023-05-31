@@ -1,12 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
-import Profile from "./pages/Profile";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DirectMessage from "./pages/DirectMessage";
+import Game from "./pages/Game";
+import Home from "./pages/Home";
+import Lobby from "./pages/Lobby";
+import Messages from "./pages/Messages";
+import Profile from "./pages/Profile";
+import Rules from "./pages/Rules";
+import Shop from "./pages/Shop";
 
 function App() {
-
-  function getUsername() {
-
-  }
   
   return (
     <Router>
@@ -22,13 +24,13 @@ function App() {
         <a href="/messages/test_username">A Direct Message</a>
       </nav>
       <Routes>
-        <Route path="/" element={<h2>Home Page</h2>}/>
-        <Route path="/rules" element={<h2>The Rules</h2>}/>
-        <Route path="/game" element={<h2>The Game</h2>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/rules" element={<Rules/>}/>
+        <Route path="/game" element={<Game/>}/>
         <Route path="/profile/:username" element={<Profile/>}/>
-        <Route path="/shop" element={<h2>The Shop</h2>}/>
-        <Route path="/lobby" element={<h2>The Lobby</h2>}/>
-        <Route path="/messages" element={<h2>The Message</h2>}/>
+        <Route path="/shop" element={<Shop/>}/>
+        <Route path="/lobby" element={<Lobby/>}/>
+        <Route path="/messages" element={<Messages/>}/>
         <Route path="/messages/:username" element={<DirectMessage/>}/>
       </Routes>
     </Router>
