@@ -5,11 +5,9 @@ function Header() {
             {/* Persistent Nav Element For Production Purposes */}
             <nav>
                 <a href="/">Home Page</a>
-                <a href="/rules">The Rules</a>
                 <a href="/game">The Game</a>
                 <a href="/profile/test_username">A Profile</a>
                 <a href="/shop">The Shop</a>
-                <a href="/lobby">The Lobby</a>
                 <a href="/messages">All Messages</a>
                 <a href="/messages/test_username">A Direct Message</a>
             </nav>

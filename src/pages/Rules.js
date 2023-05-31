@@ -1,11 +1,9 @@
-import "./style.css";
-
 function Rules() {
 
     return (
         <section className="page">
             <h2>Rules</h2>
-            <section className="rules">
+            <section className="rules subpage">
                 <h3>- 1.0.0</h3>
                 <p>lorem ipsum</p>
                 <h4>- 1.1.0</h4>
