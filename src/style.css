@@ -155,3 +155,35 @@ h4 + p {
 h5 +p {
     padding-left: 30px;
 }
+
+/* GAME STYLING */
+* {
+    box-sizing: border-box;
+}
+
+section.row {
+    /* background-color: green; */
+    display: flex
+}
+
+.tile {
+    width: 50px;
+    height: 50px;
+    background-color: grey;
+    margin: 5px;
+    border: 50px solid grey;
+}
+
+div.start {
+    border-top: 50px solid crimson;
+    border-right: 50px solid crimson;
+    border-bottom: 50px solid navy;
+    border-left: 50px solid navy;
+}
+
+div.valid {
+    background-color: white;
+    border: 5px dashed grey;
+    width: 100px;
+    height: 100px;
+}

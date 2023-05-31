@@ -1,7 +1,9 @@
+import Board from "../components/Board"
+
 function Game() {
 
     return (
-        <h2>Game</h2>
+    <Board />
     )
 }
 
