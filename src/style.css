@@ -53,7 +53,20 @@ nav a {
     margin: 2%;
 }
 
-.home {
+.userbar {
+    display: flex;
+    align-items: center;
+    border: 3px solid var(--tertiary);
+    padding: 5px;
+}
+
+.userbar img {
+    border-radius: 100%;
+    padding: 10px;
+}
+
+.home,
+.lobby {
     display: flex;
     flex-direction: column;
     align-items: center;
