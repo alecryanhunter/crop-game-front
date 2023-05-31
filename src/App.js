@@ -7,22 +7,14 @@ import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
+import Header from "./components/Header";
+import "./style.css";
 
 function App() {
   
   return (
     <Router>
-      {/* Persistent Nav Element For Production Purposes */}
-      <nav>
-        <a href="/">Home Page</a>
-        <a href="/rules">The Rules</a>
-        <a href="/game">The Game</a>
-        <a href="/profile/test_username">A Profile</a>
-        <a href="/shop">The Shop</a>
-        <a href="/lobby">The Lobby</a>
-        <a href="/messages">All Messages</a>
-        <a href="/messages/test_username">A Direct Message</a>
-      </nav>
+      <Header/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/rules" element={<Rules/>}/>
