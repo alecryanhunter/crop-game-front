@@ -16,6 +16,7 @@ function Lobby() {
                     <p>Message 2</p>
                     <p>Message 3</p>
                 </section>
+                <h3><a href="/game">Start Game</a></h3>
             </section>
         </section>
     )
