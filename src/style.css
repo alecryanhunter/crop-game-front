@@ -1,0 +1,99 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary);
+}
+
+header {
+    background-color: var(--secondary);
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    padding: 10px;
+    color: var(--dark);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+nav a {
+    padding: 10px;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+}
+
+.subpage {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 5px solid var(--tertiary);
+    padding: 1%;
+    margin: 2%;
+}
+
+.userbar {
+    display: flex;
+    align-items: center;
+    border: 3px solid var(--tertiary);
+    padding: 5px;
+}
+
+.userbar img {
+    border-radius: 100%;
+    padding: 10px;
+}
+
+.home,
+.lobby {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+hr {
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* Rules indenting stuff */
+h4 {
+    padding-left: 10px;
+}
+
+h5 {
+    padding-left: 20px;
+}
+
+h3 + p {
+    padding-left: 10px;
+}
+
+h4 + p {
+    padding-left: 20px;
+}
+
+h5 +p {
+    padding-left: 30px;
+}
