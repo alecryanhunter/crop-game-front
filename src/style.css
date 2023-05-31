@@ -26,6 +26,7 @@ header {
 
 h1 {
     padding: 10px;
+    color: var(--dark);
 }
 
 nav {
@@ -36,4 +37,9 @@ nav {
 
 nav a {
     padding: 10px;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
 }

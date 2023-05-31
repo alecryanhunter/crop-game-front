@@ -1,0 +1,28 @@
+.rules {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 5px solid var(--tertiary);
+    padding: 1%;
+    margin: 2%;
+}
+
+h4 {
+    padding-left: 10px;
+}
+
+h5 {
+    padding-left: 20px;
+}
+
+h3 + p {
+    padding-left: 10px;
+}
+
+h4 + p {
+    padding-left: 20px;
+}
+
+h5 +p {
+    padding-left: 30px;
+}
