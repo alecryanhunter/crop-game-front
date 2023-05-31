@@ -12,9 +12,9 @@ function Lobby() {
                 <User username="test_username" title="test_title"/>
                 <User username="test_username" title="test_title"/>
                 <section className="chat">
-                    <p>Message 1</p>
-                    <p>Message 2</p>
-                    <p>Message 3</p>
+                    <p className="msg sent">Message 1</p>
+                    <p className="msg received">Message 2</p>
+                    <p className="msg sent">Message 3</p>
                 </section>
                 <h3><a href="/game">Start Game</a></h3>
             </section>

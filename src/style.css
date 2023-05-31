@@ -108,6 +108,33 @@ li {
     align-self: flex-start;
 }
 
+.about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-top {
+    display: flex;
+    align-items: center;
+}
+
+.profile-top img {
+    border-radius: 50%;
+}
+
+.profile-top div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 10px;
+}
+
+.profile-top + p {
+    margin: 10px 0;
+    font-size: 120%;
+}
+
 /* Rules indenting stuff */
 h4 {
     padding-left: 10px;
