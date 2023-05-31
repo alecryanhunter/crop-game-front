@@ -1,4 +1,10 @@
 function Header() {
+    // Disables rendering the header if on the game path
+    const pathname = window.location.pathname
+    if (pathname==="/game"){
+        return null;
+    }
+
     return (
         <header>
             <h1>Cropposition</h1>
