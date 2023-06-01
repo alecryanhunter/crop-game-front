@@ -166,6 +166,15 @@ section.row {
     display: flex
 }
 
+.game {
+    display: inline-block;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
 .tile {
     width: 50px;
     height: 50px;
