@@ -123,8 +123,6 @@ checkValid: (board,active,sideNum)=>{
                 }
             }
 
-            console.log(boardCopy)
-
         }
     }
 

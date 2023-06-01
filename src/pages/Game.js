@@ -18,13 +18,14 @@ function Game() {
         // Turn an index of an array into matrix coordinates? based on board size
         const y = e.target.dataset.y
         const x = e.target.dataset.x
-        // Returns if cell is already filled
+        // Returns if tile is already filled
         if (board[y][x].edges.length !== 0) {
             return;
         }
-        // if (board[y][x].valid !== true) {
-        //     return;
-        // }
+        // Returns if tile is not valid
+        if (board[y][x].valid !== true) {
+            return;
+        }
         board[y][x].edges = active.edges;
 
         const pointsScored = helpers.pointCalc(board,y,x,5)
@@ -38,8 +39,11 @@ function Game() {
         turnOrder();
 
         setActive({edges:helpers.tileGen(players)})
+        
     }
     
+    // TODO: Add end of game
+
     // Sets player's turn
     function turnOrder() {
         if (turn === players) {
@@ -53,13 +57,13 @@ function Game() {
     useEffect(()=>{
         setBoard(helpers.checkValid(board,active,5));
     },[active]);
-    
+
     // The initialization of the game - set a tile in the middle and runs valid check
     useEffect(()=>{
         const boardCopy = JSON.parse(JSON.stringify(board))
         boardCopy[2][2].edges = [1,1,2,2];
-        // TODO: check validity
-        setBoard(boardCopy);
+        const boardValid = helpers.checkValid(boardCopy,active,5)
+        setBoard(boardValid);
     },[]);
 
     return (
