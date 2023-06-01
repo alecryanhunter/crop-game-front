@@ -22,7 +22,10 @@ function Game() {
         if (board[y][x].edges.length !== 0) {
             return;
         }
-        board[y][x] = {edges:active.edges};
+        // if (board[y][x].valid !== true) {
+        //     return;
+        // }
+        board[y][x].edges = active.edges;
 
         const pointsScored = helpers.pointCalc(board,y,x,5)
         if (pointsScored[1] !== undefined) {
@@ -46,9 +49,18 @@ function Game() {
         }
     }
     
+    // This checks for validity after any change in the active tile
     useEffect(()=>{
         setBoard(helpers.checkValid(board,active,5));
     },[active]);
+    
+    // The initialization of the game - set a tile in the middle and runs valid check
+    useEffect(()=>{
+        const boardCopy = JSON.parse(JSON.stringify(board))
+        boardCopy[2][2].edges = [1,1,2,2];
+        // TODO: check validity
+        setBoard(boardCopy);
+    },[]);
 
     return (
         <section className="game">
