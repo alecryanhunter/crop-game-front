@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Chat from "../components/Chat.js";
 import "../styles/Chat.css";
 
-const socket = io.connect("http://localhost:5678");
+const socket = io.connect("http://localhost:3001");
 
 export default function GameChat() {
   const [username, setUsername] = useState("");
