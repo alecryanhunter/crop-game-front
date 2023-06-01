@@ -7,6 +7,8 @@ function Game() {
     const [board, setBoard] = useState(helpers.boardGen(5,5,()=>[]));
     const [turn, setTurn] = useState(1);
     const [players, setPlayers] = useState(2)
+    const [redScore, setRedScore] = useState(0)
+    const [blueScore, setBlueScore] = useState(0)
     const [active, setActive] = useState(helpers.tileGen(players));
 
     // Handles tile clicks
@@ -19,7 +21,13 @@ function Game() {
         }
         board[y][x] = active;
 
-        helpers.pointCalc(board,y,x,5);
+        const pointsScored = helpers.pointCalc(board,y,x,5)
+        if (pointsScored[1] !== undefined) {
+            setRedScore(redScore + pointsScored[1])
+        }
+        if (pointsScored[2] !== undefined) {
+            setBlueScore(blueScore + pointsScored[2])
+        }
 
         turnOrder()
 
@@ -42,8 +50,8 @@ function Game() {
             {/* Active Tile */}
             <Tile edgeArr={active} handleTile={handleTile} />
             <h3>Player {turn}'s Turn</h3>
-            <h3>Red Points: </h3>
-            <h3>Blue Points: </h3>
+            <h3>Red Points: {redScore}</h3>
+            <h3>Blue Points: {blueScore}</h3>
         </section>
     )
 }
