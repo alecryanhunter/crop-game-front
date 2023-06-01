@@ -11,6 +11,7 @@ import Shop from "./pages/Shop";
 import Search from "./pages/Search"
 import JoinGame from "./pages/JoinGame";
 import Header from "./components/Header";
+import NotFound from "./pages/NotFound";
 import "./style.css";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/messages/:username" element={<DirectMessage/>}/>
         <Route path="/search/:username" element={<Search/>}/>
         <Route path="/joinGame" element={<JoinGame />}/>
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );
