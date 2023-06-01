@@ -43,8 +43,6 @@ function Game() {
         
     }
     
-    // TODO: Add end of game
-
     // Sets player's turn
     function turnOrder() {
         if (turn === players) {
