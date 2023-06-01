@@ -2,7 +2,6 @@ import Tile from "./Tile"
 
 function Board({handleTile,board}) {
 
-
     return (
         <section className="board">
             {board.map((row,rowIndex) => 
@@ -11,7 +10,7 @@ function Board({handleTile,board}) {
                         key={`${colIndex}-${rowIndex}`} 
                         x={colIndex} 
                         y={rowIndex} 
-                        edgeArr={[]}
+                        edgeArr={tile}
                         handleTile={handleTile}
                     />
                 ))

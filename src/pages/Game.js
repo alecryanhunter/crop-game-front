@@ -11,6 +11,14 @@ function Game() {
     // Handles tile clicks
     function handleTile(e) {
         console.log(e.target)
+        const x = e.target.dataset.x
+        const y = e.target.dataset.y
+        // Returns if cell is already filled
+        if (board[y][x].length !== 0) {
+            return;
+        }
+        board[y][x] = active;
+
         setActive(helpers.tileGen(2))
     }
 
