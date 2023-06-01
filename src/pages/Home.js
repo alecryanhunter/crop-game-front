@@ -1,13 +1,34 @@
 import { useState } from "react";
 
 function Home({loggedIn,setLoggedIn}) {
-    const [signup,setSignup] = useState(false)
+    const [signup,setSignup] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordVerify, setPasswordVerify] = useState("");
     
     function handleSignupToggle() {
         signup ? setSignup(false) : setSignup(true)
     }
 
-    return (
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (signup) {
+            console.log("signup\n"+username+"\n"+password+"\n"+passwordVerify);
+        } else {
+            console.log("login\n"+username+"\n"+password);
+        }
+    }
+
+    function handleInputChange(e) {
+        const {name,value} = e.target
+        switch (name) {
+            case "username" : return setUsername(value);
+            case "password" : return setPassword(value);
+            case "passwordVerify" : return setPasswordVerify(value);
+            default : return;
+        }
+    }
+return (
         <section className="page">
             <h2>Home</h2>
             <section className="home subpage">
@@ -21,10 +42,25 @@ function Home({loggedIn,setLoggedIn}) {
                 ) : (
                     <>
                     <form>
-                        <input placeholder="username"/>
-                        <input placeholder="password"/>
-                        {signup ? <input placeholder="password again"/> : null}
-                        <button>Submit</button>
+                        <input 
+                            name="username"
+                            placeholder="username" 
+                            value={username}
+                            onChange={handleInputChange}
+                        />
+                        <input 
+                            name="password"
+                            placeholder="password" 
+                            value={password}
+                            onChange={handleInputChange}
+                        />
+                        {signup ? <input 
+                            name="passwordVerify"
+                            placeholder="password again" 
+                            value={passwordVerify}
+                            onChange={handleInputChange}
+                        /> : null}
+                        <button onClick={handleSubmit}>Submit</button>
                     </form>
                     <p>Forgot password?</p>
                     <button onClick={handleSignupToggle}>{signup ? "Back to Login" : "Signup"}</button>
