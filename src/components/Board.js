@@ -6,11 +6,12 @@ function Board({handleTile,board}) {
         <section className="board">
             {board.map((row,rowIndex) => 
                 row.map((tile,colIndex)=> (
-                    <Tile 
+                    <Tile
                         key={`${colIndex}-${rowIndex}`} 
                         y={rowIndex} 
                         x={colIndex} 
                         edgeArr={tile.edges}
+                        valid={tile.valid}
                         handleTile={handleTile}
                     />
                 ))

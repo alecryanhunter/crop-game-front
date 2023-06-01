@@ -183,14 +183,14 @@ section.row {
     border: 50px solid grey;
 }
 
-div.start {
+.start {
     border-top: 50px solid crimson;
     border-right: 50px solid crimson;
     border-bottom: 50px solid navy;
     border-left: 50px solid navy;
 }
 
-div.valid {
+.valid{
     background-color: white;
     border: 5px dashed grey;
     width: 100px;

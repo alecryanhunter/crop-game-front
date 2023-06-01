@@ -81,8 +81,52 @@ pointCalc: (board,y,x,sideNum) => {
     }
     return points
 },
-checkValid: (board)=>{
-    const boardCopy = ""
+checkValid: (board,active,sideNum)=>{
+    const boardCopy = JSON.parse(JSON.stringify(board))
+    for (let y = 0;y<boardCopy.length;y++){
+        for (let x = 0;x<boardCopy[y].length;x++) {
+            const curTile = boardCopy[y][x]
+            curTile.valid = false;
+        }}
+
+    for (let y = 0;y<boardCopy.length;y++){
+        for (let x = 0;x<boardCopy[y].length;x++) {
+            const curTile = boardCopy[y][x]
+            // Escapes if the tile is empty
+            if (curTile.edges.length === 0){
+                continue;
+            }
+            // Declaring variables at top
+            const top = Number(y)-1;
+            const right = Number(x)+1;
+            const bottom = Number(y)+1;
+            const left = Number(x)-1;
+            // If top cell is empty, check if active's bottom edge matches curTiles top edge
+            if (top >= 0){
+                if (boardCopy[top][x].edges.length === 0 && curTile.edges[0] === active.edges[2]) {
+                    boardCopy[top][x].valid = true
+                }
+            }
+            if (right !== sideNum){
+                if (boardCopy[y][right].edges.length === 0 && curTile.edges[1] === active.edges[3]) {
+                    boardCopy[y][right].valid = true;
+                }
+            }
+            if (bottom !== sideNum){
+                if (boardCopy[bottom][x].edges.length === 0 && curTile.edges[2] === active.edges[0]) {
+                    boardCopy[bottom][x].valid = true;
+                }
+            }
+            if (left >= 0){
+                if (boardCopy[y][left].edges.length === 0 && curTile.edges[3] === active.edges[1]) {
+                    boardCopy[y][left].valid = true;
+                }
+            }
+
+            console.log(boardCopy)
+
+        }
+    }
 
     return boardCopy
 }

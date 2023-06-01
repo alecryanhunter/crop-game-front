@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useEffect, useState} from "react";
 import Board from "../components/Board";
 import Tile from "../components/Tile";
 import helpers from "../utils/helpers"
@@ -14,6 +14,8 @@ function Game() {
 
     // Handles tile clicks
     function handleTile(e) {
+        // TODO: remove dependency on data attributes
+        // Turn an index of an array into matrix coordinates? based on board size
         const y = e.target.dataset.y
         const x = e.target.dataset.x
         // Returns if cell is already filled
@@ -30,11 +32,11 @@ function Game() {
             setBlueScore(blueScore + pointsScored[2])
         }
 
-        turnOrder()
+        turnOrder();
 
         setActive({edges:helpers.tileGen(players)})
     }
-
+    
     // Sets player's turn
     function turnOrder() {
         if (turn === players) {
@@ -43,6 +45,10 @@ function Game() {
             setTurn(turn+1);
         }
     }
+    
+    useEffect(()=>{
+        setBoard(helpers.checkValid(board,active,5));
+    },[active]);
 
     return (
         <section className="game">
