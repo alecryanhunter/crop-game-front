@@ -1,25 +1,33 @@
-import React , {useState} from "react";
+import React , {useEffect, useState} from "react";
 import Board from "../components/Board";
 import Tile from "../components/Tile";
 import helpers from "../utils/helpers"
 
 function Game() {
-    const [board, setBoard] = useState(helpers.boardGen(5,5,()=>[]));
+    const [started,setStarted] = useState(false)
+    // Each tile is an object with a key called "edges", which is an array with 4 items
+    const [board, setBoard] = useState(helpers.boardGen(5,5,()=>({edges:[]})));
     const [turn, setTurn] = useState(1);
     const [players, setPlayers] = useState(2)
     const [redScore, setRedScore] = useState(0)
     const [blueScore, setBlueScore] = useState(0)
-    const [active, setActive] = useState(helpers.tileGen(players));
+    const [active, setActive] = useState({edges:helpers.tileGen(players)});
 
     // Handles tile clicks
     function handleTile(e) {
+        // TODO: remove dependency on data attributes
+        // Turn an index of an array into matrix coordinates? based on board size
         const y = e.target.dataset.y
         const x = e.target.dataset.x
-        // Returns if cell is already filled
-        if (board[y][x].length !== 0) {
+        // Returns if tile is already filled
+        if (board[y][x].edges.length !== 0) {
             return;
         }
-        board[y][x] = active;
+        // Returns if tile is not valid
+        if (board[y][x].valid !== true) {
+            return;
+        }
+        board[y][x].edges = active.edges;
 
         const pointsScored = helpers.pointCalc(board,y,x,5)
         if (pointsScored[1] !== undefined) {
@@ -29,27 +37,61 @@ function Game() {
             setBlueScore(blueScore + pointsScored[2])
         }
 
-        turnOrder()
+        turnOrder();
 
-        setActive(helpers.tileGen(players))
+        setActive({edges:helpers.tileGen(players)})
+        
     }
-
+    
     // Sets player's turn
     function turnOrder() {
-        if (turn == players) {
+        if (turn === players) {
             setTurn(1)
         } else {
             setTurn(turn+1);
         }
     }
+    
+    // This checks for validity after any change in the active tile
+    useEffect(()=>{
+        setBoard(helpers.checkValid(board,active,5));
+    },[active]);
+
+    // Game Over Function
+    useEffect(()=>{
+        // Checks if the game setup has been finished
+        if (started) {
+            if (document.querySelector('.valid') === null) {
+                let winner = ""
+                if (redScore === blueScore) {
+                    winner = "Draw!"
+                } else if (redScore > blueScore){
+                    winner = "Red Wins!"
+                } else {
+                    winner = "Blue Wins!"
+                }
+                alert(`Game Over!\n${winner}`)
+                // TODO: Add automatic and/or opt-in game restart
+            }
+        }
+    },[board])
+
+    // The initialization of the game - set a tile in the middle and runs valid check
+    useEffect(()=>{
+        const boardCopy = JSON.parse(JSON.stringify(board))
+        boardCopy[2][2].edges = [1,1,2,2];
+        const boardValid = helpers.checkValid(boardCopy,active,5)
+        setBoard(boardValid);
+        setStarted(true)
+    },[]);
 
     return (
         <section className="game">
             <Board handleTile={handleTile} board={board}/>
             <hr/>
             {/* Active Tile */}
-            <Tile edgeArr={active} handleTile={handleTile} />
-            <h3>Player {turn}'s Turn</h3>
+            <Tile edgeArr={active.edges} handleTile={handleTile} />
+            <h3>{turn===1 ? "Red" : "Blue"} Player's Turn</h3>
             <h3>Red Points: {redScore}</h3>
             <h3>Blue Points: {blueScore}</h3>
         </section>
