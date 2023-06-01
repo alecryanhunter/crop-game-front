@@ -7,6 +7,9 @@ function Tile({handleTile,edgeArr,x,y}) {
     // Used for generating border-colors automatically
     function colorPicker(arr) {
         let colors = ""
+        if (arr===undefined){
+            return "black";
+        }
         for(let i=0;i<arr.length;i++){
             colors = colors +" "+ colorSelect(arr[i]);
         }

@@ -27,7 +27,7 @@ pointCalc: (board,y,x,sideNum) => {
     const right = Number(x)+1;
     const bottom = Number(y)+1;
     const left = Number(x)-1;
-    const edges = board[y][x];
+    const edges = board[y][x].edges;
     const points = {}
 
     // Top - [0]
@@ -37,7 +37,7 @@ pointCalc: (board,y,x,sideNum) => {
 
     // Detects Top Edge
     if (top >= 0) {
-        if (edges[0] == board[top][x][2]){
+        if (edges[0] === board[top][x].edges[2]){
             // console.log("top edge matches")
             if (edges[0] in points) {
                 points[edges[0]]++;
@@ -47,8 +47,8 @@ pointCalc: (board,y,x,sideNum) => {
         }
     }
     // Detects Right Edge
-    if (right != sideNum) {
-        if (edges[1] == board[y][right][3]){
+    if (right !== sideNum) {
+        if (edges[1] === board[y][right].edges[3]){
             // console.log("right edge matches")
             if (edges[1] in points) {
                 points[edges[1]]++;
@@ -58,8 +58,8 @@ pointCalc: (board,y,x,sideNum) => {
         }
     }
     // Detects Bottom Edge
-    if (bottom != sideNum) {
-        if (edges[2] == board[bottom][x][0]){
+    if (bottom !== sideNum) {
+        if (edges[2] === board[bottom][x].edges[0]){
             // console.log("bottom edge matches")
             if (edges[2] in points) {
                 points[edges[2]]++;
@@ -70,7 +70,7 @@ pointCalc: (board,y,x,sideNum) => {
     }
     // Detects Left Edge
     if (left >= 0) {
-        if (edges[3] == board[y][left][1]){
+        if (edges[3] === board[y][left].edges[1]){
             // console.log("left edge matches")
             if (edges[3] in points) {
                 points[edges[3]]++;
@@ -81,6 +81,11 @@ pointCalc: (board,y,x,sideNum) => {
     }
     return points
 },
+checkValid: (board)=>{
+    const boardCopy = ""
+
+    return boardCopy
+}
 
 }
 

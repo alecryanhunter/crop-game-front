@@ -10,7 +10,7 @@ function Board({handleTile,board}) {
                         key={`${colIndex}-${rowIndex}`} 
                         y={rowIndex} 
                         x={colIndex} 
-                        edgeArr={tile}
+                        edgeArr={tile.edges}
                         handleTile={handleTile}
                     />
                 ))
