@@ -8,7 +8,7 @@ import Profile from "./pages/Profile";
 import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
 import Search from "./pages/Search"
-import GameChat from "./pages/GameChat";
+import JoinGame from "./pages/JoinGame";
 import Header from "./components/Header";
 import "./style.css";
 
@@ -27,7 +27,7 @@ function App() {
         <Route path="/messages" element={<Messages/>}/>
         <Route path="/messages/:username" element={<DirectMessage/>}/>
         <Route path="/search/:username" element={<Search/>}/>
-        <Route path="/gameChat" element={<GameChat/>}/>
+        <Route path="/joinGame" element={<JoinGame />}/>
       </Routes>
     </Router>
   );

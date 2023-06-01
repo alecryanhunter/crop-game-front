@@ -8,50 +8,54 @@
 
 .gameChat {
     background: white;
-    color: black;
     font-family: "Open Sans", sans-serif;
-    width: 50%;
+    width: 50vh;
+    height: auto;
+    min-height: fit-content;
+    padding: 2%;
+    margin: 1%;
     border: 5px solid var(--yellow);
     border-radius: 30px;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
   }
   
-  .joinChatContainer {
+  .joinGameContainer {
     display: flex;
-    flex-direction: column;
+    display: block;
     text-align: center;
   }
   
-  .joinChatContainer h3 {
+  .joinGameContainer h3 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
-  .joinChatContainer input {
-    width: 210px;
-    height: 40px;
-    margin: 7px;
+  .joinGameContainer input {
+    width: 45%;
+    height: 45%;
+    margin: 1.8%;
     border: 2px solid var(--green);
     border-radius: 5px;
     padding: 1%;
     font-size: 100%;
   }
   
-  .joinChatContainer button {
-    width: 225px;
-    height: 50px;
-    margin: 7px;
+  .joinGameContainer button {
+    width: 45%;
+    height: 45%;
+    margin: 2%;
     border: none;
     border-radius: 5px;
-    padding: 5px;
-    font-size: 16px;
+    padding: 2%;
+    font-size: 125%;
+    font-weight: bold;
     background: var(--blue);
     color: #fff;
     cursor: pointer;
   }
   
-  .joinChatContainer button:hover {
-    background: var(--green);
+  .joinGameContainer button:hover {
+    background: var(--nearly-black);
   }
   
   .chat-window p {
