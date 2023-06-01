@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DirectMessage from "./pages/DirectMessage";
 import Game from "./pages/Game";
@@ -13,12 +14,13 @@ import Header from "./components/Header";
 import "./style.css";
 
 function App() {
+  const [loggedIn,setLoggedIn] = useState(false)
   
   return (
     <Router>
-      <Header/>
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
         <Route path="/rules" element={<Rules/>}/>
         <Route path="/game" element={<Game/>}/>
         <Route path="/profile/:username" element={<Profile/>}/>

@@ -1,4 +1,6 @@
-function Header() {
+import { Link } from "react-router-dom";
+
+function Header({loggedIn}) {
     // Disables rendering the header if on the game path
     const pathname = window.location.pathname
     if (pathname==="/game"){
@@ -7,16 +9,18 @@ function Header() {
 
     return (
         <header>
-            <h1>Cropposition</h1>
-            {/* Persistent Nav Element For Production Purposes */}
+            <h1><a href="/">Cropposition</a></h1>
+            {loggedIn ? (
             <nav>
-                <a href="/">Home Page</a>
-                <a href="/game">The Game</a>
-                <a href="/profile/test_username">A Profile</a>
-                <a href="/shop">The Shop</a>
-                <a href="/messages">All Messages</a>
-                <a href="/messages/test_username">A Direct Message</a>
+                <a href="/profile/test_username">Profile</a>
+                <a href="/shop">Shop</a>
+                <a href="/messages">Messages</a>
             </nav>
+            ) : (
+            <nav>
+                <a href="/">Login</a>
+            </nav>
+            )}
         </header>
     )
 }
