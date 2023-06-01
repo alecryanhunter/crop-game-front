@@ -4,6 +4,7 @@ import Tile from "../components/Tile";
 import helpers from "../utils/helpers"
 
 function Game() {
+    const [started,setStarted] = useState(false)
     // Each tile is an object with a key called "edges", which is an array with 4 items
     const [board, setBoard] = useState(helpers.boardGen(5,5,()=>({edges:[]})));
     const [turn, setTurn] = useState(1);
@@ -58,12 +59,32 @@ function Game() {
         setBoard(helpers.checkValid(board,active,5));
     },[active]);
 
+    // Game Over Function
+    useEffect(()=>{
+        // Checks if the game setup has been finished
+        if (started) {
+            if (document.querySelector('.valid') === null) {
+                let winner = ""
+                if (redScore === blueScore) {
+                    winner = "Draw!"
+                } else if (redScore > blueScore){
+                    winner = "Red Wins!"
+                } else {
+                    winner = "Blue Wins!"
+                }
+                alert(`Game Over!\n${winner}`)
+                // TODO: Add automatic and/or opt-in game restart
+            }
+        }
+    },[board])
+
     // The initialization of the game - set a tile in the middle and runs valid check
     useEffect(()=>{
         const boardCopy = JSON.parse(JSON.stringify(board))
         boardCopy[2][2].edges = [1,1,2,2];
         const boardValid = helpers.checkValid(boardCopy,active,5)
         setBoard(boardValid);
+        setStarted(true)
     },[]);
 
     return (
