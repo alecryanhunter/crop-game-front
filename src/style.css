@@ -66,6 +66,7 @@ nav a {
 }
 
 .home,
+.home form,
 .lobby {
     display: flex;
     flex-direction: column;

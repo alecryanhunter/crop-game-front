@@ -1,4 +1,11 @@
+import { useState } from "react";
+
 function Home({loggedIn,setLoggedIn}) {
+    const [signup,setSignup] = useState(false)
+    
+    function handleSignupToggle() {
+        signup ? setSignup(false) : setSignup(true)
+    }
 
     return (
         <section className="page">
@@ -13,11 +20,14 @@ function Home({loggedIn,setLoggedIn}) {
                     </>
                 ) : (
                     <>
-                    <input placeholder="username"/>
-                    <input placeholder="password"/>
-                    <button>Submit</button>
+                    <form>
+                        <input placeholder="username"/>
+                        <input placeholder="password"/>
+                        {signup ? <input placeholder="password again"/> : null}
+                        <button>Submit</button>
+                    </form>
                     <p>Forgot password?</p>
-                    <p>Signup</p>
+                    <button onClick={handleSignupToggle}>{signup ? "Back to Login" : "Signup"}</button>
                     </>
                 )}
             </section>

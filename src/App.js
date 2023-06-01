@@ -20,12 +20,12 @@ function App() {
     <Router>
       <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
         <Route path="/rules" element={<Rules/>}/>
         <Route path="/game" element={<Game/>}/>
         <Route path="/profile/:username" element={<Profile/>}/>
         <Route path="/shop" element={<Shop/>}/>
-        <Route path="/lobby" element={<Lobby/>} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        <Route path="/lobby" element={<Lobby/>}/>
         <Route path="/messages" element={<Messages/>}/>
         <Route path="/messages/:username" element={<DirectMessage/>}/>
         <Route path="/search/:username" element={<Search/>}/>
