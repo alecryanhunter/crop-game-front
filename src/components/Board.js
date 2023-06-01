@@ -8,8 +8,8 @@ function Board({handleTile,board}) {
                 row.map((tile,colIndex)=> (
                     <Tile 
                         key={`${colIndex}-${rowIndex}`} 
-                        x={colIndex} 
                         y={rowIndex} 
+                        x={colIndex} 
                         edgeArr={tile}
                         handleTile={handleTile}
                     />

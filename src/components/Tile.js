@@ -42,8 +42,8 @@ function Tile({handleTile,edgeArr,x,y}) {
             style={style}
             onClick={handleTile}
             className="tile"
-            data-x={x}
             data-y={y}
+            data-x={x}
         ></button>
     )
 }
