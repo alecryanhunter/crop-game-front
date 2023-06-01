@@ -1,18 +1,7 @@
 import Tile from "./Tile"
 
-function Board({setActive,tileGeneration}) {
+function Board({handleTile,board}) {
 
-    function generateBoard(rows, cols, item) {
-        return Array(rows)
-            .fill()
-            .map(()=>
-                Array(cols)
-                .fill()
-                .map(item)
-            )
-    }
-
-    const board = generateBoard(5,5,()=>[]);
 
     return (
         <section className="board">
@@ -22,10 +11,9 @@ function Board({setActive,tileGeneration}) {
                         key={`${colIndex}-${rowIndex}`} 
                         x={colIndex} 
                         y={rowIndex} 
-                        edgeArr={[0,0,0,0]}
-                        setActive={setActive}
-                        tileGen={tileGeneration}
-                        />
+                        edgeArr={[]}
+                        handleTile={handleTile}
+                    />
                 ))
             )}
         </section>
