@@ -27,12 +27,12 @@ function App() {
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/game" element={<Game/>}/>
-            <Route path="/profile/:username" element={<Profile/>}/>
+            <Route path="/profile/:user" element={<Profile/>}/>
             <Route path="/shop" element={<Shop/>}/>
             <Route path="/lobby" element={<Lobby/>}/>
             <Route path="/messages" element={<Messages/>}/>
-            <Route path="/messages/:username" element={<DirectMessage/>}/>
-            <Route path="/search/:username" element={<Search/>}/>
+            <Route path="/messages/:user" element={<DirectMessage/>}/>
+            <Route path="/search/:user" element={<Search/>}/>
             <Route path="/joinGame" element={<JoinGame />}/>
             <Route path="/*" element={<NotFound />} />
           </Routes>
