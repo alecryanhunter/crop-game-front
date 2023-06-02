@@ -2,5 +2,53 @@
 const URL_PREFIX = "http://localhost:5678"
 
 const API = {
-    // Enter fetch requests here
+    getProfile: async (username) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/users/${username}`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
+    getAllDMs: async (username) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/dms/${username}`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+    },
+    getDMs: async (username, friendName) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/dms/${username}/${friendName}`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    }
 }
+
+export default API;

@@ -1,9 +1,17 @@
 function User(props) {
     return (
         <section className="userbar">
-            <img src="https://placekitten.com/50"></img>
-            <h3>{props.username}</h3>
-            <p>{props.title}</p>
+            <img src={props.img ? props.img : "https://placekitten.com/50" } />
+            <section className="userinfo">
+                <h3>{props.username}</h3>
+                <p>{props.title}</p>
+                <div>
+                {/* Renders a message if one is passed */}
+                {props.message ? (
+                    <p>{props.sender ? "You sent: " : "They sent: "}{props.message}</p>
+                ) : null}
+                </div>
+            </section>
         </section>
     )
 }
