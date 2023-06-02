@@ -1,5 +1,7 @@
 // For writing and exporting our fetch requests
-const URL_PREFIX = "http://localhost:5678"
+
+// const URL_PREFIX = "http://localhost:5678" // Local
+const URL_PREFIX = "https://cropposition.herokuapp.com/" //Deployed
 
 const API = {
     getProfile: async (username) => {

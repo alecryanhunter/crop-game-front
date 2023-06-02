@@ -2,8 +2,6 @@ import User from "../components/User"
 import Chat from "../components/Chat"
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3001");
-
 function Lobby({socket, room, username}) {
 
     return (
