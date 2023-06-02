@@ -22,18 +22,23 @@ function Messages() {
             <section className="messages subpage">
                 {messagesList.map(item=>{
                     if (curUser === item.sender_name) {
+                        // Current User sent most recent message
                         return <a href={`/messages/${item.receiver_name}`} key={item.FriendshipId}>
-                            <>
-                            <User username={item.receiver_name} title={item.receiver_title}/>
-                            <p>{item.message}</p>
-                            </>
+                            <User
+                                username={item.receiver_name}
+                                title={item.receiver_title}
+                                message={item.message}
+                                sender={"current"}
+                            />
                         </a>
-                    } else {  
+                    } else {
+                        // Current User received most recent message
                         return <a href={`/messages/${item.sender_name}`} key={item.FriendshipId}>
-                            <>
-                            <User username={item.sender_name} title={item.sender_title}/>
-                            <p>{item.message}</p>
-                            </>
+                            <User
+                                username={item.sender_name}
+                                title={item.sender_title}
+                                message={item.message}
+                            />
                         </a>
                     } 
                 })}
