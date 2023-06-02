@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu'
+import io from "socket.io-client";
+
 import DirectMessage from "./pages/DirectMessage";
 import Game from "./pages/Game";
 import Home from "./pages/Home";
@@ -16,6 +18,11 @@ import NotFound from "./pages/NotFound";
 import "./style.css";
 
 function App() {
+
+  // const socket = io.connect("http://localhost:3001"); // Local
+  const socket = io.connect("http://localhost:3001"); // Deploy
+
+
   const [loggedIn,setLoggedIn] = useState(true)
   const [curUser, setCurUser] = useState("Alec");
   
@@ -30,11 +37,11 @@ function App() {
             <Route path="/game" element={<Game/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
             <Route path="/shop" element={<Shop/>}/>
-            <Route path="/lobby" element={<Lobby/>}/>
+            <Route path="/lobby" element={<Lobby socket={socket}/>}/>
             <Route path="/messages" element={<Messages curUser={curUser}/>}/>
             <Route path="/messages/:friend" element={<DirectMessage curUser={curUser}/>}/>
             <Route path="/search/:search" element={<Search/>}/>
-            <Route path="/joinGame" element={<JoinGame />}/>
+            <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>
