@@ -40,12 +40,12 @@ export default function Chat({ socket, username, room }) {
                 id={username === messageContent.author ? "you" : "other"}
               >
                 <div>
-                  <div className="message-content">
-                    <p>{messageContent.message}</p>
-                  </div>
                   <div className="message-meta">
                     <p id="author">{messageContent.author}</p>
-                    <p id="time">{messageContent.time}</p>
+                    {/*<p id="time">{messageContent.time}</p>*/}
+                  </div>
+                  <div className="message-content message-bubble" contentEditable>
+                    <p>{messageContent.message}</p>
                   </div>
                 </div>
               </div>
