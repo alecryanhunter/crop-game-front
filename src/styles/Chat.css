@@ -81,8 +81,10 @@
     height: auto;
     padding: 1%;
     display: flex;
+    margin: 1%;
   }
   
+/*
   .chat-window .chat-body .message .message-content {
     width: auto;
     height: auto;
@@ -100,43 +102,81 @@
     overflow-wrap: break-word;
     word-break: break-word;
   }
+
+  */
   
+.message-content {
+    position: relative;
+    font-size: 100%;
+    width: auto;
+    height: auto;
+    min-width: 1em;
+    min-height: 2em;
+    line-height: auto;
+    background-color: var(--nearly-black);
+    border-radius: 25px;
+    text-align: center;
+    color: #fff;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: 2%;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+.message-content p {
+    padding: .5em;
+}
+
   #you {
     justify-content: flex-end;
   }
   
-  #you .message-content {
-    justify-content: flex-end;
+  
+  #you .message-bubble::before{
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-right: 0.75em solid var(--nearly-black);
+    border-left: 0.25em solid transparent;
+    border-top: 0.25em solid var(--nearly-black);
+    border-bottom: 0.5em solid transparent;
+    right: 0.5em;
+    bottom: -0.25em;
   }
   
-  #you .message-meta {
-    justify-content: space-between;
-  }
   
   #other {
     justify-content: flex-start;
   }
   
   #other .message-content {
-    justify-content: flex-start;
     background-color: white;
     color: black;
-    border: 1px solid black;
+  }
+
+    
+  #other .message-bubble::before{
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-left: 0.75em solid #fff;
+    border-right: 0.25em solid transparent;
+    border-top: 0.25em solid #fff;
+    border-bottom: 0.5em solid transparent;
+    left: 0.5em;
+    bottom: -0.25em;
   }
   
-  #other .message-meta {
-    justify-content: space-between;
-  }
-  
-  .message-meta #author {
+  .message-meta {
     margin-left: 10px;
     font-weight: bold;
+    justify-content: flex-start;
+    font-size: 75%;
   }
-  
-  .chat-window .chat-body .message .message-meta {
-    display: flex;
-    font-size: 12px;
-  }
+
   
   .chat-window .chat-footer {
     height: 40px;
