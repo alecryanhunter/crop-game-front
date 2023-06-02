@@ -1,6 +1,5 @@
 import { useState } from "react";
 import io from "socket.io-client";
-import Chat from "../components/Chat.js";
 import Lobby from "../pages/Lobby";
 import "../styles/Chat.css";
 
@@ -39,14 +38,8 @@ export default function JoinGame(props) {
             <button onClick={joinRoom}>Join Game</button>
           </div>
         ) : (
-          // evenetually will just go to lobby then game
           <Lobby socket={socket} username={username} room={room}/>
         )}
       </div>
   );
 }
-
-/* 
-          <Chat socket={socket} username={username} room={room} />
-
-*/
