@@ -20,7 +20,7 @@ import "./style.css";
 function App() {
 
   // const socket = io.connect("http://localhost:3001"); // Local
-  const socket = io.connect("http://localhost:3001"); // Deploy
+  const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
 
   const [loggedIn,setLoggedIn] = useState(true)
