@@ -2,7 +2,7 @@
 const URL_PREFIX = "http://localhost:5678"
 
 const API = {
-    getProfile: async (username)=>{
+    getProfile: async (username) => {
 
         const data = await fetch(`${URL_PREFIX}/api/users/${username}`,{
             method: "GET",
@@ -17,6 +17,21 @@ const API = {
         })
         return data;
 
+    },
+    getAllDMs: async (username) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/dms/${username}`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
     }
 }
 

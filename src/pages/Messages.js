@@ -1,16 +1,42 @@
+import { useState, useEffect } from "react"
+import API from "../utils/API"
 import User from "../components/User"
 
 function Messages() {
-    const username1 = "test_username1"
-    const username2 = "test_username2"
-    const username3 = "test_username3"
+    const [messagesList, setMessagesList] = useState([]);
+    const [curUser, setCurUser] = useState("Alec");
+
+    async function messagesData(query) {
+        return await API.getAllDMs(query);
+    }
+
+    useEffect(()=>{
+        messagesData(curUser)
+        .then(data => {
+            setMessagesList(data);
+        })
+    },[])
 
     return (
         <section className="page">
             <section className="messages subpage">
-                <a href={`/messages/${username1}`} ><User username={username1} title="title"/></a>
-                <a href={`/messages/${username2}`} ><User username={username2} title="title"/></a>
-                <a href={`/messages/${username3}`} ><User username={username3} title="title"/></a>
+                {messagesList.map(item=>{
+                    if (curUser === item.sender_name) {
+                        return <a href={`/messages/${item.receiver_name}`} key={item.FriendshipId}>
+                            <>
+                            <User username={item.receiver_name} title={item.receiver_title}/>
+                            <p>{item.message}</p>
+                            </>
+                        </a>
+                    } else {  
+                        return <a href={`/messages/${item.sender_name}`} key={item.FriendshipId}>
+                            <>
+                            <User username={item.sender_name} title={item.sender_title}/>
+                            <p>{item.message}</p>
+                            </>
+                        </a>
+                    } 
+                })}
             </section>
         </section>
     )

@@ -12,14 +12,17 @@ function Profile() {
     const [forfeits, setForfeits] = useState('');
     const testFriends = [
         {
+            id: 1,
             username: "Friend One",
             title: "Grainee"
         },
         {
+            id: 2,
             username: "Friend Two",
             title: "Farmhand"
         },
         {
+            id: 3,
             username: "Friend Three",
             title: "Crop King"
         },
@@ -34,7 +37,7 @@ function Profile() {
     }
 
     useEffect(()=>{
-        const data = profileData(user)
+        profileData(user)
         .then(data=>{
             setUsername(data.username)
             setTitle(data.current_title)
@@ -67,7 +70,11 @@ function Profile() {
                     <section className="friends subpage">
                         <h3>Friends</h3>
                         {friends.map(friend=>{
-                            return <User username={friend.username} title={friend.title}/>
+                            return <User 
+                                key={friend.id} 
+                                username={friend.username} 
+                                title={friend.title}
+                                />
                         })}
                     </section>
             </section>
