@@ -32,6 +32,22 @@ const API = {
             return json;
         })
         return data;
+    },
+    getDMs: async (username, friendName) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/dms/${username}/${friendName}`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
     }
 }
 

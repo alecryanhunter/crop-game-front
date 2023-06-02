@@ -2,9 +2,8 @@ import { useState, useEffect } from "react"
 import API from "../utils/API"
 import User from "../components/User"
 
-function Messages() {
+function Messages({curUser}) {
     const [messagesList, setMessagesList] = useState([]);
-    const [curUser, setCurUser] = useState("Alec");
 
     async function messagesData(query) {
         return await API.getAllDMs(query);
