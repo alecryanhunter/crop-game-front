@@ -11,11 +11,7 @@ function Header({loggedIn}) {
         <header>
             <h1><a href="/">Cropposition</a></h1>
             {loggedIn ? (
-            <nav>
-                <a href="/profile/test_username">Profile</a>
-                <a href="/shop">Shop</a>
-                <a href="/messages">Messages</a>
-            </nav>
+                <p>X</p>
             ) : (
             <nav>
                 <a href="/">Login</a>
