@@ -10,11 +10,12 @@ import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
 import Search from "./pages/Search"
 import JoinGame from "./pages/JoinGame";
+import HostGame from "./pages/HostGame";
 import Header from "./components/Header";
 import "./style.css";
 
 function App() {
-  const [loggedIn,setLoggedIn] = useState(false)
+  const [loggedIn,setLoggedIn] = useState(true)
   
   return (
     <Router>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/messages/:username" element={<DirectMessage/>}/>
         <Route path="/search/:username" element={<Search/>}/>
         <Route path="/joinGame" element={<JoinGame />}/>
+        <Route path="/hostGame" element={<HostGame />}/>
       </Routes>
     </Router>
   );

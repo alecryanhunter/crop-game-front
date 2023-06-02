@@ -40,7 +40,7 @@ function Home({loggedIn,setLoggedIn}) {
             <section className="home subpage">
                 {loggedIn ? (
                     <>
-                    <h3><a href="/lobby">Host Game</a></h3>
+                    <h3><a href="/hostGame">Host Game</a></h3>
                     <h3><a href="/joinGame">Join Game</a></h3>
                     <h3><a href="/search/test_username">Search For A User</a></h3>
                     <h3><a href="/rules">View Rules</a></h3>
