@@ -1,7 +1,7 @@
 import { useState } from "react";
 import io from "socket.io-client";
 import Lobby from "../pages/Lobby";
-import "../styles/Chat.css";
+import "../styles/NewGame.css";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -20,7 +20,7 @@ export default function JoinGame(props) {
   return (
       <div className="gameChat d-flex justify-content-center align-items-center">
         {!showChat ? (
-          <div className="joinGameContainer">
+          <div className="newGameContainer">
             <input
               type="text"
               placeholder="Name"

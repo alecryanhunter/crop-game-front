@@ -21,7 +21,7 @@ export default function HostGame(props) {
     return (
         <div className="gameChat d-flex justify-content-center align-items-center">
           {!showChat ? (
-            <div className="NewGameContainer">
+            <div className="newGameContainer">
               <input
                 type="text"
                 placeholder="Name"

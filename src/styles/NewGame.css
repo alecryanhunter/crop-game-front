@@ -20,17 +20,17 @@
     justify-content: center;
   }
   
-  .joinGameContainer {
+  .newGameContainer {
     display: flex;
     display: block;
     text-align: center;
   }
   
-  .joinGameContainer h3 {
+  .newGameContainer h3 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
-  .joinGameContainer input {
+  .newGameContainer input {
     width: 45%;
     height: 45%;
     margin: 1.8%;
@@ -40,7 +40,7 @@
     font-size: 100%;
   }
   
-  .joinGameContainer button {
+  .newGameContainer button {
     width: 45%;
     height: 45%;
     margin: 2%;
@@ -54,6 +54,6 @@
     cursor: pointer;
   }
   
-  .joinGameContainer button:hover {
+  .newGameContainer button:hover {
     background: var(--nearly-black);
   }
