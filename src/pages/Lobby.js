@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import User from "../components/User";
 import Chat from "../components/Chat";
 import "../styles/Lobby.css";
 
 
 function Lobby({socket, room, username, host}) {
-
-    console.log("Room", room);
-    //console.log("Host", room.host);
-    //console.log("Game Started", room.gameStarted);
+    const [players, setPlayers] = useState([]);
 
     const isHost = socket.id === host;
     const canStartGame = isHost && !room.gameStarted;
@@ -23,8 +20,14 @@ function Lobby({socket, room, username, host}) {
         socket.on("navigate_to_game", () => {
           window.location.href = "/game";
         });
+
+        socket.on("players_updated", (updatedPlayers) => {
+            setPlayers(updatedPlayers);
+        });
+
         return () => {
           socket.off("navigate_to_game");
+          socket.off("players_updated");
         };
       }, [socket]);
 
@@ -45,7 +48,6 @@ function Lobby({socket, room, username, host}) {
                         />
                     </div>
                 ))}
-               
                 <section className="chat">
                     <Chat socket={socket} username={username} room={room}/>
                 </section>

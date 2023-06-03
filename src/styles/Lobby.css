@@ -12,7 +12,7 @@
 }
 
 .startGameBtn {
-    padding: 4em;
+    padding: 2em;
     background-color: var(--yellow);
     color: var(--nearly-black);
 }
