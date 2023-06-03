@@ -1,5 +1,5 @@
+
 import { useState } from "react";
-import io from "socket.io-client";
 import Lobby from "../pages/Lobby";
 import "../styles/NewGame.css";
 

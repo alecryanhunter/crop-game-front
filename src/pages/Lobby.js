@@ -1,18 +1,51 @@
-import User from "../components/User"
-import Chat from "../components/Chat"
-import io from "socket.io-client";
+import React, { useEffect } from "react";
+import User from "../components/User";
+import Chat from "../components/Chat";
+import "../styles/Lobby.css";
 
-function Lobby({socket, room, username}) {
+
+function Lobby({socket, room, username, host}) {
+
+    console.log("Room", room);
+    //console.log("Host", room.host);
+    //console.log("Game Started", room.gameStarted);
+
+    const isHost = socket.id === host;
+    const canStartGame = isHost && !room.gameStarted;
+
+    const startGame = () => {
+        if(canStartGame) {
+            socket.emit("start_game", room);
+        }
+    };
+
+    useEffect(() => {
+        socket.on("navigate_to_game", () => {
+          window.location.href = "/game";
+        });
+        return () => {
+          socket.off("navigate_to_game");
+        };
+      }, [socket]);
 
     return (
         <section className="page">
             <h2>Lobby</h2>
             <section className="subpage lobby">
                 <h3>Lobby Code: {room}</h3>
-                <User username="test_username" title="test_title"/>
-                <User username="test_username" title="test_title"/>
-                <User username="test_username" title="test_title"/>
-                <User username="test_username" title="test_title"/>
+                {canStartGame && (
+                    <button className="startGameBtn" onClick={startGame}>Start Game</button>
+                )}
+                {room.players && room.players.map((player) => (
+                    <div className="joiningPlayers">
+                        <User 
+                        key={player.id} 
+                        username={player.username} 
+                        title="test_title" 
+                        />
+                    </div>
+                ))}
+               
                 <section className="chat">
                     <Chat socket={socket} username={username} room={room}/>
                 </section>
