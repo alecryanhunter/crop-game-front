@@ -1,23 +1,32 @@
-import React, { useState } from "react";
-import io from "socket.io-client";
+
+import React, { useEffect, useState } from "react";
 import Lobby from "../pages/Lobby";
+import { v4 as uuidv4 } from 'uuid';
 import "../styles/NewGame.css";
 
 
-const socket = io.connect("http://localhost:3001");
-
-export default function HostGame(props) {
+export default function HostGame({socket}) {
     const [username, setUsername] = useState("");
     const [room, setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
-  
+    const [host, setHost] = useState("");
+    
+    useEffect(() => {
+        const roomCode = uuidv4().replace(/-/g, '').slice(0, 6).toUpperCase();
+        setRoom(roomCode);
+        console.log(roomCode);
+    }, []);
+    
     const joinRoom = () => {
       if (username !== "" && room !== "") {
-        socket.emit("join_room", room);
+        socket.emit("create_room", {username, room});
         setShowChat(true);
+        socket.on("host_registered", ({ host }) => {
+            setHost(host);
+        });
       }
     };
-  
+
     return (
         <div className="gameChat d-flex justify-content-center align-items-center">
           {!showChat ? (
@@ -32,14 +41,13 @@ export default function HostGame(props) {
               <input
                 type="text"
                 placeholder="Room ID #"
-                onChange={(event) => {
-                  setRoom(event.target.value);
-                }}
+                value={room}
+                readOnly
               />
-              <button onClick={joinRoom}>Join Game</button>
+              <button onClick={joinRoom}>New Game</button>
             </div>
           ) : (
-            <Lobby socket={socket} username={username} room={room}/>
+            <Lobby socket={socket} username={username} room={room} host={host}/>
           )}
         </div>
     );
