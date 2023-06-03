@@ -1,7 +1,7 @@
+
 import { useState } from "react";
-import io from "socket.io-client";
 import Lobby from "../pages/Lobby";
-import "../styles/Chat.css";
+import "../styles/NewGame.css";
 
 export default function JoinGame({socket}) {
   const [username, setUsername] = useState("");
@@ -10,7 +10,7 @@ export default function JoinGame({socket}) {
 
   const joinRoom = () => {
     if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
+      socket.emit("join_room", {username, room});
       setShowChat(true);
     }
   };
@@ -18,7 +18,7 @@ export default function JoinGame({socket}) {
   return (
       <div className="gameChat d-flex justify-content-center align-items-center">
         {!showChat ? (
-          <div className="joinGameContainer">
+          <div className="newGameContainer">
             <input
               type="text"
               placeholder="Name"

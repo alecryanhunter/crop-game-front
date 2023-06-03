@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import "../styles/Chat.css";
 
 export default function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -33,18 +34,18 @@ export default function Chat({ socket, username, room }) {
     <div className="chat-window">
       <div className="chat-body">
         <ScrollToBottom className="message-container">
-          {messageList.map((messageContent) => {
+          {messageList.map((messageContent, i) => {
             return (
               <div
                 className="message"
                 id={username === messageContent.author ? "you" : "other"}
+                key={i}
               >
                 <div>
                   <div className="message-meta">
                     <p id="author">{messageContent.author}</p>
-                    {/*<p id="time">{messageContent.time}</p>*/}
                   </div>
-                  <div className="message-content message-bubble" contentEditable>
+                  <div className="message-content message-bubble">
                     <p>{messageContent.message}</p>
                   </div>
                 </div>

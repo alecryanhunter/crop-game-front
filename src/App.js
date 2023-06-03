@@ -13,14 +13,15 @@ import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
 import Search from "./pages/Search"
 import JoinGame from "./pages/JoinGame";
+import HostGame from "./pages/HostGame";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import "./style.css";
 
 function App() {
 
-  // const socket = io.connect("http://localhost:3001"); // Local
-  const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
+  const socket = io.connect("http://localhost:3001"); // Local
+  //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
 
   const [loggedIn,setLoggedIn] = useState(true)
@@ -42,6 +43,7 @@ function App() {
             <Route path="/messages/:friend" element={<DirectMessage curUser={curUser}/>}/>
             <Route path="/search/:search" element={<Search/>}/>
             <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
+            <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>
