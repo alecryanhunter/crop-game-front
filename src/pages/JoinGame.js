@@ -3,9 +3,7 @@ import io from "socket.io-client";
 import Lobby from "../pages/Lobby";
 import "../styles/NewGame.css";
 
-const socket = io.connect("http://localhost:3001");
-
-export default function JoinGame(props) {
+export default function JoinGame({socket}) {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);

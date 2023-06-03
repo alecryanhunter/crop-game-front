@@ -1,8 +1,52 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import User from "../components/User";
+import API from "../utils/API"
 
 function Profile() {
-    let { username } = useParams()
+    const [username, setUsername] = useState('');
+    const [title, setTitle] = useState('');
+    const [bio, setBio] = useState('');
+    const [wins, setWins] = useState('');
+    const [losses, setLosses] = useState('');
+    const [forfeits, setForfeits] = useState('');
+    const testFriends = [
+        {
+            id: 1,
+            username: "Friend One",
+            title: "Grainee"
+        },
+        {
+            id: 2,
+            username: "Friend Two",
+            title: "Farmhand"
+        },
+        {
+            id: 3,
+            username: "Friend Three",
+            title: "Crop King"
+        },
+    ]
+    const [friends, setFriends] =useState(testFriends);
+
+
+    let { user } = useParams();
+
+    async function profileData(user) {
+        return await API.getProfile(user);
+    }
+
+    useEffect(()=>{
+        profileData(user)
+        .then(data=>{
+            setUsername(data.username)
+            setTitle(data.current_title)
+            setBio(data.bio)
+            setWins(data.wins)
+            setLosses(data.losses)
+            setForfeits(data.forfeits)
+        })
+    },[])
 
     return (
         <section className="page">
@@ -12,22 +56,26 @@ function Profile() {
                         <section className="profile-top">
                             <img src="https://placekitten.com/100"/>
                             <div>
-                                <h3>Username</h3>
-                                <p>Title</p>
+                                <h3>{username}</h3>
+                                <p>{title}</p>
                             </div>
                         </section>
-                        <p>Bio is Here!</p>
+                        <p>{bio}</p>
                         <ul>
-                            <li>Wins: 0</li>
-                            <li>Losses: 500</li>
-                            <li>Forfeits: 1000</li>
+                            <li>Wins: {wins}</li>
+                            <li>Losses: {losses}</li>
+                            <li>Forfeits: {forfeits}</li>
                         </ul>
                     </section>
                     <section className="friends subpage">
                         <h3>Friends</h3>
-                        <User username="friend1" title="grainee"/>
-                        <User username="friend2" title="crop king"/>
-                        <User username="friend3" title="farmhand"/>
+                        {friends.map(friend=>{
+                            return <User 
+                                key={friend.id} 
+                                username={friend.username} 
+                                title={friend.title}
+                                />
+                        })}
                     </section>
             </section>
         </section>
