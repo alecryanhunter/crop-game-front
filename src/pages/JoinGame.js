@@ -10,7 +10,7 @@ export default function JoinGame({socket}) {
 
   const joinRoom = () => {
     if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
+      socket.emit("join_room", {username, room});
       setShowChat(true);
     }
   };
