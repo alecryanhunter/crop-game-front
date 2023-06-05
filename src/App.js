@@ -45,7 +45,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} curUser={curUser} setCurUser={setCurUser} />}/>
             <Route path="/rules" element={<Rules/>}/>
-            <Route path="/game" element={<Game/>}/>
+            <Route path="/game" element={<Game socket={socket} />}/>
             <Route path="/profile/:user" element={<Profile/>}/>
             <Route path="/shop" element={<Shop/>}/>
             <Route path="/lobby" element={<Lobby socket={socket}/>}/>

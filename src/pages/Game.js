@@ -3,7 +3,7 @@ import Board from "../components/Board";
 import Tile from "../components/Tile";
 import helpers from "../utils/helpers"
 
-function Game() {
+function Game({ socket }) {
     const [started,setStarted] = useState(false)
     // Each tile is an object with a key called "edges", which is an array with 4 items
     const [board, setBoard] = useState(helpers.boardGen(5,5,()=>({edges:[]})));
@@ -84,6 +84,33 @@ function Game() {
         setBoard(boardValid);
         setStarted(true)
     },[]);
+
+    useEffect(() => {
+        socket.on("player_turn", (player) => {
+            setTurn(player);
+        });
+
+        socket.on("update_board", (updateBoard) => {
+            setBoard(updateBoard);
+        });
+
+        socket.on("update_scores", (scores) => {
+            setRedScore(scores[0]);
+            setBlueScore(scores[1]);
+        });
+
+        socket.on("game_over", (winner) => {
+            alert(`Game Over!\n${winner}`);
+        });
+
+        return () => {
+            socket.off("player_turn");
+            socket.off("update_board");
+            socket.off("update_scores");
+            socket.off("game_over");
+        };
+
+    }, [])
 
     return (
         <section className="game">
