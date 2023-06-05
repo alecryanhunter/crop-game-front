@@ -30,6 +30,10 @@ function App() {
   useEffect(()=>{
     if(localStorage.getItem("token")) {
       setLoggedIn(true);
+      const token = localStorage.getItem("token")
+      // const data = jwt.verify(token,process.env.API_KEY)
+      // console.log(data);
+      setCurUser()
     }
   },[])
   

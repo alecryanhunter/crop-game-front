@@ -20,12 +20,13 @@ const API = {
         return data;
 
     },
-    getAllDMs: async (username) => {
+    getAllDMs: async (username,token) => {
 
         const data = await fetch(`${URL_PREFIX}/api/dms/${username}`,{
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${JSON.stringify(token)}`
         }})
         .then((res)=>{
             return res.json();
