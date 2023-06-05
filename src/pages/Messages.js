@@ -5,13 +5,16 @@ import User from "../components/User"
 function Messages({curUser}) {
     const [messagesList, setMessagesList] = useState([]);
 
+    const token = localStorage.getItem("token");
+
     async function messagesData(query) {
         return await API.getAllDMs(query);
     }
 
     useEffect(()=>{
-        messagesData(curUser)
+        messagesData(curUser,token)
         .then(data => {
+            console.log(data)
             setMessagesList(data);
         })
     },[])

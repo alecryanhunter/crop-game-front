@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu'
 import io from "socket.io-client";
@@ -23,17 +23,27 @@ function App() {
   const socket = io.connect("http://localhost:3001"); // Local
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
+  const [loggedIn,setLoggedIn] = useState(false)
+  const [curUser, setCurUser] = useState("");
 
-  const [loggedIn,setLoggedIn] = useState(true)
-  const [curUser, setCurUser] = useState("Alec");
+  // Checks if user is logged in on page load
+  useEffect(()=>{
+    if(localStorage.getItem("token")) {
+      setLoggedIn(true);
+      const token = localStorage.getItem("token")
+      // const data = jwt.verify(token,process.env.API_KEY)
+      // console.log(data);
+      setCurUser()
+    }
+  },[])
   
   return (
     <div id="outer-container">
       <div id="page-wrap">
         <Router>
-          <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+          <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} curUser={curUser}/>
           <Routes>
-            <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
+            <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} curUser={curUser} setCurUser={setCurUser} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/game" element={<Game/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
@@ -48,13 +58,9 @@ function App() {
           </Routes>
         </Router>
       </div>
-      <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
-        <nav>
-          <a href="/profile/test_username">Profile</a>
-          <a href="/shop">Shop</a>
-          <a href="/messages">Messages</a>
-        </nav>
-      </Menu>
+      {/* <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
+        
+      </Menu> */}
     </div>
   );
 }
