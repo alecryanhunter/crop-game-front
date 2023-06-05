@@ -50,6 +50,65 @@ const API = {
         })
         return data;
 
+    },
+    // Feed a non-stringified json object, senderId, and receiverId
+    postDM: async (json, sender, receiver,token) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/dms/${sender}/${receiver}`,{
+            method: "POST",
+            body: JSON.stringify(json),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${token}`
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
+    postUser: async (json, ) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/users`,{
+            method: "POST",
+            body: JSON.stringify(json),
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
+    // JSON object needs username and password
+    postLogin: async (json,token) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/users`,{
+            method: "POST",
+            body: JSON.stringify(json),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${token}`
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
+    postLogout: async () => {
+        // Obliterate LocalStorage
+        // LOGOUT HERE
     }
 }
 
