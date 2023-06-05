@@ -15,7 +15,11 @@ function Messages() {
     useEffect(()=>{
         messagesData()
         .then(data => {
-            setMessagesList(data);
+            if (data.msg === "no messages") {
+                console.log("No Messages");
+            } else {
+                setMessagesList(data);
+            }
         })
     },[])
 
