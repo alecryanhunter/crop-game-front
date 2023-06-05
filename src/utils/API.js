@@ -88,14 +88,13 @@ const API = {
 
     },
     // JSON object needs username and password
-    postLogin: async (json,token) => {
+    postLogin: async (json) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users`,{
+        const data = await fetch(`${URL_PREFIX}/api/users/login`,{
             method: "POST",
             body: JSON.stringify(json),
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Content-Type": "application/json"
         }})
         .then((res)=>{
             return res.json();
@@ -105,10 +104,6 @@ const API = {
         })
         return data;
 
-    },
-    postLogout: async () => {
-        // Obliterate LocalStorage
-        // LOGOUT HERE
     }
 }
 

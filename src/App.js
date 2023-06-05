@@ -37,7 +37,7 @@ function App() {
     <div id="outer-container">
       <div id="page-wrap">
         <Router>
-          <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+          <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} curUser={curUser}/>
           <Routes>
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} curUser={curUser} setCurUser={setCurUser} />}/>
             <Route path="/rules" element={<Rules/>}/>

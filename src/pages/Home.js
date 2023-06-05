@@ -32,14 +32,14 @@ function Home({loggedIn,setLoggedIn,setCurUser}) {
                 setIsEmail(true)
                 return;
             }
-            const json = {
+            const signupJSON = {
                 username: username,
                 password: password,
                 email: email,
                 bio: "Hey everyone! I'm a brand-new Farmer!",
                 profile_pic: "https://placekitten.com/300"
             }
-            helpers.postUser(json)
+            helpers.postUser(signupJSON)
             .then(data=>{
                 localStorage.removeItem("token");
                 localStorage.setItem("token",data.token);
@@ -52,6 +52,17 @@ function Home({loggedIn,setLoggedIn,setCurUser}) {
 
             // Login Processes Here
             console.log("login\n"+username+"\n"+password);
+            const loginJSON = {
+                username: username,
+                password: password
+            }
+            helpers.postLogin(loginJSON)
+            .then(data=>{
+                localStorage.setItem("token",data.token);
+                setLoggedIn(true);
+                setCurUser(data.user.username)
+                return;
+            })
 
         }
     }
