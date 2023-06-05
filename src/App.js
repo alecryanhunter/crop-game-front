@@ -54,13 +54,9 @@ function App() {
           </Routes>
         </Router>
       </div>
-      <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
-        <nav>
-          <a href="/profile/test_username">Profile</a>
-          <a href="/shop">Shop</a>
-          <a href="/messages">Messages</a>
-        </nav>
-      </Menu>
+      {/* <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
+        
+      </Menu> */}
     </div>
   );
 }
