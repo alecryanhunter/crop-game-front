@@ -10,34 +10,19 @@ function Profile() {
     const [wins, setWins] = useState('');
     const [losses, setLosses] = useState('');
     const [forfeits, setForfeits] = useState('');
-    const testFriends = [
-        {
-            id: 1,
-            username: "Friend One",
-            title: "Grainee"
-        },
-        {
-            id: 2,
-            username: "Friend Two",
-            title: "Farmhand"
-        },
-        {
-            id: 3,
-            username: "Friend Three",
-            title: "Crop King"
-        },
-    ]
-    const [friends, setFriends] =useState(testFriends);
-
+    const [friends, setFriends] =useState([]);
 
     let { user } = useParams();
 
-    async function profileData(user) {
+    const curUser = localStorage.getItem("username");
+
+
+    async function profileData() {
         return await API.getProfile(user);
     }
 
     useEffect(()=>{
-        profileData(user)
+        profileData()
         .then(data=>{
             setUsername(data.username)
             setTitle(data.current_title)
@@ -59,6 +44,9 @@ function Profile() {
                                 <h3>{username}</h3>
                                 <p>{title}</p>
                             </div>
+                            <button>
+                                Edit Profile
+                            </button>
                         </section>
                         <p>{bio}</p>
                         <ul>
