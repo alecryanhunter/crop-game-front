@@ -54,7 +54,7 @@ const API = {
 
     },
     // Feed a non-stringified json object, senderId, and receiverId
-    postDM: async (json, sender, receiver,token) => {
+    postDM: async (json, sender, receiver, token) => {
 
         const data = await fetch(`${URL_PREFIX}/api/dms/${sender}/${receiver}`,{
             method: "POST",
@@ -95,6 +95,22 @@ const API = {
         const data = await fetch(`${URL_PREFIX}/api/users/login`,{
             method: "POST",
             body: JSON.stringify(json),
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
+    search: async (username) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/users/search/${username}`,{
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
         }})

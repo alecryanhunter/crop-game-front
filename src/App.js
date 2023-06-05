@@ -46,7 +46,7 @@ function App() {
             <Route path="/lobby" element={<Lobby socket={socket}/>}/>
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
-            <Route path="/search/:search" element={<Search/>}/>
+            <Route path="/search" element={<Search/>}/>
             <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
             <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
             <Route path="/*" element={<NotFound />} />

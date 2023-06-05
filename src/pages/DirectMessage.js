@@ -16,7 +16,6 @@ function DirectMessage() {
     useEffect(()=>{
         messageData(curUser,friend)
         .then(data=>{
-            console.log(data);
             setMessageHistory(data);
         })
     },[])
