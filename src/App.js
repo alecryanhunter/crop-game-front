@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu'
 import io from "socket.io-client";
@@ -24,7 +24,14 @@ function App() {
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
   const [loggedIn,setLoggedIn] = useState(false)
-  const [curUser, setCurUser] = useState("Alec");
+  const [curUser, setCurUser] = useState("");
+
+  // Checks if user is logged in on page load
+  useEffect(()=>{
+    if(localStorage.getItem("token")) {
+      setLoggedIn(true);
+    }
+  },[])
   
   return (
     <div id="outer-container">

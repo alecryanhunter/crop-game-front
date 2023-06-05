@@ -1,7 +1,7 @@
 import { useState } from "react";
 import helpers from "../utils/API";
 
-function Home({loggedIn,setLoggedIn}) {
+function Home({loggedIn,setLoggedIn,setCurUser}) {
     const [signup,setSignup] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -19,6 +19,7 @@ function Home({loggedIn,setLoggedIn}) {
     function handleSubmit(e) {
         e.preventDefault();
         if (signup) {
+
             // Signup Processes Here
             // Checks if passwords match
             if (password !== passwordVerify) {
@@ -40,12 +41,18 @@ function Home({loggedIn,setLoggedIn}) {
             }
             helpers.postUser(json)
             .then(data=>{
-                localStorage.remove("token");
+                localStorage.removeItem("token");
                 localStorage.setItem("token",data.token);
+                setLoggedIn(true);
+                setCurUser(data.user.username)
+                return;
             })
+
         } else {
+
             // Login Processes Here
             console.log("login\n"+username+"\n"+password);
+
         }
     }
 
