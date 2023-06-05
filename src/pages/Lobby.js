@@ -39,7 +39,7 @@ function Lobby({socket, room, username, host}) {
                 {canStartGame && (
                     <button className="startGameBtn" onClick={startGame}>Start Game</button>
                 )}
-                {room.players && room.players.map((player) => (
+                {players.length > 0 && players.map((player) => (
                     <div className="joiningPlayers">
                         <User 
                         key={player.id} 
