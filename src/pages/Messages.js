@@ -2,19 +2,19 @@ import { useState, useEffect } from "react"
 import API from "../utils/API"
 import User from "../components/User"
 
-function Messages({curUser}) {
+function Messages() {
     const [messagesList, setMessagesList] = useState([]);
 
     const token = localStorage.getItem("token");
+    const curUser = localStorage.getItem("username");
 
-    async function messagesData(query) {
-        return await API.getAllDMs(query);
+    async function messagesData() {
+        return await API.getAllDMs(curUser,token);
     }
 
     useEffect(()=>{
-        messagesData(curUser,token)
+        messagesData()
         .then(data => {
-            console.log(data)
             setMessagesList(data);
         })
     },[])

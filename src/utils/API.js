@@ -26,7 +26,7 @@ const API = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer: ${JSON.stringify(token)}`
+                "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
             return res.json();
@@ -36,12 +36,13 @@ const API = {
         })
         return data;
     },
-    getDMs: async (username, friendName) => {
+    getDMs: async (username, friendName,token) => {
 
         const data = await fetch(`${URL_PREFIX}/api/dms/${username}/${friendName}`,{
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
             return res.json();

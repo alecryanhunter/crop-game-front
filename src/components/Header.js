@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 
-function Header({loggedIn,setLoggedIn, curUser}) {
+function Header({loggedIn,setLoggedIn}) {
     // Disables rendering the header if on the game path
     const pathname = window.location.pathname
     if (pathname==="/game"){
         return null;
     }
+
+    const curUser = localStorage.getItem("username");
 
     function handleLogout() {
         localStorage.removeItem("token");

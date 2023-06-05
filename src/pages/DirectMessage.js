@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import API from "../utils/API"
 
-function DirectMessage({curUser}) {
+function DirectMessage() {
     const [messageHistory, setMessageHistory] = useState([]);
 
     let { friend } = useParams()
+    const curUser = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
 
     async function messageData(user,friend) {
-        return await API.getDMs(user,friend)
+        return await API.getDMs(user,friend,token)
     }
 
     useEffect(()=>{
