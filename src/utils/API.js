@@ -61,7 +61,7 @@ const API = {
             body: JSON.stringify(json),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
             return res.json();
