@@ -23,8 +23,7 @@ function App() {
   const socket = io.connect("http://localhost:3001"); // Local
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
-
-  const [loggedIn,setLoggedIn] = useState(true)
+  const [loggedIn,setLoggedIn] = useState(false)
   const [curUser, setCurUser] = useState("Alec");
   
   return (
@@ -33,7 +32,7 @@ function App() {
         <Router>
           <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
           <Routes>
-            <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
+            <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} curUser={curUser} setCurUser={setCurUser} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/game" element={<Game/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
