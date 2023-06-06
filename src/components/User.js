@@ -2,6 +2,9 @@ import API from "../utils/API"
 
 function User(props) {
 
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
+
     // handles updating a friend status
     // TODO: all this function to work for a block button, as well
     function handleFriendConfirm(e) {

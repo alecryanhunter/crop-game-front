@@ -15,6 +15,7 @@ function Profile() {
 
     let { user } = useParams();
 
+    const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
 
     function handleEdit(e) {
@@ -27,10 +28,17 @@ function Profile() {
         }
     }
 
+    async function addFriend() {
+        return await API.addFriend(curUser,user,token)
+    }
+
     function handleAddFriend(e) {
         e.preventDefault();
         console.log("Add Friend");
-        
+        addFriend()
+        .then(data=>{
+            console.log(data);
+        })
     }
 
     async function profileData() {
