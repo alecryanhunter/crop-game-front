@@ -42,6 +42,7 @@ const API = {
             return json;
         })
         return data;
+        
     },
     getDMs: async (username, friendName,token) => {
 

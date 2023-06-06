@@ -10,12 +10,28 @@ function Profile() {
     const [wins, setWins] = useState('');
     const [losses, setLosses] = useState('');
     const [forfeits, setForfeits] = useState('');
-    const [friends, setFriends] =useState([]);
+    const [friends, setFriends] = useState([]);
+    const [edit, setEdit] = useState(false)
 
     let { user } = useParams();
 
     const curUser = localStorage.getItem("username");
 
+    function handleEdit(e) {
+        e.preventDefault();
+        console.log("Edit Mode");
+        if (edit===true) {
+            setEdit(false);
+        } else {
+            setEdit(true);
+        }
+    }
+
+    function handleAddFriend(e) {
+        e.preventDefault();
+        console.log("Add Friend");
+        
+    }
 
     async function profileData() {
         return await API.getProfile(user);
@@ -33,6 +49,17 @@ function Profile() {
         })
     },[])
 
+    // Input Control Function
+    function handleInputChange(e) {
+        const {name,value} = e.target
+        switch (name) {
+            case "username" : return setUsername(value);
+            case "title" : return setTitle(value);
+            case "bio" : return setBio(value);
+            default : return;
+        }
+    }
+
     return (
         <section className="page">
             <h2>{username}'s Profile</h2>
@@ -41,14 +68,46 @@ function Profile() {
                         <section className="profile-top">
                             <img src="https://placekitten.com/100"/>
                             <div>
-                                <h3>{username}</h3>
-                                <p>{title}</p>
+                                {edit ? (
+                                    <input 
+                                        name="username"
+                                        value={username}
+                                        onChange={handleInputChange}
+                                    />
+                                ) : (
+                                    <h3>{username}</h3>
+                                )}
+                                {edit ? (
+                                    // TODO: a select that autofills your bundle options?
+                                    <input
+                                        name="title"
+                                        value={title}
+                                        onChange={handleInputChange}
+                                    />
+                                ) : (
+                                    <p>{title}</p>
+                                )}
                             </div>
-                            <button>
-                                Edit Profile
-                            </button>
+                            {(curUser===user) ? (
+                                <button
+                                    onClick={handleEdit}
+                                >{edit ? "Save Edits" : "Edit Profile"}</button>
+                                ) : (
+                                // TODO: Add DM button and remove friend button if already friends
+                                <button
+                                    onClick={handleAddFriend}
+                                >Add Friend</button>
+                            )}
                         </section>
-                        <p>{bio}</p>
+                        {edit ? (
+                            <input
+                                name="bio"
+                                value={bio}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            <p>{bio}</p>
+                        )}
                         <ul>
                             <li>Wins: {wins}</li>
                             <li>Losses: {losses}</li>
