@@ -136,6 +136,29 @@ const API = {
         })
         return data;
 
+    },
+    // Adds a friend, and sends a default DM as well
+    addFriend: async (username, friendName, token) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/users/${username}/friends/${friendName}`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
+    confirmFriend: async (username) => {
+
+
+
     }
 }
 
