@@ -31,6 +31,9 @@ function Messages() {
     return (
         <section className="page">
             <section className="messages subpage">
+                <h3>Messages</h3>
+                <hr />
+                {messagesList.length === 0 ? <p>No Messages</p> : null}
                 {messagesList.map(item=>{
                         if (curUser === item.sender_name) {
                             // Current User sent most recent message
@@ -53,6 +56,9 @@ function Messages() {
                             </a>
                         } 
                 })}
+                <h3>Friend Requests</h3>
+                <hr />
+                {friendRequests.length === 0 ? <p>No Messages</p> : null}
                 {friendRequests.map(item=>{
                         if (curUser === item.sender_name) {
                             // Current User sent most recent message
@@ -61,6 +67,7 @@ function Messages() {
                                     username={item.receiver_name}
                                     title={item.receiver_title}
                                     message={item.message}
+                                    friendBtn={true}
                                     sender={"current"}
                                 />
                             </a>
@@ -71,6 +78,7 @@ function Messages() {
                                     username={item.sender_name}
                                     title={item.sender_title}
                                     message={item.message}
+                                    friendBtn={true}
                                 />
                             </a>
                         } 

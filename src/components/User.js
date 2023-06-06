@@ -11,6 +11,14 @@ function User(props) {
                     <p>{props.sender ? "You sent: " : "They sent: "}{props.message}</p>
                 ) : null}
                 </div>
+                {/* Renders a button if one is passed */}
+                {props.friendBtn ? (
+                    <div>       
+                        <button>
+                            Add Friend
+                        </button>
+                    </div>
+                ) : null}
             </section>
         </section>
     )
