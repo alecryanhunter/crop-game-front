@@ -1,12 +1,13 @@
 
 import { useState } from "react";
-import Lobby from "../pages/Lobby";
+import Lobby from "../components/Lobby";
 import "../styles/NewGame.css";
 
 export default function JoinGame({socket}) {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
+  const [isHost, setIsHost] = useState(false);
 
   const joinRoom = () => {
     if (username !== "" && room !== "") {
@@ -14,6 +15,10 @@ export default function JoinGame({socket}) {
       setShowChat(true);
     }
   };
+
+  socket.on("join_room_success", ({ host }) => {
+    setIsHost(socket.id === host);
+  });
 
   return (
       <div className="gameChat d-flex justify-content-center align-items-center">
@@ -36,7 +41,7 @@ export default function JoinGame({socket}) {
             <button onClick={joinRoom}>Join Game</button>
           </div>
         ) : (
-          <Lobby socket={socket} username={username} room={room}/>
+          <Lobby socket={socket} username={username} room={room} isHost={isHost}/>
         )}
       </div>
   );
