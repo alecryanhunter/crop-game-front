@@ -59,7 +59,7 @@
     font-size: 100%;
     width: auto;
     height: auto;
-    min-width: 1em;
+    min-width: 3em;
     min-height: 2em;
     line-height: auto;
     background-color: var(--nearly-black);
@@ -69,12 +69,12 @@
     padding-left: 2%;
     padding-right: 2%;
     margin: 2%;
-    overflow-wrap: break-word;
+    overflow-wrap: normal;
     word-break: normal;
 }
 
 .message-content p {
-    padding: .5em;
+    padding: .8em;
 }
 
 #you {

@@ -1,9 +1,17 @@
 import React , {useEffect, useState} from "react";
-import Board from "../components/Board";
-import Tile from "../components/Tile";
-import helpers from "../utils/helpers"
+import Board from "./Board";
+import Tile from "./Tile";
+import Chat from "./Chat";
+import helpers from "../utils/helpers";
 
-function Game({ socket }) {
+function Game({ socket, room, username, host }) {
+
+    console.log(socket);
+    console.log("ROOM:", room);
+    console.log("USERNAME:", username);
+    console.log("HOST:", host);
+
+
     const [started,setStarted] = useState(false)
     // Each tile is an object with a key called "edges", which is an array with 4 items
     const [board, setBoard] = useState(helpers.boardGen(5,5,()=>({edges:[]})));
@@ -84,7 +92,7 @@ function Game({ socket }) {
         setBoard(boardValid);
         setStarted(true)
     },[]);
-
+    /*
     useEffect(() => {
         socket.on("player_turn", (player) => {
             setTurn(player);
@@ -111,7 +119,7 @@ function Game({ socket }) {
         };
 
     }, [])
-
+    */
     return (
         <section className="game">
             <Board handleTile={handleTile} board={board}/>
@@ -121,6 +129,9 @@ function Game({ socket }) {
             <h3>{turn===1 ? "Red" : "Blue"} Player's Turn</h3>
             <h3>Red Points: {redScore}</h3>
             <h3>Blue Points: {blueScore}</h3>
+            {/* <div className="chat"> 
+                <Chat socket={socket} room={room} username={username} />
+            </div> */}
         </section>
     )
 }
