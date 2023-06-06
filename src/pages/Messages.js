@@ -4,6 +4,8 @@ import User from "../components/User"
 
 function Messages() {
     const [messagesList, setMessagesList] = useState([]);
+    const [friendRequests, setFriendRequests] = useState([]);
+
 
     const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
@@ -15,10 +17,13 @@ function Messages() {
     useEffect(()=>{
         messagesData()
         .then(data => {
+            console.log(data)
+            console.log(data.pending_friendships)
             if (data.msg === "no messages") {
                 console.log("No Messages");
             } else {
-                setMessagesList(data);
+                setMessagesList(data.confirmed_friendships);
+                setFriendRequests(data.pending_friendships)
             }
         })
     },[])
@@ -27,26 +32,48 @@ function Messages() {
         <section className="page">
             <section className="messages subpage">
                 {messagesList.map(item=>{
-                    if (curUser === item.sender_name) {
-                        // Current User sent most recent message
-                        return <a href={`/messages/${item.receiver_name}`} key={item.FriendshipId}>
-                            <User
-                                username={item.receiver_name}
-                                title={item.receiver_title}
-                                message={item.message}
-                                sender={"current"}
-                            />
-                        </a>
-                    } else {
-                        // Current User received most recent message
-                        return <a href={`/messages/${item.sender_name}`} key={item.FriendshipId}>
-                            <User
-                                username={item.sender_name}
-                                title={item.sender_title}
-                                message={item.message}
-                            />
-                        </a>
-                    } 
+                        if (curUser === item.sender_name) {
+                            // Current User sent most recent message
+                            return <a href={`/messages/${item.receiver_name}`} key={item.FriendshipId}>
+                                <User
+                                    username={item.receiver_name}
+                                    title={item.receiver_title}
+                                    message={item.message}
+                                    sender={"current"}
+                                />
+                            </a>
+                        } else {
+                            // Current User received most recent message
+                            return <a href={`/messages/${item.sender_name}`} key={item.FriendshipId}>
+                                <User
+                                    username={item.sender_name}
+                                    title={item.sender_title}
+                                    message={item.message}
+                                />
+                            </a>
+                        } 
+                })}
+                {friendRequests.map(item=>{
+                        if (curUser === item.sender_name) {
+                            // Current User sent most recent message
+                            return <a href={`/messages/${item.receiver_name}`} key={item.FriendshipId}>
+                                <User
+                                    username={item.receiver_name}
+                                    title={item.receiver_title}
+                                    message={item.message}
+                                    sender={"current"}
+                                />
+                            </a>
+                        } else {
+                            // Current User received most recent message
+                            return <a href={`/messages/${item.sender_name}`} key={item.FriendshipId}>
+                                <User
+                                    username={item.sender_name}
+                                    title={item.sender_title}
+                                    message={item.message}
+                                />
+                            </a>
+                        } 
                 })}
             </section>
         </section>

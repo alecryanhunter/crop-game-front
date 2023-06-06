@@ -40,7 +40,6 @@ function Profile() {
     useEffect(()=>{
         profileData()
         .then(data=>{
-            console.log(data);
             setUsername(data.username);
             setTitle(data.current_title);
             setBio(data.bio);
@@ -119,11 +118,11 @@ function Profile() {
                     <section className="friends subpage">
                         <h3>Friends</h3>
                         {friends.map(friend=>{
-                            return <User 
-                                key={friend.id} 
+                            return <a href={friend.Users[0].username} key={friend.id} >
+                            <User
                                 username={friend.Users[0].username} 
                                 title={friend.Users[0].current_title}
-                            />
+                            /></a>
                         })}
                     </section>
             </section>
