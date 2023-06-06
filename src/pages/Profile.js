@@ -40,12 +40,14 @@ function Profile() {
     useEffect(()=>{
         profileData()
         .then(data=>{
-            setUsername(data.username)
-            setTitle(data.current_title)
-            setBio(data.bio)
-            setWins(data.wins)
-            setLosses(data.losses)
-            setForfeits(data.forfeits)
+            console.log(data);
+            setUsername(data.username);
+            setTitle(data.current_title);
+            setBio(data.bio);
+            setWins(data.wins);
+            setLosses(data.losses);
+            setForfeits(data.forfeits);
+            setFriends(data.Friendships);
         })
     },[])
 
@@ -119,9 +121,9 @@ function Profile() {
                         {friends.map(friend=>{
                             return <User 
                                 key={friend.id} 
-                                username={friend.username} 
-                                title={friend.title}
-                                />
+                                username={friend.Users[0].username} 
+                                title={friend.Users[0].current_title}
+                            />
                         })}
                     </section>
             </section>
