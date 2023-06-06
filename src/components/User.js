@@ -1,4 +1,14 @@
+import API from "../utils/API"
+
 function User(props) {
+
+    // handles updating a friend status
+    // TODO: all this function to work for a block button, as well
+    function handleFriendConfirm(e) {
+        e.preventDefault();
+        console.log(props.username)
+    }
+
     return (
         <section className="userbar">
             <img src={props.img ? props.img : "https://placekitten.com/50" } />
@@ -12,10 +22,12 @@ function User(props) {
                 ) : null}
                 </div>
                 {/* Renders a button if one is passed */}
+                {/* TODO: Also render a cancel button that deletes the friendship? */}
                 {props.friendBtn ? (
                     <div>       
-                        <button>
-                            Add Friend
+                        <button
+                            onClick={handleFriendConfirm}
+                        >Confirm
                         </button>
                     </div>
                 ) : null}

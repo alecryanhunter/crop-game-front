@@ -40,7 +40,7 @@ function Messages() {
                             return <a href={`/messages/${item.receiver_name}`} key={item.FriendshipId}>
                                 <User
                                     username={item.receiver_name}
-                                    title={item.receiver_title}
+                                    title={item.receiver_current_title}
                                     message={item.message}
                                     sender={"current"}
                                 />
@@ -50,7 +50,7 @@ function Messages() {
                             return <a href={`/messages/${item.sender_name}`} key={item.FriendshipId}>
                                 <User
                                     username={item.sender_name}
-                                    title={item.sender_title}
+                                    title={item.sender_current_title}
                                     message={item.message}
                                 />
                             </a>
@@ -65,9 +65,8 @@ function Messages() {
                             return <a href={`/messages/${item.receiver_name}`} key={item.FriendshipId}>
                                 <User
                                     username={item.receiver_name}
-                                    title={item.receiver_title}
+                                    title={item.receiver_current_title}
                                     message={item.message}
-                                    friendBtn={true}
                                     sender={"current"}
                                 />
                             </a>
@@ -76,7 +75,7 @@ function Messages() {
                             return <a href={`/messages/${item.sender_name}`} key={item.FriendshipId}>
                                 <User
                                     username={item.sender_name}
-                                    title={item.sender_title}
+                                    title={item.sender_current_title}
                                     message={item.message}
                                     friendBtn={true}
                                 />
