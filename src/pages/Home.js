@@ -1,7 +1,7 @@
 import { useState } from "react";
 import helpers from "../utils/API";
 
-function Home({loggedIn,setLoggedIn,setCurUser}) {
+function Home({loggedIn,setLoggedIn}) {
     const [signup,setSignup] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -43,8 +43,8 @@ function Home({loggedIn,setLoggedIn,setCurUser}) {
             .then(data=>{
                 localStorage.removeItem("token");
                 localStorage.setItem("token",data.token);
+                localStorage.setItem("username",data.user.username);
                 setLoggedIn(true);
-                setCurUser(data.user.username)
                 return;
             })
 
@@ -59,8 +59,8 @@ function Home({loggedIn,setLoggedIn,setCurUser}) {
             helpers.postLogin(loginJSON)
             .then(data=>{
                 localStorage.setItem("token",data.token);
+                localStorage.setItem("username",data.user.username);
                 setLoggedIn(true);
-                setCurUser(data.user.username)
                 return;
             })
 
@@ -87,7 +87,7 @@ function Home({loggedIn,setLoggedIn,setCurUser}) {
                     <>
                     <h3><a href="/hostGame">Host Game</a></h3>
                     <h3><a href="/joinGame">Join Game</a></h3>
-                    <h3><a href="/search/test_username">Search For A User</a></h3>
+                    <h3><a href="/search">Search For A User</a></h3>
                     <h3><a href="/rules">View Rules</a></h3>
                     </>
                 ) : (

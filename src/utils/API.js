@@ -26,24 +26,39 @@ const API = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer: ${JSON.stringify(token)}`
+                "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
+            console.log(res);
+            if (res.status===204) {
+                const none = {
+                    msg: "no messages"
+                }
+                return none;
+            }
             return res.json();
         })
         .then((json)=>{
             return json;
         })
         return data;
+        
     },
-    getDMs: async (username, friendName) => {
+    getDMs: async (username, friendName,token) => {
 
         const data = await fetch(`${URL_PREFIX}/api/dms/${username}/${friendName}`,{
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
+            if (res.status===204) {
+                const none = {
+                    msg: "no messages"
+                }
+                return none;
+            }
             return res.json();
         })
         .then((json)=>{
@@ -53,14 +68,14 @@ const API = {
 
     },
     // Feed a non-stringified json object, senderId, and receiverId
-    postDM: async (json, sender, receiver,token) => {
+    postDM: async (json, sender, receiver, token) => {
 
         const data = await fetch(`${URL_PREFIX}/api/dms/${sender}/${receiver}`,{
             method: "POST",
             body: JSON.stringify(json),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
             return res.json();
@@ -94,6 +109,22 @@ const API = {
         const data = await fetch(`${URL_PREFIX}/api/users/login`,{
             method: "POST",
             body: JSON.stringify(json),
+            headers: {
+                "Content-Type": "application/json"
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
+    search: async (username) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/users/search/${username}`,{
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
         }})

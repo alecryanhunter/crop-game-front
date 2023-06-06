@@ -2,20 +2,60 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import API from "../utils/API"
 
-function DirectMessage({curUser}) {
+function DirectMessage() {
     const [messageHistory, setMessageHistory] = useState([]);
+    const [message, setMessage] = useState("");
 
     let { friend } = useParams()
+    const curUser = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
 
-    async function messageData(user,friend) {
-        return await API.getDMs(user,friend)
+    function handleInputChange(e) {
+        const {name, value} = e.target
+        if (name==="message") {
+            setMessage(value);
+        }
     }
 
+    // Message form handler
+    function handleSend(e) {
+        e.preventDefault();
+        const json = {
+            message: message
+        }
+        messageSend(json)
+        // This updates the page, but doesn't actually re-pull the database, since I can't get that to work
+        const messageHistoryCopy = JSON.parse(JSON.stringify(messageHistory));
+        const newMessage = {
+            id: Math.random(Math.floor()*10000),
+            sender_name: curUser,
+            message: message
+        }
+        messageHistoryCopy.push(newMessage)
+        setMessage("");
+        setMessageHistory(messageHistoryCopy)
+    }
+
+    // API call to POST the message
+    async function messageSend(json) {
+        return await API.postDM(json,curUser,friend,token);
+    }
+
+    // API call to GET message history
+    async function messageData(user,friend) {
+        return await API.getDMs(user,friend,token)
+    }
+
+    // Updates message display on page load
     useEffect(()=>{
         messageData(curUser,friend)
         .then(data=>{
-            console.log(data);
+            if (data.msg === "no messages") {
+                console.log("No Messages");
+                // TODO: Add logic for sending a friend request instead of sending message
+            } else {
             setMessageHistory(data);
+            }
         })
     },[])
 
@@ -35,8 +75,15 @@ function DirectMessage({curUser}) {
                     )})}
                 </section>
                 <form>
-                    <input placeholder="Write your message"/>
-                    <button>Send</button>
+                    <input
+                        name="message"
+                        placeholder="Write your message"
+                        value={message}
+                        onChange={handleInputChange}
+                    />
+                    <button
+                        onClick={handleSend}
+                    >Send</button>
                 </form>
             </section>
         </section>
