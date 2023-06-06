@@ -15,6 +15,7 @@ function Profile() {
 
     let { user } = useParams();
 
+    const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
 
     function handleEdit(e) {
@@ -27,10 +28,17 @@ function Profile() {
         }
     }
 
+    async function addFriend() {
+        return await API.addFriend(curUser,user,token)
+    }
+
     function handleAddFriend(e) {
         e.preventDefault();
         console.log("Add Friend");
-        
+        addFriend()
+        .then(data=>{
+            console.log(data);
+        })
     }
 
     async function profileData() {
@@ -40,12 +48,13 @@ function Profile() {
     useEffect(()=>{
         profileData()
         .then(data=>{
-            setUsername(data.username)
-            setTitle(data.current_title)
-            setBio(data.bio)
-            setWins(data.wins)
-            setLosses(data.losses)
-            setForfeits(data.forfeits)
+            setUsername(data.username);
+            setTitle(data.current_title);
+            setBio(data.bio);
+            setWins(data.wins);
+            setLosses(data.losses);
+            setForfeits(data.forfeits);
+            setFriends(data.Friendships);
         })
     },[])
 
@@ -117,11 +126,11 @@ function Profile() {
                     <section className="friends subpage">
                         <h3>Friends</h3>
                         {friends.map(friend=>{
-                            return <User 
-                                key={friend.id} 
-                                username={friend.username} 
-                                title={friend.title}
-                                />
+                            return <a href={friend.Users[0].username} key={friend.id} >
+                            <User
+                                username={friend.Users[0].username} 
+                                title={friend.Users[0].current_title}
+                            /></a>
                         })}
                     </section>
             </section>

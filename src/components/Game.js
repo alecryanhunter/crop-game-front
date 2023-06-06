@@ -92,34 +92,34 @@ function Game({ socket, room, username, host }) {
         setBoard(boardValid);
         setStarted(true)
     },[]);
-    /*
-    useEffect(() => {
-        socket.on("player_turn", (player) => {
-            setTurn(player);
-        });
 
-        socket.on("update_board", (updateBoard) => {
-            setBoard(updateBoard);
-        });
+    // useEffect(() => {
+    //     socket.on("player_turn", (player) => {
+    //         setTurn(player);
+    //     });
 
-        socket.on("update_scores", (scores) => {
-            setRedScore(scores[0]);
-            setBlueScore(scores[1]);
-        });
+    //     socket.on("update_board", (updateBoard) => {
+    //         setBoard(updateBoard);
+    //     });
 
-        socket.on("game_over", (winner) => {
-            alert(`Game Over!\n${winner}`);
-        });
+    //     socket.on("update_scores", (scores) => {
+    //         setRedScore(scores[0]);
+    //         setBlueScore(scores[1]);
+    //     });
 
-        return () => {
-            socket.off("player_turn");
-            socket.off("update_board");
-            socket.off("update_scores");
-            socket.off("game_over");
-        };
+    //     socket.on("game_over", (winner) => {
+    //         alert(`Game Over!\n${winner}`);
+    //     });
 
-    }, [])
-    */
+    //     return () => {
+    //         socket.off("player_turn");
+    //         socket.off("update_board");
+    //         socket.off("update_scores");
+    //         socket.off("game_over");
+    //     };
+
+    // }, [])
+
     return (
         <section className="game">
             <Board handleTile={handleTile} board={board}/>
