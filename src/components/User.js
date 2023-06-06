@@ -3,13 +3,24 @@ import API from "../utils/API"
 function User(props) {
 
     const token = localStorage.getItem("token");
-    const username = localStorage.getItem("username");
+    const curUser = localStorage.getItem("username");
+
+    async function confirmFriend(user, friend, token, body) {
+        return await API.confirmFriend(user, friend, token, body)
+    }
 
     // handles updating a friend status
     // TODO: all this function to work for a block button, as well
     function handleFriendConfirm(e) {
         e.preventDefault();
         console.log(props.username)
+        const json = {
+            status: "confirmed"
+        }
+        confirmFriend(curUser, props.username, token, json)
+        .then(data=>{
+            console.log(data);
+        })
     }
 
     return (
