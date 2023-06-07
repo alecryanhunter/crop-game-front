@@ -10,6 +10,8 @@ function Messages() {
     const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
 
+    const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
+
     async function messagesData() {
         return await API.getAllDMs(curUser,token);
     }
@@ -43,6 +45,7 @@ function Messages() {
                                     title={item.receiver_current_title}
                                     message={item.message}
                                     sender={"current"}
+                                    img={PIC_URL_PREFIX_SM + item.receiver_profile_pic}
                                 />
                             </a>
                         } else {
@@ -52,6 +55,7 @@ function Messages() {
                                     username={item.sender_name}
                                     title={item.sender_current_title}
                                     message={item.message}
+                                    img={PIC_URL_PREFIX_SM + item.sender_profile_pic}
                                 />
                             </a>
                         } 
@@ -68,7 +72,8 @@ function Messages() {
                                     title={item.receiver_current_title}
                                     message={item.message}
                                     sender={"current"}
-                                />
+                                    img={PIC_URL_PREFIX_SM + item.receiver_profile_pic}
+                                    />
                             </a>
                         } else {
                             // Current User received most recent message
@@ -77,6 +82,7 @@ function Messages() {
                                     username={item.sender_name}
                                     title={item.sender_current_title}
                                     message={item.message}
+                                    img={PIC_URL_PREFIX_SM + item.sender_profile_pic}
                                     friendBtn={true}
                                 />
                             </a>
