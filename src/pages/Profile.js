@@ -2,16 +2,22 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import User from "../components/User";
 import API from "../utils/API"
+import { Uploader } from "uploader"; 
+import { UploadButton } from "react-uploader";
+
 
 function Profile() {
     const [username, setUsername] = useState('');
     const [title, setTitle] = useState('');
+    const [titleArr, setTitleArr] = useState([]);
+    const [coins, setCoins] = useState('');
+    const [pic, setPic] = useState('');
     const [bio, setBio] = useState('');
     const [wins, setWins] = useState('');
     const [losses, setLosses] = useState('');
     const [forfeits, setForfeits] = useState('');
     const [friends, setFriends] = useState([]);
-    const [edit, setEdit] = useState(false)
+    const [edit, setEdit] = useState(false);
 
     let { user } = useParams();
 
@@ -42,6 +48,9 @@ function Profile() {
         .then(data=>{
             setUsername(data.username);
             setTitle(data.current_title);
+            setTitleArr(data.Bundles.filter(bundleObj => bundleObj.type === "Title"));
+            setCoins(data.coins);
+            setPic(data.profile_pic);
             setBio(data.bio);
             setWins(data.wins);
             setLosses(data.losses);
@@ -60,6 +69,38 @@ function Profile() {
             default : return;
         }
     }
+    
+    // Uploader for profile_pic
+    const uploader = Uploader({ apiKey: process.env.REACT_APP_UPLOADIO_API_KEY });
+    // TODO: https://www.freecodecamp.org/news/how-to-access-secret-api-keys-using-netlify-functions-in-a-react-app/
+    const uploaderOptions = {
+        multi: false,
+        styles: {
+            colors: {
+            primary: "#377dff",
+            },
+        },
+        editor: {
+            images: {
+                preview: true,
+                crop:true,
+                cropRatio: 1,
+                cropShape: "circ"
+            },
+        },
+    }
+    const PicUploadBtn = ({setPic}) =>
+    <UploadButton 
+    uploader={uploader}
+    options={uploaderOptions}
+    onComplete={files => setPic(uploader.url(files[0].filePath, "t-s"))}
+    > 
+        {({onClick}) =>
+            <button onClick={onClick}>
+                Upload new pic...
+            </button>
+        }
+    </UploadButton>
 
     return (
         <section className="page">
@@ -67,24 +108,31 @@ function Profile() {
             <section className="profile">
                     <section className="about">
                         <section className="profile-top">
-                            <img src="https://placekitten.com/100"/>
                             <div>
                                 {edit ? (
-                                    <input 
-                                        name="username"
-                                        value={username}
-                                        onChange={handleInputChange}
-                                    />
+                                    <>
+                                    <img src={pic} alt="profile_pic"/>
+                                    <PicUploadBtn setPic={setPic}/>
+                                    </>
                                 ) : (
-                                    <h3>{username}</h3>
+                                    <img src={pic} alt="profile_pic"/>
                                 )}
+                            </div>
+                            <div>
+                                <h3>{username}</h3>
                                 {edit ? (
-                                    // TODO: a select that autofills your bundle options?
-                                    <input
-                                        name="title"
-                                        value={title}
+                                    <select 
+                                        name="title" 
+                                        value={title} 
                                         onChange={handleInputChange}
-                                    />
+                                    >
+                                        {titleArr.map((titleObj) => (
+                                            <option 
+                                                key={titleObj.id} 
+                                                value={titleObj.name}
+                                            >{titleObj.name}</option>
+                                        ))}
+                                  </select>
                                 ) : (
                                     <p>{title}</p>
                                 )}
@@ -110,6 +158,7 @@ function Profile() {
                             <p>{bio}</p>
                         )}
                         <ul>
+                            <li>{coins} Coins</li>
                             <li>Wins: {wins}</li>
                             <li>Losses: {losses}</li>
                             <li>Forfeits: {forfeits}</li>
