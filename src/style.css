@@ -184,6 +184,10 @@ section.row {
     display: inline-block;
 }
 
+.game info{
+    display: flex;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

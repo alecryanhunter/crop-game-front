@@ -22,9 +22,15 @@ export function CropGameBoard({ ctx, G, moves }) {
                     ))
                 )}
             </section>
-            <Tile 
-                edgeArr={G.active.edges}
-            />
+            <info>
+                <Tile 
+                    edgeArr={G.active.edges}
+                />
+                <section>
+                    <h3>Red Score: {G.score[0]}</h3>
+                    <h3>Blue Score: {G.score[1]}</h3>
+                </section>
+            </info>
         </section>
     );
 }
