@@ -4,25 +4,41 @@ import Tile from "./Tile";
 import Chat from "./Chat";
 import helpers from "../utils/helpers";
 
-function Game({ socket, room, username, host }) {
+function Game({ socket, room, username, isHost, players }) {
 
     console.log(socket);
     console.log("ROOM:", room);
     console.log("USERNAME:", username);
-    console.log("HOST:", host);
+    console.log("HOST:", isHost);
 
 
-    const [started,setStarted] = useState(false)
+    const [started, setStarted] = useState(false)
     // Each tile is an object with a key called "edges", which is an array with 4 items
     const [board, setBoard] = useState(helpers.boardGen(5,5,()=>({edges:[]})));
-    const [turn, setTurn] = useState(1);
-    const [players, setPlayers] = useState(2)
-    const [redScore, setRedScore] = useState(0)
-    const [blueScore, setBlueScore] = useState(0)
+    const [turn, setTurn] = useState();
+    const [redScore, setRedScore] = useState(0);
+    const [blueScore, setBlueScore] = useState(0);
     const [active, setActive] = useState({edges:helpers.tileGen(players)});
+    const [playerRed, setPlayerRed] = useState();
+    const [playerBlue, setPlayerBlue] = useState();
 
     // Handles tile clicks
     function handleTile(e) {
+        if(isHost) {
+            setPlayerRed(socket.id);
+        } else {
+            setPlayerBlue(socket.id);
+        }
+
+        if (playerRed) {
+            setTurn(players[1]);
+            socket.emit("player_turn", { turn: players[1] });
+          } else {
+            setTurn(players[0]);
+            socket.emit("player_turn", { turn: players[0] });
+        }
+
+
         // TODO: remove dependency on data attributes
         // Turn an index of an array into matrix coordinates? based on board size
         const y = e.target.dataset.y
@@ -35,98 +51,114 @@ function Game({ socket, room, username, host }) {
         if (board[y][x].valid !== true) {
             return;
         }
-        board[y][x].edges = active.edges;
 
         const pointsScored = helpers.pointCalc(board,y,x,5)
         if (pointsScored[1] !== undefined) {
-            setRedScore(redScore + pointsScored[1])
+            setRedScore(redScore + pointsScored[1]);
+            socket.emit("update_scores", redScore);
         }
         if (pointsScored[2] !== undefined) {
-            setBlueScore(blueScore + pointsScored[2])
+            setBlueScore(blueScore + pointsScored[2]);
+            socket.emit("update_scores", blueScore);
         }
 
-        turnOrder();
+        setBoard(board);
+        socket.emit("update_board", board);
+        setActive({edges:helpers.tileGen(players)});
 
-        setActive({edges:helpers.tileGen(players)})
-        
+        socket.emit("update_scores", { updatedRedScore: redScore });
+        socket.emit("update_scores", { updatedBlueScore: blueScore });
+        socket.emit("update_board", { updatedBoard: board }); 
     }
-    
-    // Sets player's turn
-    function turnOrder() {
-        if (turn === players) {
-            setTurn(1)
-        } else {
-            setTurn(turn+1);
+
+    useEffect(() => {
+        if (playerRed && playerBlue && !turn) {
+          if (isHost) {
+            setTurn(players[0]);
+            socket.emit("player_turn", { turn: players[0] });
+          } else {
+            setTurn(players[1]);
+            socket.emit("player_turn", { turn: players[1] });
+          }
         }
-    }
+    }, [playerRed, playerBlue, turn]);
     
-    // This checks for validity after any change in the active tile
-    useEffect(()=>{
-        setBoard(helpers.checkValid(board,active,5));
-    },[active]);
-
-    // Game Over Function
-    useEffect(()=>{
-        // Checks if the game setup has been finished
-        if (started) {
-            if (document.querySelector('.valid') === null) {
-                let winner = ""
-                if (redScore === blueScore) {
-                    winner = "Draw!"
-                } else if (redScore > blueScore){
-                    winner = "Red Wins!"
-                } else {
-                    winner = "Blue Wins!"
-                }
-                alert(`Game Over!\n${winner}`)
-                // TODO: Add automatic and/or opt-in game restart
+    
+    useEffect(() => {
+        // Receive events from the server
+        socket.on("update_scores", (data) => {
+          if (data && data.updatedRedScore && data.updatedBlueScore) {
+            const { updatedRedScore, updatedBlueScore } = data;
+            setRedScore(updatedRedScore);
+            setBlueScore(updatedBlueScore);
+          }
+        });
+    
+        socket.on("update_board", (data) => {
+          if (data && data.updatedBoard) {
+            const { updatedBoard } = data;
+            setBoard(updatedBoard);
+          }
+        });
+    
+        socket.on("player_turn", (data) => {
+          if (data && data.turn) {
+            const { turn } = data;
+            setTurn(turn);
+          }
+        });
+    
+        socket.on("game_over", (data) => {
+          if (data && data.winner) {
+            const { winner } = data;
+            let winnerMessage = "";
+            if (winner === "draw") {
+              winnerMessage = "Draw!";
+            } else if (winner === "red") {
+              winnerMessage = "Red Wins!";
+            } else if (winner === "blue") {
+              winnerMessage = "Blue Wins!";
             }
-        }
-    },[board])
+            alert(`Game Over!\n${winnerMessage}`);
+          }
+        });
+    
+        // Clean up the event listeners when the component unmounts
+        return () => {
+          socket.off("update_scores");
+          socket.off("update_board");
+          socket.off("player_turn");
+          socket.off("game_over");
+        };
+      }, []);
+    
+    
+
 
     // The initialization of the game - set a tile in the middle and runs valid check
     useEffect(()=>{
+        socket.emit("game_started", { room });
+
         const boardCopy = JSON.parse(JSON.stringify(board))
         boardCopy[2][2].edges = [1,1,2,2];
         const boardValid = helpers.checkValid(boardCopy,active,5)
         setBoard(boardValid);
-        setStarted(true)
+        setStarted(true);
+
+        return () => {
+            socket.off("game_started");
+        };
+
     },[]);
 
-    // useEffect(() => {
-    //     socket.on("player_turn", (player) => {
-    //         setTurn(player);
-    //     });
-
-    //     socket.on("update_board", (updateBoard) => {
-    //         setBoard(updateBoard);
-    //     });
-
-    //     socket.on("update_scores", (scores) => {
-    //         setRedScore(scores[0]);
-    //         setBlueScore(scores[1]);
-    //     });
-
-    //     socket.on("game_over", (winner) => {
-    //         alert(`Game Over!\n${winner}`);
-    //     });
-
-    //     return () => {
-    //         socket.off("player_turn");
-    //         socket.off("update_board");
-    //         socket.off("update_scores");
-    //         socket.off("game_over");
-    //     };
-
-    // }, [])
 
     return (
         <section className="game">
             <Board handleTile={handleTile} board={board}/>
             <hr/>
             {/* Active Tile */}
-            <Tile edgeArr={active.edges} handleTile={handleTile} />
-            <h3>{turn===1 ? "Red" : "Blue"} Player's Turn</h3>
+            { turn === playerRed && <Tile edgeArr={active.edges} handleTile={handleTile} />}
+            <h3>{turn === playerRed ? "Red" : "Blue"} Player's Turn</h3>
             <h3>Red Points: {redScore}</h3>
             <h3>Blue Points: {blueScore}</h3>
             {/* <div className="chat"> 
