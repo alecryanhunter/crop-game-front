@@ -23,53 +23,54 @@ import { Client } from 'boardgame.io/react'
 import { CropGame } from './pages/Test'
 import { CropGameBoard } from "./pages/TestBoard";
 
-const App = Client({ 
+const TestGame = Client({ 
   game: CropGame,
   board: CropGameBoard,
 })
 
-// function App() {
+function App() {
 
-//   const socket = io.connect("http://localhost:3001"); // Local
-//   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
+  const socket = io.connect("http://localhost:3001"); // Local
+  //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
-//   const [loggedIn,setLoggedIn] = useState(false)
+  const [loggedIn,setLoggedIn] = useState(false)
 
-//   // Checks if user is logged in on page load
-//   useEffect(()=>{
-//     if(localStorage.getItem("token")) {
-//       setLoggedIn(true);
-//     }
-//   },[])
+  // Checks if user is logged in on page load
+  useEffect(()=>{
+    if(localStorage.getItem("token")) {
+      setLoggedIn(true);
+    }
+  },[])
   
-//   return (
-//     <div id="outer-container">
-//       <div id="page-wrap">
-//         <Router>
-//           <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-//           <Routes>
-//             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
-//             <Route path="/rules" element={<Rules/>}/>
-//             <Route path="/profile/:user" element={<Profile/>}/>
-//             <Route path="/shop" element={<Shop/>}/>
-//             {/*}
-//             <Route path="/lobby" element={<Lobby socket={socket}/>}/>
-//             <Route path="/game" element={<Game socket={socket} />}/>
-//             */}
-//             <Route path="/messages" element={<Messages />}/>
-//             <Route path="/messages/:friend" element={<DirectMessage />}/>
-//             <Route path="/search" element={<Search/>}/>
-//             <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
-//             <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
-//             <Route path="/*" element={<NotFound />} />
-//           </Routes>
-//         </Router>
-//       </div>
-//       {/* <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
+  return (
+    <div id="outer-container">
+      <div id="page-wrap">
+        <Router>
+          <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+          <Routes>
+            <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
+            <Route path="/rules" element={<Rules/>}/>
+            <Route path="/profile/:user" element={<Profile/>}/>
+            <Route path="/shop" element={<Shop/>}/>
+            {/*}
+            <Route path="/lobby" element={<Lobby socket={socket}/>}/>
+            <Route path="/game" element={<Game socket={socket} />}/>
+            */}
+            <Route path="/messages" element={<Messages />}/>
+            <Route path="/messages/:friend" element={<DirectMessage />}/>
+            <Route path="/search" element={<Search/>}/>
+            <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
+            <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
+            <Route path="/testGame" element={<TestGame />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </div>
+      {/* <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
         
-//       </Menu> */}
-//     </div>
-//   );
-// }
+      </Menu> */}
+    </div>
+  );
+}
 
 export default App;
