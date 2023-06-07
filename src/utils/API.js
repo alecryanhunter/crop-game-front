@@ -190,6 +190,23 @@ const API = {
         })
         return data;
 
+    },
+    getShop: async (token) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/shop/`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
     }
 }
 

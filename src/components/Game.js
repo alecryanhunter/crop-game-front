@@ -18,7 +18,7 @@ function Game({ socket, room, username, isHost, players }) {
     const [turn, setTurn] = useState();
     const [redScore, setRedScore] = useState(0);
     const [blueScore, setBlueScore] = useState(0);
-    const [active, setActive] = useState({edges:helpers.tileGen(players)});
+    const [active, setActive] = useState({edges:helpers.tileGen(players.length)});
     const [playerRed, setPlayerRed] = useState();
     const [playerBlue, setPlayerBlue] = useState();
 
@@ -52,6 +52,8 @@ function Game({ socket, room, username, isHost, players }) {
             return;
         }
 
+        board[y][x] = active
+
         const pointsScored = helpers.pointCalc(board,y,x,5)
         if (pointsScored[1] !== undefined) {
             setRedScore(redScore + pointsScored[1]);
@@ -64,7 +66,7 @@ function Game({ socket, room, username, isHost, players }) {
 
         setBoard(board);
         socket.emit("update_board", board);
-        setActive({edges:helpers.tileGen(players)});
+        setActive({edges:helpers.tileGen(players.length)});
 
         socket.emit("update_scores", { updatedRedScore: redScore });
         socket.emit("update_scores", { updatedBlueScore: blueScore });
@@ -130,15 +132,13 @@ function Game({ socket, room, username, isHost, players }) {
           socket.off("player_turn");
           socket.off("game_over");
         };
-      }, []);
-    
-    
+      },[]);
 
-
-    // The initialization of the game - set a tile in the middle and runs valid check
+    // The initialization of the game
     useEffect(()=>{
         socket.emit("game_started", { room });
 
+        // This creates a shallow copy of the board and places a tile in the middle
         const boardCopy = JSON.parse(JSON.stringify(board))
         boardCopy[2][2].edges = [1,1,2,2];
         const boardValid = helpers.checkValid(boardCopy,active,5)
@@ -157,7 +157,7 @@ function Game({ socket, room, username, isHost, players }) {
             <Board handleTile={handleTile} board={board}/>
             <hr/>
             {/* Active Tile */}
-            { turn === playerRed && <Tile edgeArr={active.edges} handleTile={handleTile} />}
+            { <Tile edgeArr={active.edges} handleTile={handleTile} />}
             <h3>{turn === playerRed ? "Red" : "Blue"} Player's Turn</h3>
             <h3>Red Points: {redScore}</h3>
             <h3>Blue Points: {blueScore}</h3>
