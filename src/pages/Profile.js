@@ -23,7 +23,6 @@ function Profile() {
 
     const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
-    const token = localStorage.getItem("token");
 
     const PIC_URL_PREFIX_MED = "https://upcdn.io/12a1yJg/m"
     const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
