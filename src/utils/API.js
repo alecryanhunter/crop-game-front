@@ -20,6 +20,24 @@ const API = {
         return data;
 
     },
+    putProfile: async (json, username, token) => {
+
+        const data = await fetch(`${URL_PREFIX}/api/users/${username}`,{
+            method: "PUT",
+            body: JSON.stringify(json),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
+
+    },
     getAllDMs: async (username,token) => {
 
         const data = await fetch(`${URL_PREFIX}/api/dms/${username}`,{

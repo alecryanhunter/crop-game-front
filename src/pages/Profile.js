@@ -22,25 +22,35 @@ function Profile() {
     let { user } = useParams();
 
     const curUser = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
 
     function handleEdit(e) {
         e.preventDefault();
-        console.log("Edit Mode");
         if (edit===true) {
             setEdit(false);
+            const json = {
+                current_title: title,
+                bio: bio,
+                profile_pic: pic,
+            }
+            profileUpdate(json)
         } else {
             setEdit(true);
+            console.log("Edit Mode");
         }
     }
 
     function handleAddFriend(e) {
         e.preventDefault();
         console.log("Add Friend");
-        
     }
 
     async function profileData() {
         return await API.getProfile(user);
+    }
+
+    async function profileUpdate(json) {
+        return await API.putProfile(json, user, token);
     }
 
     useEffect(()=>{
