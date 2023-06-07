@@ -9,7 +9,7 @@ export function CropGameBoard({ ctx, G, moves }) {
     return (
         <section className="game">
             <section className="board">
-                {G.cells.map((row,rowIndex) => 
+                {G.tiles.map((row,rowIndex) => 
                     row.map((tile,colIndex)=> (
                         <Tile
                         key={`${colIndex}-${rowIndex}`} 
@@ -23,7 +23,7 @@ export function CropGameBoard({ ctx, G, moves }) {
                 )}
             </section>
             <Tile 
-                edgeArr={G.active}
+                edgeArr={G.active.edges}
             />
         </section>
     );
