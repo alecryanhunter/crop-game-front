@@ -24,6 +24,9 @@ function Profile() {
     const curUser = localStorage.getItem("username");
     const token = localStorage.getItem("token");
 
+    const PIC_URL_PREFIX_MED = "https://upcdn.io/12a1yJg/m"
+    const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
+    
     function handleEdit(e) {
         e.preventDefault();
         if (edit===true) {
@@ -100,17 +103,17 @@ function Profile() {
         },
     }
     const PicUploadBtn = ({setPic}) =>
-    <UploadButton 
-    uploader={uploader}
-    options={uploaderOptions}
-    onComplete={files => setPic(uploader.url(files[0].filePath, "t-s"))}
-    > 
-        {({onClick}) =>
-            <button onClick={onClick}>
-                Upload new pic...
-            </button>
-        }
-    </UploadButton>
+        <UploadButton 
+        uploader={uploader}
+        options={uploaderOptions}
+        onComplete={files => setPic(files[0].filePath)}
+        > 
+            {({onClick}) =>
+                <button onClick={onClick}>
+                    Upload new pic...
+                </button>
+            }
+        </UploadButton>
 
     return (
         <section className="page">
@@ -121,11 +124,11 @@ function Profile() {
                             <div>
                                 {edit ? (
                                     <>
-                                    <img src={pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
                                     <PicUploadBtn setPic={setPic}/>
                                     </>
                                 ) : (
-                                    <img src={pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
                                 )}
                             </div>
                             <div>
@@ -181,6 +184,7 @@ function Profile() {
                             <User
                                 username={friend.Users[0].username} 
                                 title={friend.Users[0].current_title}
+                                img={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
                             /></a>
                         })}
                     </section>
