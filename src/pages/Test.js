@@ -7,6 +7,7 @@ export const CropGame = {
             active: {edges: [2,2,1,1]},
             tiles: helpers.checkValid(helpers.boardGen(5,5,()=>({edges:[]})),{edges:[2,2,1,1]},5),
             score: [0,0],
+            workers: [5,5]
         }
     },
     moves: {
@@ -37,6 +38,13 @@ export const CropGame = {
             // Changes the board state with the new valid locations
             const validCheck = helpers.checkValid( G.tiles , G.active , 5)
             G.tiles = validCheck
+        },
+        // Y is the Y-Axis, X is X-Axis, and W is edge (0-N,1-E,2-S,3-W)
+        placeWorker: ({ G },y,x,w) => {
+            if (G.tiles[y][x].workers === undefined) {
+                G.tiles[y][x].workers = {}
+            }
+            G.tiles[y][x].workers[w] = true;
         },
     },
     turn: {

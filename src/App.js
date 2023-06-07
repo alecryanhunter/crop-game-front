@@ -71,10 +71,10 @@ function App() {
             <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
             <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
             <Route path="/testGame" element={
-              <>
+              <section style={{display: "flex"}}>
                 <TestGame playerID="0"/>
                 <TestGame playerID="1"/>
-              </>
+              </section >
             } />
             <Route path="/*" element={<NotFound />} />
           </Routes>
