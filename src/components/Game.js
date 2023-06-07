@@ -18,7 +18,7 @@ function Game({ socket, room, username, isHost, players }) {
     const [turn, setTurn] = useState();
     const [redScore, setRedScore] = useState(0);
     const [blueScore, setBlueScore] = useState(0);
-    const [active, setActive] = useState({edges:helpers.tileGen(players)});
+    const [active, setActive] = useState({edges:helpers.tileGen(players.length)});
     const [playerRed, setPlayerRed] = useState();
     const [playerBlue, setPlayerBlue] = useState();
 
@@ -64,7 +64,7 @@ function Game({ socket, room, username, isHost, players }) {
 
         setBoard(board);
         socket.emit("update_board", board);
-        setActive({edges:helpers.tileGen(players)});
+        setActive({edges:helpers.tileGen(players.length)});
 
         socket.emit("update_scores", { updatedRedScore: redScore });
         socket.emit("update_scores", { updatedBlueScore: blueScore });
@@ -157,7 +157,7 @@ function Game({ socket, room, username, isHost, players }) {
             <Board handleTile={handleTile} board={board}/>
             <hr/>
             {/* Active Tile */}
-            { turn === playerRed && <Tile edgeArr={active.edges} handleTile={handleTile} />}
+            <Tile edgeArr={active.edges} handleTile={handleTile} />
             <h3>{turn === playerRed ? "Red" : "Blue"} Player's Turn</h3>
             <h3>Red Points: {redScore}</h3>
             <h3>Blue Points: {blueScore}</h3>
