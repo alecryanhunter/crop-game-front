@@ -1,46 +1,40 @@
 import { INVALID_MOVE } from "boardgame.io/core";
+import helpers from "../utils/helpers"
 
 export const CropGame = {
     setup: () => {
-        return { cells: Array(9).fill(null) }
+        return {
+            cells: helpers.boardGen(5,5,()=>({edges:[]})),
+            active: helpers.tileGen(2)
+        }
+    },
+    moves: {
+        generateTile: ({G}) => {
+            G.active = helpers.tileGen(2);
+        },
+        clickTile: ({ G, playerID }, y,x) =>{
+            // Checks if cell is filled. If it is, returns invalid move
+            if (G.cells[y][x].edges.length !== 0) {
+                return INVALID_MOVE
+            }
+            // Places the tile, then generates a new one
+            G.cells[y][x].edges = G.active
+            G.active = helpers.tileGen(2);
+        },
     },
     turn: {
         minMoves: 1,
         maxMoves: 1,
-    },
-    moves: {
-        clickTile: ({ G, playerID }, id) =>{
-            // Checks if cell is filled. If it is, returns invalid move
-            if (G.cells[id] !== null) {
-                return INVALID_MOVE
+        stages: {
+            begin: {
+                next: "placement"
+            },
+            placement: {
+                next: "score"
+            },
+            score: {
+                next: "begin"
             }
-            G.cells[id] = playerID
-        },
+        }
     },
-    endIf: ({ G, ctx }) => {
-        if (IsVictory(G.cells)) {
-            return { winner: ctx.currentPlayer };
-        }
-        if (IsDraw(G.cells)) {
-            return { draw: true };
-        }
-    }
 };
-
-function IsVictory(cells) {
-    const positions = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
-      [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
-    ];
-  
-    const isRowComplete = row => {
-      const symbols = row.map(i => cells[i]);
-      return symbols.every(i => i !== null && i === symbols[0]);
-    };
-  
-    return positions.map(isRowComplete).some(i => i === true);
-}
-
-function IsDraw(cells) {
-    return cells.filter(c => c === null).length === 0;
-}

@@ -21,14 +21,16 @@ import "./style.css";
 // TEST BOARDGAME.IO STUFF
 // =========================
 import { Client } from 'boardgame.io/react'
-import { SocketIO } from 'boardgame.io/multiplayer'
+// import { SocketIO } from 'boardgame.io/multiplayer'
+import { Local } from 'boardgame.io/multiplayer'
 import { CropGame } from './pages/Test'
 import { CropGameBoard } from "./pages/TestBoard";
 
 const TestGame = Client({ 
   game: CropGame,
   board: CropGameBoard,
-  multiplayer: SocketIO({ server: 'localhost:8000' }),
+  // multiplayer: SocketIO({ server: 'localhost:8000' }),
+  multiplayer: Local(),
 })
 
 // =========================
@@ -69,8 +71,7 @@ function App() {
             <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
             <Route path="/testGame" element={
               <>
-                <TestGame playerID="0"/>
-                <TestGame playerID="1"/>
+                <TestGame/>
               </>
             } />
             <Route path="/*" element={<NotFound />} />

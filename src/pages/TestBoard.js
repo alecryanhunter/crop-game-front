@@ -1,48 +1,30 @@
+import Tile from "../components/Tile"
+import "../style.css"
+
 export function CropGameBoard({ ctx, G, moves }) {
-    const onClick = (id) => moves.clickTile(id);
-
-    let winner = ""
-    if (ctx.gameover) {
-        winner =
-            ctx.gameover.winner !== undefined ? (
-                <div id="winner">Winner: {ctx.gameover.winner}</div>
-            ) : (
-                <div id="winner">Draw!</div>
-            )
-    }
-
-    const cellStyle = {
-        border: '1px solid #555',
-        width: '50px',
-        height: '50px',
-        lineHeight: '50px',
-        textAlign: 'center',
+    const onClick = (y,x) => {
+        moves.clickTile(y,x)
     };
 
-    let tbody = [];
-    for (let i =0;i<3;i++) {
-        let cells = []
-        for (let j = 0;j<3; j++) {
-            const id = 3 * i+j
-            cells.push(
-                <td key={id}>
-                    {G.cells[id] ? (
-                        <div style={cellStyle} >{G.cells[id]}</div>
-                    ) : (
-                        <button style={cellStyle} onClick={()=>{onClick(id)}}/>
-                    )}
-                </td>
-            );
-        }
-        tbody.push(<tr key={i}>{cells}</tr>)
-    }
-
     return (
-        <div>
-            <table id="board">
-                <tbody>{tbody}</tbody>
-            </table>
-            {winner}
-        </div>
+        <section className="game">
+            <section className="board">
+                {G.cells.map((row,rowIndex) => 
+                    row.map((tile,colIndex)=> (
+                        <Tile
+                        key={`${colIndex}-${rowIndex}`} 
+                        y={rowIndex} 
+                        x={colIndex} 
+                        edgeArr={tile.edges}
+                        valid={tile.valid}
+                        onClick={onClick}
+                        />
+                    ))
+                )}
+            </section>
+            <Tile 
+                edgeArr={G.active}
+            />
+        </section>
     );
 }
