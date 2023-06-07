@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import Lobby from "../components/Lobby";
-import "../styles/NewGame.css";
+import "../assets/styles/NewGame.css";
 
 export default function JoinGame({socket}) {
   const [username, setUsername] = useState("");

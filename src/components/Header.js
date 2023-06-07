@@ -1,4 +1,4 @@
-import "../styles/Header.css";
+import "../assets/styles/Header.css";
 
 function Header({loggedIn,setLoggedIn}) {
     // Disables rendering the header if on the game path
