@@ -4,9 +4,9 @@ import { slide as Menu } from 'react-burger-menu'
 import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
-import Game from "./pages/Game";
+import Game from "./components/Game";
 import Home from "./pages/Home";
-import Lobby from "./pages/Lobby";
+import Lobby from "./components/Lobby";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import Rules from "./pages/Rules";
@@ -40,10 +40,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
             <Route path="/rules" element={<Rules/>}/>
-            <Route path="/game" element={<Game socket={socket} />}/>
             <Route path="/profile/:user" element={<Profile/>}/>
             <Route path="/shop" element={<Shop/>}/>
+            {/*}
             <Route path="/lobby" element={<Lobby socket={socket}/>}/>
+            <Route path="/game" element={<Game socket={socket} />}/>
+            */}
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>

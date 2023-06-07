@@ -173,9 +173,22 @@ const API = {
         return data;
 
     },
-    confirmFriend: async (username) => {
+    confirmFriend: async (username, friendName, token, body) => {
 
-
+        const data = await fetch(`${URL_PREFIX}/api/users/${username}/friends/${friendName}`,{
+            method: "PUT",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
+        }})
+        .then((res)=>{
+            return res.json();
+        })
+        .then((json)=>{
+            return json;
+        })
+        return data;
 
     }
 }
