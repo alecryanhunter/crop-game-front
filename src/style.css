@@ -3,41 +3,33 @@
     --secondary: #B3C280;
     --tertiary: #F9E28C;
     --accent: #A4D2FF;
-    --dark: #182124 
+    --dark: #182124; 
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
     background-color: var(--primary);
 }
 
-header {
-    background-color: var(--secondary);
-    height: 5vh;
+
+.not-found {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
 }
 
+.not-found img {
+    width: 300px;
+}
+/*
 h1 {
     padding: 10px;
     color: var(--dark);
 }
 
-nav {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
 
-nav a {
-    padding: 10px;
-}
 
 .page {
     display: flex;
@@ -124,32 +116,11 @@ li {
     /* display: flex; */
 /* } */
 
-.not-found img {
-    width: 300px;
-}
 
-.profile-top {
-    display: flex;
-    align-items: center;
-}
+/*
 
-.profile-top img {
-    border-radius: 50%;
-}
 
-.profile-top div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 10px;
-}
-
-.profile-top + p {
-    margin: 10px 0;
-    font-size: 120%;
-}
-
-/* Rules indenting stuff */
+/* Rules indenting stuff */ /*
 h4 {
     padding-left: 10px;
 }
@@ -170,13 +141,13 @@ h5 +p {
     padding-left: 30px;
 }
 
-/* GAME STYLING */
+/* GAME STYLING */  /*
 * {
     box-sizing: border-box;
 }
 
 section.row {
-    /* background-color: green; */
+    /* background-color: green; */   /*
     display: flex
 }
 
@@ -212,7 +183,7 @@ section.row {
 }
 
 /* HAMBURGER MENU STYLING */
-/* Position and sizing of burger button */
+/* Position and sizing of burger button */ /*
 .bm-burger-button {
     position: fixed;
     width: 36px;
@@ -221,23 +192,23 @@ section.row {
     top: 36px;
 }
 
-/* Color/shape of burger icon bars */
+/* Color/shape of burger icon bars */ /*
 .bm-burger-bars {
 background: #373a47;
 }
 
-/* Color/shape of burger icon bars on hover*/
+/* Color/shape of burger icon bars on hover*/  /*
 .bm-burger-bars-hover {
 background: #a90000;
 }
 
-/* Position and sizing of clickable cross button */
+/* Position and sizing of clickable cross button */  /*
 .bm-cross-button {
 height: 24px;
 width: 24px;
 }
 
-/* Color/shape of close button cross */
+/* Color/shape of close button cross */  /*
 .bm-cross {
 background: #bdc3c7;
 }
@@ -245,36 +216,38 @@ background: #bdc3c7;
 /*
 Sidebar wrapper styles
 Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/
+*/  /*
 .bm-menu-wrap {
 position: fixed;
 height: 100%;
 }
 
-/* General sidebar styles */
+/* General sidebar styles */  /*
 .bm-menu {
 background: #373a47;
 padding: 2.5em 1.5em 0;
 font-size: 1.15em;
 }
 
-/* Morph shape necessary with bubble or elastic */
+/* Morph shape necessary with bubble or elastic */  /*
 .bm-morph-shape {
 fill: #373a47;
 }
 
-/* Wrapper for item list */
+/* Wrapper for item list */ /*
 .bm-item-list {
 color: #b8b7ad;
 padding: 0.8em;
 }
 
-/* Individual item */
+/* Individual item */ /*
 .bm-item {
 display: inline-block;
 }
 
-/* Styling of overlay */
+/* Styling of overlay */ /*
 .bm-overlay {
 background: rgba(0, 0, 0, 0.3);
 }
+
+*/

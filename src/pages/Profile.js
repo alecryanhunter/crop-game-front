@@ -4,6 +4,7 @@ import User from "../components/User";
 import API from "../utils/API"
 import { Uploader } from "uploader"; 
 import { UploadButton } from "react-uploader";
+import "../assets/styles/Profile.css";
 
 
 function Profile() {
@@ -124,12 +125,12 @@ function Profile() {
         </UploadButton>
 
     return (
-        <section className="page">
+        <section className="page profile">
             <h2>{username}'s Profile</h2>
-            <section className="profile">
-                    <section className="about">
-                        <section className="profile-top">
-                            <div>
+            <section className="main-profile container">
+                    <section className="about row-reverse">
+                        <section className="profile-top d-flex justify-content-center">
+                            <div className="profilePge-pic col-12 col-md-4">
                                 {edit ? (
                                     <>
                                     <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
@@ -139,7 +140,7 @@ function Profile() {
                                     <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
                                 )}
                             </div>
-                            <div>
+                            <div className="col-12 col-md-4">
                                 <h3>{username}</h3>
                                 {edit ? (
                                     <select 
@@ -178,7 +179,7 @@ function Profile() {
                         ) : (
                             <p>{bio}</p>
                         )}
-                        <ul>
+                        <ul className="row-reverse">
                             <li>{coins} Coins</li>
                             <li>Wins: {wins}</li>
                             <li>Losses: {losses}</li>

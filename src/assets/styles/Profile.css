@@ -1,0 +1,65 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124; 
+}
+
+.profile h2 {
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 1%;
+    font-size: 200%;
+}
+
+.main-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--primary);
+    border: 5px solid var(--tertiary);
+    border-radius: 15px;
+    justify-content: center;
+    padding: 2%;
+    width: 90%;
+    min-width: fit-content;
+    margin: 0 auto;
+}
+
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1%;
+}
+
+
+.profile-top img {
+    border-radius: 50%;
+}
+
+.profile-top div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 10px;
+}
+
+.profile-top + p {
+    margin: 10px 0;
+    font-size: 120%;
+}
+
+.friends {
+    background-color: var(--primary);
+    width: 100%;
+    border: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1%;
+}
