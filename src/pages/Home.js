@@ -29,7 +29,7 @@ function Home({loggedIn,setLoggedIn}) {
                 return;
             }
             // Checks if email is of valid type
-            const regex = new RegExp(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z]{2,6})$/i)
+            const regex = new RegExp(/^([a-z0-9_-]+)@([\da-z-]+)\.([a-z]{2,6})$/i)
             if (!regex.test(email)) {
                 setIsEmail(true)
                 return;
@@ -85,7 +85,7 @@ function Home({loggedIn,setLoggedIn}) {
         <section className="page home">
             <h2>Welcome!</h2>
             <div className="home-logo">
-            <img src={circleLogo} alt="picture of farm with cropposition across the type" style={{width: "auto", height: "15em"}} />
+            <img src={circleLogo} alt="farm with cropposition across the top" style={{width: "auto", height: "15em"}} />
             </div>
             <section className="home subpage">
                 {loggedIn ? (

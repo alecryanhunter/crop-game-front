@@ -79,7 +79,7 @@ function Profile() {
             setForfeits(data.forfeits);
             setFriends(data.Friendships);
         })
-    },[])
+    }, );
 
     // Input Control Function
     function handleInputChange(e) {
