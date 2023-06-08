@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu'
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
-import Game from "./components/Game";
 import Home from "./pages/Home";
-import Lobby from "./components/Lobby";
+// import Lobby from "./components/Lobby";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
 import Search from "./pages/Search"
-import JoinGame from "./pages/JoinGame";
-import HostGame from "./pages/HostGame";
+import Play from "./pages/Play";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import "./style.css";
@@ -39,7 +37,7 @@ const TestGame = Client({
 
 function App() {
 
-  const socket = io.connect("http://localhost:3001"); // Local
+  // const socket = io.connect("http://localhost:3001"); // Local
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
   const [loggedIn,setLoggedIn] = useState(false)
@@ -68,8 +66,8 @@ function App() {
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
-            <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
-            <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
+            {/* <Route path="/joinGame" element={<JoinGame socket={socket}/>}/> */}
+            <Route path="/Play" element={<Play />}/>
             <Route path="/testGame" element={
               <section style={{display: "flex"}}>
                 <TestGame playerID="0"/>

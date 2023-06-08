@@ -1,171 +1,73 @@
-import React , {useEffect, useState} from "react";
-import Board from "./Board";
-import Tile from "./Tile";
-import Chat from "./Chat";
-import helpers from "../utils/helpers";
+import { INVALID_MOVE } from "boardgame.io/core";
+import helpers from "../utils/helpers"
 
-function Game({ socket, room, username, isHost, players }) {
-
-    console.log(socket);
-    console.log("ROOM:", room);
-    console.log("USERNAME:", username);
-    console.log("HOST:", isHost);
-
-
-    const [started, setStarted] = useState(false)
-    // Each tile is an object with a key called "edges", which is an array with 4 items
-    const [board, setBoard] = useState(helpers.boardGen(5,5,()=>({edges:[]})));
-    const [turn, setTurn] = useState();
-    const [redScore, setRedScore] = useState(0);
-    const [blueScore, setBlueScore] = useState(0);
-    const [active, setActive] = useState({edges:helpers.tileGen(players.length)});
-    const [playerRed, setPlayerRed] = useState();
-    const [playerBlue, setPlayerBlue] = useState();
-
-    // Handles tile clicks
-    function handleTile(e) {
-        if(isHost) {
-            setPlayerRed(socket.id);
-        } else {
-            setPlayerBlue(socket.id);
+export const CropGame = {
+    name: "Cropposition",
+    setup: () => {
+        return {
+            active: {edges: [2,2,1,1]},
+            tiles: helpers.checkValid(helpers.boardGen(5,5,()=>({edges:[]})),{edges:[2,2,1,1]},5),
+            score: [0,0],
+            workers: [5,5]
         }
-
-        if (playerRed) {
-            setTurn(players[1]);
-            socket.emit("player_turn", { turn: players[1] });
-          } else {
-            setTurn(players[0]);
-            socket.emit("player_turn", { turn: players[0] });
-        }
-
-
-        // TODO: remove dependency on data attributes
-        // Turn an index of an array into matrix coordinates? based on board size
-        const y = e.target.dataset.y
-        const x = e.target.dataset.x
-        // Returns if tile is already filled
-        if (board[y][x].edges.length !== 0) {
-            return;
-        }
-        // Returns if tile is not valid
-        if (board[y][x].valid !== true) {
-            return;
-        }
-
-        board[y][x] = active
-
-        const pointsScored = helpers.pointCalc(board,y,x,5)
-        if (pointsScored[1] !== undefined) {
-            setRedScore(redScore + pointsScored[1]);
-            socket.emit("update_scores", redScore);
-        }
-        if (pointsScored[2] !== undefined) {
-            setBlueScore(blueScore + pointsScored[2]);
-            socket.emit("update_scores", blueScore);
-        }
-
-        setBoard(board);
-        socket.emit("update_board", board);
-        setActive({edges:helpers.tileGen(players.length)});
-
-        socket.emit("update_scores", { updatedRedScore: redScore });
-        socket.emit("update_scores", { updatedBlueScore: blueScore });
-        socket.emit("update_board", { updatedBoard: board }); 
-    }
-
-    useEffect(() => {
-        if (playerRed && playerBlue && !turn) {
-          if (isHost) {
-            setTurn(players[0]);
-            socket.emit("player_turn", { turn: players[0] });
-          } else {
-            setTurn(players[1]);
-            socket.emit("player_turn", { turn: players[1] });
-          }
-        }
-    }, [playerRed, playerBlue, turn]);
-    
-    
-    useEffect(() => {
-        // Receive events from the server
-        socket.on("update_scores", (data) => {
-          if (data && data.updatedRedScore && data.updatedBlueScore) {
-            const { updatedRedScore, updatedBlueScore } = data;
-            setRedScore(updatedRedScore);
-            setBlueScore(updatedBlueScore);
-          }
-        });
-    
-        socket.on("update_board", (data) => {
-          if (data && data.updatedBoard) {
-            const { updatedBoard } = data;
-            setBoard(updatedBoard);
-          }
-        });
-    
-        socket.on("player_turn", (data) => {
-          if (data && data.turn) {
-            const { turn } = data;
-            setTurn(turn);
-          }
-        });
-    
-        socket.on("game_over", (data) => {
-          if (data && data.winner) {
-            const { winner } = data;
-            let winnerMessage = "";
-            if (winner === "draw") {
-              winnerMessage = "Draw!";
-            } else if (winner === "red") {
-              winnerMessage = "Red Wins!";
-            } else if (winner === "blue") {
-              winnerMessage = "Blue Wins!";
+    },
+    moves: {
+        generateTile: ({ G }) => {
+            G.active = helpers.tileGen(2);
+        },
+        clickTile: ({ G, events },y,x) =>{
+            // Checks if tile is filled. If it is, returns invalid move
+            if (G.tiles[y][x].edges.length !== 0) {
+                return INVALID_MOVE
             }
-            alert(`Game Over!\n${winnerMessage}`);
-          }
-        });
-    
-        // Clean up the event listeners when the component unmounts
-        return () => {
-          socket.off("update_scores");
-          socket.off("update_board");
-          socket.off("player_turn");
-          socket.off("game_over");
-        };
-      },[]);
+            // Checks if tile is valid placemenet
+            if (G.tiles[y][x].valid === false) {
+                return INVALID_MOVE
+            }
+            // Places the tile, then generates a new one
+            G.tiles[y][x].edges = G.active.edges
+            G.active = {edges: helpers.tileGen(2)};
 
-    // The initialization of the game
-    useEffect(()=>{
-        socket.emit("game_started", { room });
+            const points = helpers.pointCalc(G.tiles,y,x,5);
+            if (points[1] !== undefined) {
+                G.score[0] = G.score[0] + points[1]
+            }
+            if (points[2] !== undefined) {
+                G.score[1] = G.score[1] + points[2]
+            }
 
-        // This creates a shallow copy of the board and places a tile in the middle
-        const boardCopy = JSON.parse(JSON.stringify(board))
-        boardCopy[2][2].edges = [1,1,2,2];
-        const boardValid = helpers.checkValid(boardCopy,active,5)
-        setBoard(boardValid);
-        setStarted(true);
-
-        return () => {
-            socket.off("game_started");
-        };
-
-    },[]);
-
-
-    return (
-        <section className="game">
-            <Board handleTile={handleTile} board={board}/>
-            <hr/>
-            {/* Active Tile */}
-            { <Tile edgeArr={active.edges} handleTile={handleTile} />}
-            <h3>{turn === playerRed ? "Red" : "Blue"} Player's Turn</h3>
-            <h3>Red Points: {redScore}</h3>
-            <h3>Blue Points: {blueScore}</h3>
-            {/* <div className="chat"> 
-                <Chat socket={socket} room={room} username={username} />
-            </div> */}
-        </section>
-    )
-}
-
-export default Game;
+            // Changes the board state with the new valid locations
+            const validCheck = helpers.checkValid( G.tiles , G.active , 5)
+            G.tiles = validCheck
+            events.endTurn();
+        },
+        // Y is the Y-Axis, X is X-Axis, and W is edge (0-N,1-E,2-S,3-W)
+        placeWorkerToggle: ({ G },y,x,w) => {
+            if (G.tiles[y][x].workersActive) {
+                G.tiles[y][x].workersActive = false
+            } else {
+                G.tiles[y][x].workersActive = true;
+            }
+        },
+        placeWorker: ({ G, playerID },y,x,w) => {
+            if (G.tiles[y][x].workers === undefined) {
+                G.tiles[y][x].workers = {}
+            }
+            G.tiles[y][x].workers[w] = {playerID: playerID}
+            // TODO: add events.endTurn() once other game aspects are complete
+        }
+    },
+    turn: {
+        stages: {
+            begin: {
+                next: "placement"
+            },
+            placement: {
+                next: "score"
+            },
+            score: {
+                next: "begin"
+            }
+        }
+    },
+};
