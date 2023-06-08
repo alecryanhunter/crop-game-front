@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Game from "./Game";
+import Game from "./ZZZ_Game";
 import User from "./User";
 import Chat from "./Chat";
 import "../assets/styles/Lobby.css";
