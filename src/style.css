@@ -180,12 +180,6 @@ section.row {
     display: flex
 }
 
-.square {
-    width: 50px;
-    height: 50px;
-    background: #373a47;
-}
-
 .worker {
     height: 25px;
     width: 25px;
@@ -196,12 +190,6 @@ section.row {
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-}
-
-.mini-tile {
-    width: 50px;
-    height: 10px;
-    border: 1px solid silver;
 }
 
 .game {
@@ -242,74 +230,58 @@ section.row {
     height: 100px;
 }
 
-.tile#worker-active {
-    border: 50px solid #373a47
+.sq {
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    position: relative;
+    display: flex;
 }
 
-/* HAMBURGER MENU STYLING */
-/* Position and sizing of burger button */
-.bm-burger-button {
-    position: fixed;
-    width: 36px;
-    height: 30px;
-    right: 36px;
-    top: 36px;
+.sq .line {
+    background: red;
+    position: absolute;
+    border-radius: 5px;
 }
 
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-background: #373a47;
+.sq > div:nth-child(1),
+.sq > div:nth-child(3) {
+    width: 33%;
+    height: 33%;
+    background: yellow;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Color/shape of burger icon bars on hover*/
-.bm-burger-bars-hover {
-background: #a90000;
+.sq > div:nth-child(1) {
+    top: 0px;
 }
 
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-height: 24px;
-width: 24px;
+.sq > div:nth-child(3) {
+    bottom: 0px;
 }
 
-/* Color/shape of close button cross */
-.bm-cross {
-background: #bdc3c7;
+.sq > div:nth-child(2),
+.sq > div:nth-child(4) {
+    width: 33%;
+    height: 33%;
+    background: yellowgreen;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-/*
-Sidebar wrapper styles
-Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/
-.bm-menu-wrap {
-position: fixed;
-height: 100%;
+.sq > div:nth-child(2) {
+    right: 0px;
 }
 
-/* General sidebar styles */
-.bm-menu {
-background: #373a47;
-padding: 2.5em 1.5em 0;
-font-size: 1.15em;
+.sq > div:nth-child(4) {
+    left: 0px;
 }
 
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-color: #b8b7ad;
-padding: 0.8em;
-}
-
-/* Individual item */
-.bm-item {
-display: inline-block;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-background: rgba(0, 0, 0, 0.3);
+.sq .line:hover {
+    background: black;
 }

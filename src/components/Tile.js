@@ -37,14 +37,17 @@ function Tile({onClick,edgeArr,valid,x,y,workers,workersActive}) {
     const style = {
         borderColor: `${colorPicker(edgeArr)}`,
         borderStyle: "solid",
-        borderWidth: "50px"
+        borderWidth: "50px",
     }
 
     return (
         <>
         {workersActive ? (
-            <div className='tile worker-active' id='worker-active'>
-
+            <div className='sq'>
+                <div className='line'/>
+                <div className='line'/>
+                <div className='line'/>
+                <div className='line'/>
             </div>
             ) : (
             <button

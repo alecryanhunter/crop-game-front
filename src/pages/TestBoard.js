@@ -77,12 +77,6 @@ export function CropGameBoard({ ctx, G, moves, events }) {
                 </section>
                 <button onClick={endTurn}>End Turn</button>
             </aside>
-            <div className='square'>
-                <div className="mini-tile" onClick={()=>console.log("top")}></div>
-                <div className="mini-tile" onClick={()=>console.log("right")}></div>
-                <div className="mini-tile" onClick={()=>console.log("bottom")}></div>
-                <div className="mini-tile" onClick={()=>console.log("left")}></div>
-            </div>
         </section>
     );
 }
