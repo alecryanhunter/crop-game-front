@@ -3,42 +3,28 @@
     --secondary: #B3C280;
     --tertiary: #F9E28C;
     --accent: #A4D2FF;
-    --dark: #182124 
+    --dark: #182124; 
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
     background-color: var(--primary);
 }
 
-header {
-    background-color: var(--secondary);
-    height: 5vh;
+
+.not-found {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
 }
 
-h1 {
-    padding: 10px;
-    color: var(--dark);
+.not-found img {
+    width: 300px;
 }
 
-nav {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-nav a {
-    padding: 10px;
-}
-
+/*
 .page {
     display: flex;
     flex-direction: column;
@@ -65,22 +51,12 @@ nav a {
     padding: 10px;
 }
 
-.home,
-.home form,
 .lobby {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.home form * {
-    margin: 5px;
-}
-
-hr {
-    width: 100%;
-    margin: 10px 0;
-}
 
 .chat {
     margin: 10px;
@@ -92,10 +68,6 @@ hr {
     background-color: var(--secondary);
 }
 
-li {
-    list-style-type: none;
-    padding-left: 10px;
-}
 
 .msg {
     font-size: 150%;
@@ -112,72 +84,14 @@ li {
     background-color: var(--accent);
     align-self: flex-start;
 }
+*/
 
-.about,
-.not-found {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-/* .app { */
-    /* display: flex; */
-/* } */
 
-.not-found img {
-    width: 300px;
-}
 
-.profile-top {
-    display: flex;
-    align-items: center;
-}
-
-.profile-top img {
-    border-radius: 50%;
-}
-
-.profile-top div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 10px;
-}
-
-.profile-top + p {
-    margin: 10px 0;
-    font-size: 120%;
-}
-
-/* Rules indenting stuff */
-h4 {
-    padding-left: 10px;
-}
-
-h5 {
-    padding-left: 20px;
-}
-
-h3 + p {
-    padding-left: 10px;
-}
-
-h4 + p {
-    padding-left: 20px;
-}
-
-h5 +p {
-    padding-left: 30px;
-}
-
-/* GAME STYLING */
+/* GAME STYLING */  
 * {
     box-sizing: border-box;
-}
-
-section.row {
-    /* background-color: green; */
-    display: flex
 }
 
 .game {

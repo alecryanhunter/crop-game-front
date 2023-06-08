@@ -1,5 +1,7 @@
 import { useState } from "react";
 import helpers from "../utils/API";
+import circleLogo from "../assets/images/circle-logo.png";
+import "../assets/styles/Home.css";
 
 function Home({loggedIn,setLoggedIn}) {
     const [signup,setSignup] = useState(false);
@@ -80,8 +82,11 @@ function Home({loggedIn,setLoggedIn}) {
     }
 
     return (
-        <section className="page">
-            <h2>Home</h2>
+        <section className="page home">
+            <h2>Welcome!</h2>
+            <div className="home-logo">
+            <img src={circleLogo} alt="picture of farm with cropposition across the type" style={{width: "auto", height: "15em"}} />
+            </div>
             <section className="home subpage">
                 {loggedIn ? (
                     <>
@@ -92,11 +97,11 @@ function Home({loggedIn,setLoggedIn}) {
                     </>
                 ) : (
                     <>
-                    <form>
+                    <form className="container-fluid d-flex justify-content-center align-items-center">
                         <input 
                             name="username"
                             type="text"
-                            placeholder="username" 
+                            placeholder="Username" 
                             value={username}
                             onChange={handleInputChange}
                         />
@@ -110,7 +115,7 @@ function Home({loggedIn,setLoggedIn}) {
                         <input 
                             name="password"
                             type="password"
-                            placeholder="password" 
+                            placeholder="Password" 
                             value={password}
                             onChange={handleInputChange}
                         />
@@ -121,7 +126,7 @@ function Home({loggedIn,setLoggedIn}) {
                             value={passwordVerify}
                             onChange={handleInputChange}
                         /> : null}
-                        <button onClick={handleSubmit}>Submit</button>
+                        <button onClick={handleSubmit} className="loginBtn">Login</button>
                     </form>
                     {samePass ? <p>
                         Passwords Must Match!
@@ -129,8 +134,8 @@ function Home({loggedIn,setLoggedIn}) {
                     {isEmail ? <p>
                         Please Enter A Proper Email Address!
                     </p> : null}
-                    <p>Forgot password?</p>
-                    <button onClick={handleSignupToggle}>{signup ? "Back to Login" : "Signup"}</button>
+                    <p className="signupNow text-center">Don't have an account? Click below to create one!</p>
+                    <button className="signupBtn" onClick={handleSignupToggle}>{signup ? "Back to Login" : "Signup"}</button>
                     </>
                 )}
             </section>
