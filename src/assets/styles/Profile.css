@@ -107,20 +107,23 @@
     list-style: none;
 }
 
-
-
 .friends {
-    background-color: transparent;
+    background-color: white;
     width: 100%;
     border: 3px solid var(--accent);
     border-radius: 8px;
     padding: 1%;
 }
 
-.friend {
+.friends h3 {
     background-color: transparent;
-    border: 3px solid var(--secondary);
-    border-radius: 8px;
-    padding: 2%;
     margin: 2%;
 }
+
+.friend {
+    background-color: white;
+    width: 50%;
+    display: inline-block;
+    text-decoration: none;
+}
+

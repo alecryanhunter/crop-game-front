@@ -194,8 +194,8 @@ function Profile() {
                             </ul>
                         </section>
                     </section>
-                    <section className="friends subpage">
-                        <h3>Friends</h3>
+                    <section className="friends subpage container">
+                        <h3 className="row">Friends</h3>
                         {friends.map(friend=>{
                             return <div className="friend">
                             <a href={friend.Users[0].username} key={friend.id} >

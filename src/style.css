@@ -13,6 +13,14 @@
     background-color: var(--primary);
 }
 
+.userbar,
+.userinfo,
+.userinfo h3,
+.userinfo p {
+    background-color: transparent;
+    text-decoration: none;
+}
+
 
 .not-found {
     display: flex;
@@ -37,18 +45,6 @@
     border: 5px solid var(--tertiary);
     padding: 1%;
     margin: 2%;
-}
-
-.userbar {
-    display: flex;
-    align-items: center;
-    border: 3px solid var(--tertiary);
-    padding: 5px;
-}
-
-.userbar img {
-    border-radius: 100%;
-    padding: 10px;
 }
 
 .lobby {
