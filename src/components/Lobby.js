@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Game from "./Game";
 import User from "./User";
 import Chat from "./Chat";
-import "../styles/Lobby.css";
+import "../assets/styles/Lobby.css";
 
 
 function Lobby({socket, room, username, host }) {

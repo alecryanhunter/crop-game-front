@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
-import API from "../utils/API"
-import User from "../components/User"
+import { useState, useEffect } from "react";
+import API from "../utils/API";
+import User from "../components/User";
+import "../assets/styles/Messages.css";
 
 function Messages() {
     const [messagesList, setMessagesList] = useState([]);
@@ -16,24 +17,30 @@ function Messages() {
         return await API.getAllDMs(curUser,token);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         messagesData()
-        .then(data => {
-            console.log(data)
-            console.log(data.pending_friendships)
-            if (data.msg === "no messages") {
+            .then((data) => {
+                console.log(data);
+                if (data.msg === "no messages") {
                 console.log("No Messages");
-            } else {
-                setMessagesList(data.confirmed_friendships);
-                setFriendRequests(data.pending_friendships)
-            }
-        })
-    },[])
+                } else {
+                if (data.confirmed_friendships) {
+                    setMessagesList(data.confirmed_friendships);
+                }
+                if (data.pending_friendships) {
+                    setFriendRequests(data.pending_friendships);
+                }
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching messages:", error);
+            });
+    }, []);
 
     return (
-        <section className="page">
+        <section className="page container">
             <section className="messages subpage">
-                <h3>Messages</h3>
+                <h2>Messages</h2>
                 <hr />
                 {messagesList.length === 0 ? <p>No Messages</p> : null}
                 {messagesList.map(item=>{
@@ -60,7 +67,7 @@ function Messages() {
                             </a>
                         } 
                 })}
-                <h3>Friend Requests</h3>
+                <h2>Friend Requests</h2>
                 <hr />
                 {friendRequests.length === 0 ? <p>No Messages</p> : null}
                 {friendRequests.map(item=>{
