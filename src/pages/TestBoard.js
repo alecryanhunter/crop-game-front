@@ -73,6 +73,7 @@ export function CropGameBoard({ ctx, G, moves, events }) {
                 <section>
                     <h3>Red Score: {G.score[0]}</h3>
                     <h3>Blue Score: {G.score[1]}</h3>
+                    <p>Mode: {mode}</p>
                     <p>Click on the tile, and then click a valid tile</p>
                 </section>
                 <button onClick={endTurn}>End Turn</button>

@@ -74,7 +74,7 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
                 name={name}
                 style={valid ? null : style}
                 onClick={name ? handleModeToggle : ()=>handleTileClick(y,x)}
-                className={valid ? "tile valid" : "tile"}
+                className={valid ? "tile valid" : (name ? "tile active" :"tile")}
                 data-y={y}
                 data-x={x}
             >
