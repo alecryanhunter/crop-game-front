@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { slide as Menu } from 'react-burger-menu'
+//import { slide as Menu } from 'react-burger-menu'
 // import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
@@ -19,7 +19,7 @@ import "./style.css";
 // TEST BOARDGAME.IO STUFF
 // =========================
 import { Client } from 'boardgame.io/react'
-import { SocketIO } from 'boardgame.io/multiplayer'
+//import { SocketIO } from 'boardgame.io/multiplayer'
 import { Local } from 'boardgame.io/multiplayer'
 import { CropGame } from './pages/Test'
 import { CropGameBoard } from "./pages/TestBoard";
