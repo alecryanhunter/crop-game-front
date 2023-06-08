@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import API from "../utils/API";
 import User from "../components/User";
 import "../assets/styles/Search.css";

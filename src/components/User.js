@@ -1,4 +1,5 @@
-import API from "../utils/API"
+import API from "../utils/API";
+import "../assets/styles/User.css"
 
 function User(props) {
 
@@ -25,7 +26,7 @@ function User(props) {
 
     return (
         <section className="userbar">
-            <img src={props.profile_pic ? props.profile_pic : "https://placekitten.com/50" } />
+            <img src={props.profile_pic ? props.profile_pic : "https://placekitten.com/50"} alt="" />
             <section className="userinfo">
                 <h3>{props.username}</h3>
                 <p>{props.title}</p>

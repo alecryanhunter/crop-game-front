@@ -35,7 +35,7 @@ function Messages() {
             .catch((error) => {
                 console.error("Error fetching messages:", error);
             });
-    }, []);
+    }, );
 
     return (
         <section className="page container">
