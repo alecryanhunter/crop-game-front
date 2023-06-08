@@ -42,10 +42,6 @@ export function CropGameBoard({ ctx, G, moves, events }) {
             <section>
                 {/* TODO: move these onClick to the more interactive moments like the tile or workers */}
                 <button
-                    name='tile'
-                    onClick={handleModeToggle}
-                >Place Tile</button>
-                <button
                     name='setup'
                     onClick={handleModeToggle}
                 >Place Worker</button>
@@ -69,13 +65,15 @@ export function CropGameBoard({ ctx, G, moves, events }) {
                 )}
             </section>
             <aside>
-                <Tile 
+                <Tile
+                    name={'tile'}
                     edgeArr={G.active.edges}
-                    onClick={()=>""}
-                />
+                    handleModeToggle={handleModeToggle}
+                    />
                 <section>
                     <h3>Red Score: {G.score[0]}</h3>
                     <h3>Blue Score: {G.score[1]}</h3>
+                    <p>Click on the tile, and then click a valid tile</p>
                 </section>
                 <button onClick={endTurn}>End Turn</button>
             </aside>

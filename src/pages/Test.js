@@ -53,6 +53,7 @@ export const CropGame = {
                 G.tiles[y][x].workers = {}
             }
             G.tiles[y][x].workers[w] = {playerID: playerID}
+            // TODO: add events.endTurn() once other game aspects are complete
         }
     },
     turn: {

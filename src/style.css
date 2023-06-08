@@ -273,3 +273,7 @@ section.row {
     background: black;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
+
+.worker {
+    border: 5px solid black;
+}

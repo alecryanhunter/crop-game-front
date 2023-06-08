@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function Tile({handleTileClick,edgeArr,valid,x,y,workers,workersActive}) {
+function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,workersActive}) {
     // const [edges,setEdges] = useState(edgeArr)
 
     // This function takes an array and returns a space sepearted list of colors
@@ -71,8 +71,9 @@ function Tile({handleTileClick,edgeArr,valid,x,y,workers,workersActive}) {
         ) : (
             // General Tile Mode
             <button
+                name={name}
                 style={valid ? null : style}
-                onClick={()=>handleTileClick(y,x)}
+                onClick={name ? handleModeToggle : ()=>handleTileClick(y,x)}
                 className={valid ? "tile valid" : "tile"}
                 data-y={y}
                 data-x={x}
