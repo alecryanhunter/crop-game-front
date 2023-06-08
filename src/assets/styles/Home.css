@@ -1,0 +1,100 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124;
+}
+
+.home h2 {
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 1%;
+    font-size: 200%;
+    text-shadow: .5px .5px 2px var(--dark);
+}
+
+.home-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home .subpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 5px solid var(--tertiary);
+    border-radius: 15px;
+    justify-content: center;
+    padding: 3%;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.home a {
+    background-color: white;
+    color: var(--accent);
+    font-size: 100%;
+    font-variant: small-caps;
+}
+
+.home a:hover {
+    color: var(--primary);
+}
+
+.home form {
+    background-color: transparent;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    margin: 1%; 
+}
+.home form input {
+    margin: 1%;
+    padding: 1%;
+    background-color: rgb(245, 240, 240);
+    color: black;
+    border: 2px solid var(--tertiary);
+    border-radius: 3px;
+}
+
+.loginBtn {
+    padding: 1%;
+    margin: 1%;
+    background-color: var(--accent);
+    font-variant: small-caps;
+    font-weight: 600;
+    color: var(--dark);
+    border-radius: 8px;
+}
+
+.loginBtn:hover {
+    background-color: var(--tertiary);
+}
+
+.signupNow {
+    background-color: transparent;
+    color: grey;
+    margin: 1%;
+}
+
+.signupBtn {
+    padding: .5%;
+    margin-bottom: 1%;
+    font-variant: small-caps;
+    font-weight: 600;
+    color: var(--dark);
+    border-radius: 8px;
+    background-color: var(--secondary);
+}
+
+.signupBtn:hover {
+    background-color: var(--accent);
+}

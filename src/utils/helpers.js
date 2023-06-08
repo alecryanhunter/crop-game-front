@@ -11,13 +11,16 @@ tileGen: (numPlayers) => {
 },
 // Generates a defined matrix. filler is an arrow function ex: '()=>null'
 boardGen: (rows, cols, filler) => {
-    return Array(rows)
+    const board = Array(rows)
         .fill()
         .map(()=>
             Array(cols)
             .fill()
             .map(filler)
         )
+    // TODO: Have initial square be fed into function
+    board[Math.floor(rows/2)][Math.floor(cols/2)].edges = [1,1,2,2]
+    return board
 },
 // Calculates points based on edge adjacency only
 // TODO: Cascade to all matching edges? like merge sort, call during a concat()?

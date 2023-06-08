@@ -1,22 +1,65 @@
-import { Link } from "react-router-dom";
+import "../assets/styles/Header.css";
 
-function Header({loggedIn}) {
+function Header({loggedIn,setLoggedIn}) {
     // Disables rendering the header if on the game path
     const pathname = window.location.pathname
     if (pathname==="/game"){
         return null;
     }
 
+    const curUser = localStorage.getItem("username");
+
+    function handleLogout() {
+        localStorage.removeItem("token");
+        setLoggedIn(false);
+        return;
+    }
+
     return (
         <header>
-            <h1><a href="/">Cropposition</a></h1>
-            {loggedIn ? (
-                <p>X</p>
-            ) : (
-            <nav>
-                <a href="/">Login</a>
-            </nav>
-            )}
+            <h1 className="cropposition-title">CROPPOSITION</h1>
+            <ul className="nav">
+                <li className="nav-item">
+                    <a
+                    href="/"
+                    className={pathname === '/home' ? 'nav-link active' : 'nav-link'}
+                    >
+                    HOME
+                    </a>
+                </li>
+                {/* <li className="nav-item">
+                    <a
+                    href="/shop"
+                    className={pathname === '/shop' ? 'nav-link active' : 'nav-link'}
+                    >
+                    SHOP
+                    </a>
+                </li> */}
+                <li className="nav-item">
+                    <a
+                    href="/messages"
+                    className={pathname === '/messages' ? 'nav-link active' : 'nav-link'}
+                    >
+                    MESSAGES
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a
+                    href={`/profile/${curUser}`}
+                    className={pathname === `/profile/${curUser}` ? 'nav-link active' : 'nav-link'}
+                    >
+                    PROFILE
+                    </a>
+                </li>
+                <li className="nav-item login">
+                {loggedIn ? (
+                    <a href="/" onClick={handleLogout} className="nav-link">LOGOUT</a>
+                ) : (
+                    <a href="/" className="nav-link">LOGIN</a>
+                    
+                )}
+                </li>
+            </ul>
         </header>
     )
 }

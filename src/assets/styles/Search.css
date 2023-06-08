@@ -1,0 +1,16 @@
+.search input {
+    justify-content: center;
+    align-items: center;
+    height: 2.5em;
+    display: flex;
+    width: 40%;
+    border: 2px solid #A4D2FF;
+    border-radius: 8px;
+    margin: 1%;
+}
+
+.search button {
+    display: flex;
+    justify-content: center;
+    
+}

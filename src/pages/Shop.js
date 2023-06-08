@@ -1,4 +1,10 @@
+import { useState } from "react";
+
 function Shop() {
+
+    const [bundles, setBundles] = useState([]);
+
+    
 
     return (
         <section className="page">
