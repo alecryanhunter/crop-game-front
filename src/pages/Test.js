@@ -49,11 +49,18 @@ export const CropGame = {
             }
         },
         placeWorker: ({ G, playerID },y,x,w) => {
+            if (G.workers[playerID]===0) {
+                return;
+            }
             if (G.tiles[y][x].workers === undefined) {
                 G.tiles[y][x].workers = {}
             }
             G.tiles[y][x].workers[w] = {playerID: playerID}
+            G.workers[playerID]--
             // TODO: add events.endTurn() once other game aspects are complete
+        },
+        scorePoints: ({ G },y,x,w) => {
+            helpers.getPoints(G.tiles,y,x,w,5)
         }
     },
     turn: {

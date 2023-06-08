@@ -9,8 +9,8 @@ export function CropGameBoard({ ctx, G, moves, events }) {
         events.endTurn();
     }
 
+    // Handles Tile Clicks Conditionally
     function handleTileClick(y,x,w) {
-        console.log(mode)
         if (G.tiles[y][x].valid===true) {
             if(mode==="tile") {
                 moves.clickTile(y,x)
@@ -20,10 +20,11 @@ export function CropGameBoard({ ctx, G, moves, events }) {
             if(mode==="setup") {
                 moves.placeWorkerToggle(y,x,w)
                 setMode("worker");
-            } else if (mode==="worker") {
-                console.log("place worker",w);
-                moves.placeWorker(y,x,w);
-                moves.placeWorkerToggle(y,x,w);
+            } else if (mode==="worker" && G.tiles[y][x].workersActive) {
+                moves.scorePoints(y,x,w)
+                // moves.placeWorker(y,x,w);
+                // moves.placeWorkerToggle(y,x,w);
+                setMode("");
             }
         }
     };

@@ -84,6 +84,48 @@ pointCalc: (board,y,x,sideNum) => {
     }
     return points
 },
+// Propagating function for calculating points
+// w is the specific edge the propagation should start from
+// done is an array of the tiles already calculated. should not be fed on initial function call
+getPoints: (board,y,x,w,sideNum,done) => {
+    const top = Number(y)-1;
+    const right = Number(x)+1;
+    const bottom = Number(y)+1;
+    const left = Number(x)-1;
+    const edges = board[y][x].edges;
+    const startEdge = board[y][x].edges[w]
+    const points = {}
+    // Check interior edges to see which exterior edges to match
+    function prev(index) {
+        return (index === 0 ? 3 : index - 1);
+    }
+    function next(index) {
+        return (index === 3 ? 0 : index + 1);
+    }
+    function opp(index) {
+        return (index === 1 ? 3 : index === 0 ? 2 : index - 2);
+    }
+    console.log(edges[prev(w)])
+    console.log(startEdge)
+    console.log(edges[next(w)])
+    if (startEdge === edges[prev(w)]) {
+        // Do stuff here
+        console.log("Matches counter-clockwise");
+    }
+    if (startEdge === edges[next(w)]) {
+        // Do stuff here
+        console.log("Matches clockwise");
+    }
+    if ((startEdge === edges[prev(w)] || startEdge === edges[next(w)]) && startEdge === edges[opp(w)]){
+        // Do stuff here
+        console.log("Matches opposite");
+    }
+
+        // TODO: call prev() once and next() once. IF either prev() OR next() matches, call opp()
+
+    // Check exterior edges to see if match, scoring points in process
+    // Propagate (restart from edge matching exterior edge)
+},
 checkValid: (board,active,sideNum)=>{
     const boardCopy = JSON.parse(JSON.stringify(board))
     for (let y = 0;y<boardCopy.length;y++){
