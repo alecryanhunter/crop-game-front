@@ -13,7 +13,7 @@ const server = Server({
 
 
 // Build path relative to the server.js file
-const frontEndAppBuildPath = path.resolve(__dirname, './build');
+const frontEndAppBuildPath = path.resolve(__dirname, 'build');
 server.app.use(serve(frontEndAppBuildPath))
 
 server.run(GAME_PORT, () => {
