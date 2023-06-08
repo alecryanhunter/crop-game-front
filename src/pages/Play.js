@@ -20,7 +20,7 @@ const CropClient = Client({
 })
 
 
-export default function HostGame({socket}) {
+export default function Play() {
     // const [username, setUsername] = useState("");
     // const [room, setRoom] = useState("");
     // const [showChat, setShowChat] = useState(false);
