@@ -29,6 +29,7 @@ export function CropGameBoard({ ctx, G, moves, events }) {
         }
     };
 
+    // TODO: fix mode toggling not on your turn
     function handleModeToggle(e) {
         e.preventDefault();
         if (mode==="worker") {

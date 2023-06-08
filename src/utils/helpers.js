@@ -87,27 +87,37 @@ pointCalc: (board,y,x,sideNum) => {
 // Propagating function for calculating points
 // w is the index of the edge it should start from
 // done is an array of the tiles already calculated. should not be fed on initial function call
-getPoints: (board,y,x,w,sideNum,done) => {
+// TODO: use queue layout
+getPoints: (board,y,x,w,sideNum,done,impPoints) => {
+    console.log("==============================")
     const top = Number(y)-1;
     const right = Number(x)+1;
     const bottom = Number(y)+1;
     const left = Number(x)-1;
     const edges = board[y][x].edges;
     const startEdge = board[y][x].edges[w]
-    const points = {}
+    let points = 0
+    if (impPoints!==undefined){
+        points += impPoints
+    }
+    console.log(points);
+    let northSelect
+    let eastSelect
+    let southSelect
+    let westSelect
     function edgeToggle(index) {
         switch(index) {
             case 0:
-                console.log("north");
+                northSelect = true;
                 break;
             case 1:
-                console.log("east");
+                eastSelect = true;
                 break;
             case 2:
-                console.log("south");
+                southSelect = true;
                 break;
             case 3:
-                console.log("west");
+                westSelect = true;
                 break;
             default:
                 console.log("invalid edge length");
@@ -119,27 +129,71 @@ getPoints: (board,y,x,w,sideNum,done) => {
     const next = (index) => (index === 3 ? 0 : index + 1);
     const opp = (index) => (index === 1 ? 3 : index === 0 ? 2 : index - 2);
 
+    
+    const newDoneArr=[]
+    const newDone = `${y}-${x}`
+    newDoneArr.push(newDone)
+    console.log("imported done",done)
+    console.log("new done",newDoneArr)
+    const combDoneArr = (done!==undefined ? newDoneArr.concat(done) : newDoneArr);
+    console.log("combined",combDoneArr)
+
     edgeToggle(w)
     if (startEdge === edges[prev(w)]) {
         // Do stuff here
         edgeToggle(prev(w));
-        console.log("Matches counter-clockwise");
+        // console.log("Matches counter-clockwise");
     }
     if (startEdge === edges[next(w)]) {
         // Do stuff here
         edgeToggle(next(w));
-        console.log("Matches clockwise");
+        // console.log("Matches clockwise");
     }
     if ((startEdge === edges[prev(w)] || startEdge === edges[next(w)]) && startEdge === edges[opp(w)]){
         // Do stuff here
         edgeToggle(opp(w));
-        console.log("Matches opposite");
+        // console.log("Matches opposite");
     }
 
+    const topDone = combDoneArr.indexOf(`${top}-${x}`);
+    // Detects Top Edge
+    if (top >= 0 && northSelect && topDone === -1) {
+        if (edges[0] === board[top][x].edges[2]){
+            points += 1
+            const newPoints = helpers.getPoints(board,top,x,2,5,combDoneArr, points)
+            points += newPoints
+        }
+    }
+    const rightDone = combDoneArr.indexOf(`${y}-${right}`)
+    // Detects Right Edge
+    if (right !== sideNum && eastSelect && rightDone === -1) {
+        if (edges[1] === board[y][right].edges[3]){
+            points += 1
+            const newPoints = helpers.getPoints(board,y,right,3,5,combDoneArr, points)
+            points += newPoints
+        }
+    }
+    const bottomDone = combDoneArr.indexOf(`${bottom}-${x}`);
+    // Detects Bottom Edge
+    if (bottom !== sideNum && southSelect && bottomDone === -1) {
+        if (edges[2] === board[bottom][x].edges[0]){
+            points += 1
+            const newPoints = helpers.getPoints(board,bottom,x,0,5,combDoneArr, points)
+            points += newPoints
+        }
+    }
+    const leftDone = combDoneArr.indexOf(`${y}-${left}`);
+    // Detects Left Edge
+    if (left >= 0 && westSelect && leftDone === -1) {
+        if (edges[3] === board[y][left].edges[1]){
+            points += 1
+            const newPoints = helpers.getPoints(board,y,left,1,5,combDoneArr, points)
+            points += newPoints
+        }
+    }
 
-    // Check exterior edges to see if match, scoring points in process
-
-    // Propagate (restart from edge matching exterior edge)
+    console.log(y,x,w,points);
+    return points;
 },
 checkValid: (board,active,sideNum)=>{
     const boardCopy = JSON.parse(JSON.stringify(board))
