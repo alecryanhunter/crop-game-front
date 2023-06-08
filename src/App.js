@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu'
-// import io from "socket.io-client";
+import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
 import Home from "./pages/Home";
@@ -28,7 +28,7 @@ const TestGame = Client({
   game: CropGame,
   numPlayers: 2,
   board: CropGameBoard,
-  // multiplayer: SocketIO({ server: 'localhost:8000' }),
+  multiplayer: SocketIO({ server: 'localhost:8000' }),
   multiplayer: Local(),
 })
 

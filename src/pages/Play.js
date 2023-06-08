@@ -1,7 +1,7 @@
 
-import React, { useEffect, useState } from "react";
+import React, {/*{ useEffect, useState } */} from "react";
 // import Lobby from "../components/Lobby";
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 import "../assets/styles/NewGame.css";
 
 import { Client } from 'boardgame.io/react'
@@ -11,12 +11,14 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import { Lobby } from "boardgame.io/react";
 import { GAME_SERVER } from "../config"
 
+
 const CropClient = Client({ 
   game: CropGame,
   // numPlayers: 2,
   board: CropGameBoard,
   multiplayer: SocketIO({ GAME_SERVER }),
 })
+
 
 export default function HostGame({socket}) {
     // const [username, setUsername] = useState("");

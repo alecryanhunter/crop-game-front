@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import API from "../utils/API"
+import API from "../utils/API";
+import "../assets/styles/Messages.css";
 
 function DirectMessage() {
     const [messageHistory, setMessageHistory] = useState([]);
@@ -60,11 +61,13 @@ function DirectMessage() {
     },[])
 
     return (
-        <section className="page">
-            <h2>{friend}'s Message History</h2>
-            <section className="direct subpage">
-                <a href="/messages">Back to All Messages</a>
-                <section className="chat">
+        <section className="messages">
+            <div className="dm-top w-100">
+                <a className="justify-content-start" href="/messages">Back</a>
+                <h2>{friend}</h2>
+            </div>
+            <section className="chat">
+                <section className="msg-container w-100">
                     {messageHistory.map(message=>{
                         return (
                         <p 
@@ -74,7 +77,7 @@ function DirectMessage() {
                         </p>
                     )})}
                 </section>
-                <form>
+                <form className="send-msg">
                     <input
                         name="message"
                         placeholder="Write your message"
