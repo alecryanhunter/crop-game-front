@@ -58,7 +58,6 @@ function App() {
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
-            <Route path="/shop" element={<Shop/>}/>
             {/*}
             <Route path="/lobby" element={<Lobby socket={socket}/>}/>
             <Route path="/game" element={<Game socket={socket} />}/>
@@ -67,7 +66,8 @@ function App() {
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
             {/* <Route path="/joinGame" element={<JoinGame socket={socket}/>}/> */}
-            <Route path="/Play" element={<Play />}/>
+            <Route path="/play" element={<Play />}/>
+            <Route path="/shop" element={<Shop />}/>
             <Route path="/testGame" element={
               <section style={{display: "flex"}}>
                 <TestGame playerID="0"/>

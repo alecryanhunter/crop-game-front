@@ -91,6 +91,7 @@ function Home({loggedIn,setLoggedIn}) {
                 {loggedIn ? (
                     <>
                     <h3><a href="/play">Play</a></h3>
+                    <h3><a href="/shop">Shop</a></h3>
                     {/* <h3><a href="/joinGame">Join Game</a></h3> */}
                     <h3><a href="/search">Search For A User</a></h3>
                     <h3><a href="/rules">View Rules</a></h3>
