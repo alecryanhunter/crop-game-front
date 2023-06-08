@@ -127,10 +127,10 @@ function Profile() {
     return (
         <section className="page profile">
             <h2>{username}'s Profile</h2>
-            <section className="main-profile container">
-                    <section className="about row-reverse">
+            <section className="main-profile container flex-wrap">
+                    <section className="about row">
                         <section className="profile-top d-flex justify-content-center">
-                            <div className="profilePge-pic col-12 col-md-4">
+                            <div className="profilePge-pic col col-md-4">
                                 {edit ? (
                                     <>
                                     <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
@@ -140,8 +140,9 @@ function Profile() {
                                     <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
                                 )}
                             </div>
-                            <div className="col-12 col-md-4">
+                            <div className="col col-md-4 d-flex align-self-center">
                                 <h3>{username}</h3>
+                                <div className="title">
                                 {edit ? (
                                     <select 
                                         name="title" 
@@ -158,7 +159,9 @@ function Profile() {
                                 ) : (
                                     <p>{title}</p>
                                 )}
+                                </div>
                             </div>
+                            <div className="col col-md-4">
                             {(curUser===user) ? (
                                 <button
                                     onClick={handleEdit}
@@ -169,33 +172,41 @@ function Profile() {
                                     onClick={handleAddFriend}
                                 >Add Friend</button>
                             )}
+                            </div>
                         </section>
-                        {edit ? (
-                            <input
-                                name="bio"
-                                value={bio}
-                                onChange={handleInputChange}
-                            />
-                        ) : (
-                            <p>{bio}</p>
-                        )}
-                        <ul className="row-reverse">
-                            <li>{coins} Coins</li>
-                            <li>Wins: {wins}</li>
-                            <li>Losses: {losses}</li>
-                            <li>Forfeits: {forfeits}</li>
-                        </ul>
+                        <section className="profile-bio row w-75">
+                            {edit ? (
+                                <input
+                                    name="bio"
+                                    value={bio}
+                                    onChange={handleInputChange}
+                                />
+                            ) : (
+                                <p>{bio}</p>
+                            )}
+                        </section>
+                        <section className="stats">
+                            <ul>
+                                <li>{coins} <b>Coins</b></li>
+                                <li><b>Wins:</b> {wins}</li>
+                                <li><b>Losses:</b> {losses}</li>
+                                <li><b>Forfeits:</b> {forfeits}</li>
+                            </ul>
+                        </section>
                     </section>
                     <section className="friends subpage">
                         <h3>Friends</h3>
                         {friends.map(friend=>{
-                            return <a href={friend.Users[0].username} key={friend.id} >
+                            return <div className="friend">
+                            <a href={friend.Users[0].username} key={friend.id} >
                             <User
                                 username={friend.Users[0].username} 
                                 title={friend.Users[0].current_title}
                                 img={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
                             /></a>
+                            </div>
                         })}
+    
                     </section>
             </section>
         </section>

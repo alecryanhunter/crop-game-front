@@ -15,6 +15,7 @@
     font-weight: 600;
     margin: 1%;
     font-size: 200%;
+    text-shadow: -1px 0 white;
 }
 
 .main-profile {
@@ -29,6 +30,7 @@
     width: 90%;
     min-width: fit-content;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .about {
@@ -37,29 +39,88 @@
     align-items: center;
     width: 100%;
     padding: 1%;
+    margin: 1%;
 }
 
+.profile-top div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .profile-top img {
     border-radius: 50%;
+    width: 100%;
+    height: auto;
+    margin: 5%;
 }
 
-.profile-top div {
+.profile h3 {
+    font-variant: small-caps;
+    font-weight: 700;
+    font-size: 200%;
+    color: var(--dark);
+}
+
+.title {
+    font-variant: small-caps;
+    font-weight: 600;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
-.profile-top + p {
-    margin: 10px 0;
-    font-size: 120%;
+.profile button {
+    padding: 4%;
+    border: 3px solid white;
+    border-radius: 10px;
+    background-color: var(--accent);
+    font-weight: 500;
 }
+
+.profile button:hover {
+    background-color: var(--tertiary);
+}
+
+.profile-bio {
+    background-color: white;
+    border: 3px solid var(--secondary);
+    border-radius: 8px;
+    height: 4vh;
+    margin: 2%;
+}
+
+.profile-bio p,
+.profile-bio input {
+    background-color: transparent;
+    color: var(--dark);
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats ul {
+    display: block;
+    list-style: none;
+}
+
+
 
 .friends {
-    background-color: var(--primary);
+    background-color: transparent;
     width: 100%;
     border: 3px solid var(--accent);
     border-radius: 8px;
     padding: 1%;
+}
+
+.friend {
+    background-color: transparent;
+    border: 3px solid var(--secondary);
+    border-radius: 8px;
+    padding: 2%;
+    margin: 2%;
 }
