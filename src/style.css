@@ -198,6 +198,12 @@ section.row {
     border-radius: 5px;
 }
 
+.mini-tile {
+    width: 50px;
+    height: 10px;
+    border: 1px solid silver;
+}
+
 .game {
     display: inline-block;
 }
@@ -234,6 +240,10 @@ section.row {
     border: 5px dashed grey;
     width: 100px;
     height: 100px;
+}
+
+.tile#worker-active {
+    border: 50px solid #373a47
 }
 
 /* HAMBURGER MENU STYLING */

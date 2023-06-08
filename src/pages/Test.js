@@ -14,7 +14,7 @@ export const CropGame = {
         generateTile: ({ G }) => {
             G.active = helpers.tileGen(2);
         },
-        clickTile: ({ G },y,x) =>{
+        clickTile: ({ G, events },y,x) =>{
             // Checks if tile is filled. If it is, returns invalid move
             if (G.tiles[y][x].edges.length !== 0) {
                 return INVALID_MOVE
@@ -38,18 +38,17 @@ export const CropGame = {
             // Changes the board state with the new valid locations
             const validCheck = helpers.checkValid( G.tiles , G.active , 5)
             G.tiles = validCheck
+            events.endTurn();
         },
         // Y is the Y-Axis, X is X-Axis, and W is edge (0-N,1-E,2-S,3-W)
-        placeWorker: ({ G },y,x,w) => {
+        placeWorkerSetup: ({ G },y,x,w) => {
             if (G.tiles[y][x].workers === undefined) {
-                G.tiles[y][x].workers = {}
+                // G.tiles[y][x].workers = {}
             }
-            G.tiles[y][x].workers[w] = true;
+            G.tiles[y][x].workersActive = true;
         },
     },
     turn: {
-        minMoves: 1,
-        maxMoves: 1,
         stages: {
             begin: {
                 next: "placement"

@@ -2,22 +2,35 @@ import { useState } from 'react'
 import Tile from "../components/Tile"
 import "../style.css"
 
-export function CropGameBoard({ ctx, G, moves }) {
+export function CropGameBoard({ ctx, G, moves, events }) {
     const [mode, setMode] = useState("");
 
-    const onClick = (y,x) => {
-        if(mode==="tile") {
-            moves.clickTile(y,x)
-            setMode("")
-        }
-        if(mode==="worker") {
-            moves.placeWorker(y,x,0)
-            setMode("");
+    function endTurn() {
+        events.endTurn();
+    }
+
+    function onTileClick(y,x) {
+        console.log(mode)
+        if (G.tiles[y][x].valid===true) {
+            if(mode==="tile") {
+                moves.clickTile(y,x)
+                setMode("")
+            }
+        } else if (G.tiles[y][x].edges.length!==0) {
+            if(mode==="setup") {
+                moves.placeWorkerSetup(y,x,0)
+                setMode("worker");
+            } else if (mode==="worker") {
+                console.log("place worker");
+            }
         }
     };
 
     function handleModeToggle(e) {
         e.preventDefault();
+        if (mode==="worker") {
+            return;
+        }
         const { name } = e.target
         setMode(name);
     }
@@ -25,12 +38,13 @@ export function CropGameBoard({ ctx, G, moves }) {
     return (
         <section className="game">
             <section>
+                {/* TODO: move these onClick to the more interactive moments like the tile or workers */}
                 <button
                     name='tile'
                     onClick={handleModeToggle}
                 >Place Tile</button>
                 <button
-                    name='worker'
+                    name='setup'
                     onClick={handleModeToggle}
                 >Place Worker</button>
                 <h4>Red Workers: {G.workers[0]}</h4>
@@ -45,8 +59,9 @@ export function CropGameBoard({ ctx, G, moves }) {
                         x={colIndex} 
                         edgeArr={tile.edges}
                         valid={tile.valid}
-                        onClick={onClick}
+                        onClick={onTileClick}
                         workers={tile.workers}
+                        workersActive={tile.workersActive}
                         />
                     ))
                 )}
@@ -54,17 +69,19 @@ export function CropGameBoard({ ctx, G, moves }) {
             <aside>
                 <Tile 
                     edgeArr={G.active.edges}
+                    onClick={()=>""}
                 />
                 <section>
                     <h3>Red Score: {G.score[0]}</h3>
                     <h3>Blue Score: {G.score[1]}</h3>
                 </section>
+                <button onClick={endTurn}>End Turn</button>
             </aside>
             <div className='square'>
-                <div onClick={()=>console.log("top")}></div>
-                <div onClick={()=>console.log("right")}></div>
-                <div onClick={()=>console.log("bottom")}></div>
-                <div onClick={()=>console.log("left")}></div>
+                <div className="mini-tile" onClick={()=>console.log("top")}></div>
+                <div className="mini-tile" onClick={()=>console.log("right")}></div>
+                <div className="mini-tile" onClick={()=>console.log("bottom")}></div>
+                <div className="mini-tile" onClick={()=>console.log("left")}></div>
             </div>
         </section>
     );
