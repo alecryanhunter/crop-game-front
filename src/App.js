@@ -18,6 +18,25 @@ import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import "./style.css";
 
+// TEST BOARDGAME.IO STUFF
+// =========================
+import { Client } from 'boardgame.io/react'
+import { SocketIO } from 'boardgame.io/multiplayer'
+import { Local } from 'boardgame.io/multiplayer'
+import { CropGame } from './pages/Test'
+import { CropGameBoard } from "./pages/TestBoard";
+
+const TestGame = Client({ 
+  game: CropGame,
+  numPlayers: 2,
+  board: CropGameBoard,
+  // multiplayer: SocketIO({ server: 'localhost:8000' }),
+  multiplayer: Local(),
+})
+
+// =========================
+// END TEST BOARDGAME.IO STUFF
+
 function App() {
 
   const socket = io.connect("http://localhost:3001"); // Local
@@ -51,6 +70,12 @@ function App() {
             <Route path="/search" element={<Search/>}/>
             <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
             <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
+            <Route path="/testGame" element={
+              <section style={{display: "flex"}}>
+                <TestGame playerID="0"/>
+                <TestGame playerID="1"/>
+              </section >
+            } />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>

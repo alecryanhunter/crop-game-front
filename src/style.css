@@ -98,6 +98,10 @@
     display: inline-block;
 }
 
+.game aside{
+    display: flex;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -109,6 +113,10 @@
     background-color: grey;
     margin: 5px;
     border: 50px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .start {
@@ -118,77 +126,78 @@
     border-left: 50px solid navy;
 }
 
-.valid{
+.valid {
     background-color: white;
     border: 5px dashed grey;
     width: 100px;
     height: 100px;
 }
 
-/* HAMBURGER MENU STYLING */
-/* Position and sizing of burger button */ 
-.bm-burger-button {
-    position: fixed;
-    width: 36px;
-    height: 30px;
-    right: 36px;
-    top: 36px;
+.active {
+    cursor: grab;
 }
 
-/* Color/shape of burger icon bars */ 
-.bm-burger-bars {
-background: #373a47;
+.active:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Color/shape of burger icon bars on hover*/  
-.bm-burger-bars-hover {
-background: #a90000;
+.sq {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    flex-shrink: 0;
 }
 
-/* Position and sizing of clickable cross button */  
-.bm-cross-button {
-height: 24px;
-width: 24px;
+.sq .line {
+    position: absolute;
+    border-radius: 5px;
 }
 
-/* Color/shape of close button cross */  
-.bm-cross {
-background: #bdc3c7;
+.sq > div.north,
+.sq > div.south {
+    width: 33px;
+    height: 33px;
+    background: yellow;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/*
-Sidebar wrapper styles
-Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/  
-.bm-menu-wrap {
-position: fixed;
-height: 100%;
+.sq > div.north {
+    top: 0px;
 }
 
-/* General sidebar styles */  
-.bm-menu {
-background: #373a47;
-padding: 2.5em 1.5em 0;
-font-size: 1.15em;
+.sq > div.south {
+    bottom: 0px;
 }
 
-/* Morph shape necessary with bubble or elastic */  
-.bm-morph-shape {
-fill: #373a47;
+.sq > div.east,
+.sq > div.west {
+    width: 33px;
+    height: 33px;
+    background: yellowgreen;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-/* Wrapper for item list */ 
-.bm-item-list {
-color: #b8b7ad;
-padding: 0.8em;
+.sq > div.east {
+    right: 0px;
 }
 
-/* Individual item */ 
-.bm-item {
-display: inline-block;
+.sq > div.west {
+    left: 0px;
 }
 
-/* Styling of overlay */ 
-.bm-overlay {
-background: rgba(0, 0, 0, 0.3);
+.sq .line:hover:not(.worker) {
+    background: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.line.worker {
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 100%;
+    margin: 3px;
 }
