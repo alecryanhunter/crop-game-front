@@ -15,6 +15,7 @@
     font-weight: 600;
     margin: 1%;
     font-size: 200%;
+    text-shadow: .5px .5px 2px var(--dark);
 }
 
 .home-logo {
