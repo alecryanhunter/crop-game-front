@@ -6,8 +6,24 @@
     --dark: #182124; 
 }
 
+.messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 5px solid var(--tertiary);
+    border-radius: 15px;
+    justify-content: center;
+    padding: 2%;
+    margin: 2%;
+}
+
+.dm-top a {
+    display: flex;
+}
+
 .messages h2 {
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     display: flex;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -16,4 +32,80 @@
     margin: 1%;
     font-size: 200%;
     text-shadow: .5px .5px 2px var(--dark);
+}
+
+.chat {
+    border: 3px solid var(--dark);
+    border-radius: 10px;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.msg-container {
+    width: fit-content;
+    font-size: 100%;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: 2%;
+    overflow-wrap: normal;
+    word-break: normal;
+    display: flex;
+    flex-direction: column;
+}
+
+.msg-container p{
+    padding: .8rem;
+}
+
+.sent {
+    display: flex;
+    align-self: flex-end;
+    background-color: var(--accent);
+    color: white;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.received {
+    display: flex;
+    align-self: flex-start;
+    background-color: white;
+    border: 2px solid var(--dark);
+    border-radius: 10px;
+    color: var(--dark);
+    width: fit-content;
+}
+
+.send-msg {
+    margin: 2%;
+    display: flex;
+}
+
+.send-msg input {
+    margin: 1%;
+    height: fit-content;
+    min-height: 2rem;
+    border-radius: 8px;
+    width: 30rem;
+}
+
+.send-msg button {
+    padding: 1%;
+    border: 2px solid var(--dark);
+    border-radius: 10px;
+    font-weight: 500;
+    background-color: var(--accent);
+    color: black;
+}
+
+.send-msg button:hover {
+    background-color: var(--dark);
+    border: 2px solid var(--accent);
+    color: white;
 }
