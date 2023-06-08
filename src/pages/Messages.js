@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
-import API from "../utils/API"
-import User from "../components/User"
+import { useState, useEffect } from "react";
+import API from "../utils/API";
+import User from "../components/User";
+import "../assets/styles/Messages.css";
 
 function Messages() {
     const [messagesList, setMessagesList] = useState([]);
@@ -16,19 +17,25 @@ function Messages() {
         return await API.getAllDMs(curUser,token);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         messagesData()
-        .then(data => {
-            console.log(data)
-            console.log(data.pending_friendships)
-            if (data.msg === "no messages") {
+            .then((data) => {
+                console.log(data);
+                if (data.msg === "no messages") {
                 console.log("No Messages");
-            } else {
-                setMessagesList(data.confirmed_friendships);
-                setFriendRequests(data.pending_friendships)
-            }
-        })
-    },[])
+                } else {
+                if (data.confirmed_friendships) {
+                    setMessagesList(data.confirmed_friendships);
+                }
+                if (data.pending_friendships) {
+                    setFriendRequests(data.pending_friendships);
+                }
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching messages:", error);
+            });
+    }, []);
 
     return (
         <section className="page">
