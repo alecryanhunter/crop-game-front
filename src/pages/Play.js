@@ -9,7 +9,7 @@ import { CropGame } from "../components/Game";
 import { CropGameBoard } from "../components/Board";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Lobby } from "boardgame.io/react";
-import { GAME_SERVER } from "../config"
+import { GAME_SERVER, GAME_SERVER_PORT } from "../config"
 
 const CropClient = Client({ 
   game: CropGame,
@@ -43,8 +43,8 @@ export default function HostGame({socket}) {
     return (
         <div className="gameChat d-flex justify-content-center align-items-center">
           <Lobby
-            gameServer={GAME_SERVER}
-            lobbyServer={GAME_SERVER}
+            gameServer={GAME_SERVER_PORT}
+            lobbyServer={GAME_SERVER_PORT}
             gameComponents={[{ game: CropGame, board: CropGameBoard }]}
           />
           {/* {!showChat ? (
