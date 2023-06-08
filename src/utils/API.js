@@ -1,12 +1,11 @@
 // For writing and exporting our fetch requests
 
-const URL_PREFIX = "http://localhost:5678" // Local
-// const URL_PREFIX = "https://cropposition.herokuapp.com" //Deployed
+import { BACKEND_URL } from "../config"
 
 const API = {
     getProfile: async (username) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users/${username}`,{
+        const data = await fetch(`${BACKEND_URL}/api/users/${username}`,{
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -22,7 +21,7 @@ const API = {
     },
     putProfile: async (json, username, token) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users/${username}`,{
+        const data = await fetch(`${BACKEND_URL}/api/users/${username}`,{
             method: "PUT",
             body: JSON.stringify(json),
             headers: {
@@ -40,7 +39,7 @@ const API = {
     },
     getAllDMs: async (username,token) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/dms/${username}`,{
+        const data = await fetch(`${BACKEND_URL}/api/dms/${username}`,{
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -64,7 +63,7 @@ const API = {
     },
     getDMs: async (username, friendName,token) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/dms/${username}/${friendName}`,{
+        const data = await fetch(`${BACKEND_URL}/api/dms/${username}/${friendName}`,{
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -88,7 +87,7 @@ const API = {
     // Feed a non-stringified json object, senderId, and receiverId
     postDM: async (json, sender, receiver, token) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/dms/${sender}/${receiver}`,{
+        const data = await fetch(`${BACKEND_URL}/api/dms/${sender}/${receiver}`,{
             method: "POST",
             body: JSON.stringify(json),
             headers: {
@@ -106,7 +105,7 @@ const API = {
     },
     postUser: async (json) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users`,{
+        const data = await fetch(`${BACKEND_URL}/api/users`,{
             method: "POST",
             body: JSON.stringify(json),
             headers: {
@@ -124,7 +123,7 @@ const API = {
     // JSON object needs username and password
     postLogin: async (json) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users/login`,{
+        const data = await fetch(`${BACKEND_URL}/api/users/login`,{
             method: "POST",
             body: JSON.stringify(json),
             headers: {
@@ -141,7 +140,7 @@ const API = {
     },
     search: async (username) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users/search/${username}`,{
+        const data = await fetch(`${BACKEND_URL}/api/users/search/${username}`,{
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -158,7 +157,7 @@ const API = {
     // Adds a friend, and sends a default DM as well
     addFriend: async (username, friendName, token) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users/${username}/friends/${friendName}`,{
+        const data = await fetch(`${BACKEND_URL}/api/users/${username}/friends/${friendName}`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -175,7 +174,7 @@ const API = {
     },
     confirmFriend: async (username, friendName, token, body) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/users/${username}/friends/${friendName}`,{
+        const data = await fetch(`${BACKEND_URL}/api/users/${username}/friends/${friendName}`,{
             method: "PUT",
             body: JSON.stringify(body),
             headers: {
@@ -193,7 +192,7 @@ const API = {
     },
     getShop: async (token) => {
 
-        const data = await fetch(`${URL_PREFIX}/api/shop/`,{
+        const data = await fetch(`${BACKEND_URL}/api/shop/`,{
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
