@@ -28,25 +28,28 @@ function Search() {
     }
 
     return (
-        <section className="page container d-flex align-items-center justify-content-center">
-            <section className="search subpage">
-                <form>
-                    <input 
-                        name="searchField"
-                        type="text"
-                        value={searchField}
-                        onChange={handleInputChange}
-                        placeholder="search for someone by username!"
-                    />
-                    <button
-                        onClick={handleSubmit}
-                    >Submit</button>
-                </form>
-                {searchData.map(user=>{
-                    // TODO: Add friend status to this, as well
-                    return <a href={`/profile/${user.username}`} key={user.id}><User pic={user.profile_pic} username={user.username} title={user.current_title}/></a>
-                })}
-            </section>
+        <section className="search container d-flex justify-content-center align-items-center">
+            <h2>Search Users</h2>
+            <form className="w-75 d-flex">
+                <input 
+                    name="searchField"
+                    type="text"
+                    value={searchField}
+                    onChange={handleInputChange}
+                    placeholder="username"
+                />
+                <button
+                    onClick={handleSubmit}
+                >Search</button>
+            </form>
+            {searchData.map(user=>{
+                // TODO: Add friend status to this, as well
+                return <div className="results"> 
+                    <a href={`/profile/${user.username}`} key={user.id}>
+                        <User pic={user.profile_pic} username={user.username} title={user.current_title}/>
+                    </a>
+                </div>
+            })}
         </section>
     )
 }
