@@ -12,7 +12,7 @@ import Profile from "./pages/Profile";
 import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
 import Search from "./pages/Search"
-import JoinGame from "./pages/JoinGame";
+// import JoinGame from "./pages/JoinGame";
 import HostGame from "./pages/HostGame";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
@@ -68,7 +68,7 @@ function App() {
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
-            <Route path="/joinGame" element={<JoinGame socket={socket}/>}/>
+            {/* <Route path="/joinGame" element={<JoinGame socket={socket}/>}/> */}
             <Route path="/hostGame" element={<HostGame socket={socket}/>}/>
             <Route path="/testGame" element={
               <section style={{display: "flex"}}>
