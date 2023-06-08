@@ -85,7 +85,7 @@ pointCalc: (board,y,x,sideNum) => {
     return points
 },
 // Propagating function for calculating points
-// w is the specific edge the propagation should start from
+// w is the index of the edge it should start from
 // done is an array of the tiles already calculated. should not be fed on initial function call
 getPoints: (board,y,x,w,sideNum,done) => {
     const top = Number(y)-1;
@@ -95,35 +95,50 @@ getPoints: (board,y,x,w,sideNum,done) => {
     const edges = board[y][x].edges;
     const startEdge = board[y][x].edges[w]
     const points = {}
-    // Check interior edges to see which exterior edges to match
-    function prev(index) {
-        return (index === 0 ? 3 : index - 1);
+    function edgeToggle(index) {
+        switch(index) {
+            case 0:
+                console.log("north");
+                break;
+            case 1:
+                console.log("east");
+                break;
+            case 2:
+                console.log("south");
+                break;
+            case 3:
+                console.log("west");
+                break;
+            default:
+                console.log("invalid edge length");
+        }
     }
-    function next(index) {
-        return (index === 3 ? 0 : index + 1);
-    }
-    function opp(index) {
-        return (index === 1 ? 3 : index === 0 ? 2 : index - 2);
-    }
-    console.log(edges[prev(w)])
-    console.log(startEdge)
-    console.log(edges[next(w)])
+    // Functions for finding counter-clockwise, clockwise, and opposite edge indices
+    // Only designed to work for arrays of length 4 (the edges)
+    const prev = (index) => (index === 0 ? 3 : index - 1);
+    const next = (index) => (index === 3 ? 0 : index + 1);
+    const opp = (index) => (index === 1 ? 3 : index === 0 ? 2 : index - 2);
+
+    edgeToggle(w)
     if (startEdge === edges[prev(w)]) {
         // Do stuff here
+        edgeToggle(prev(w));
         console.log("Matches counter-clockwise");
     }
     if (startEdge === edges[next(w)]) {
         // Do stuff here
+        edgeToggle(next(w));
         console.log("Matches clockwise");
     }
     if ((startEdge === edges[prev(w)] || startEdge === edges[next(w)]) && startEdge === edges[opp(w)]){
         // Do stuff here
+        edgeToggle(opp(w));
         console.log("Matches opposite");
     }
 
-        // TODO: call prev() once and next() once. IF either prev() OR next() matches, call opp()
 
     // Check exterior edges to see if match, scoring points in process
+
     // Propagate (restart from edge matching exterior edge)
 },
 checkValid: (board,active,sideNum)=>{
