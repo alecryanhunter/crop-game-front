@@ -27,14 +27,14 @@ function Header({loggedIn,setLoggedIn}) {
                     HOME
                     </a>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                     <a
                     href="/shop"
                     className={pathname === '/shop' ? 'nav-link active' : 'nav-link'}
                     >
                     SHOP
                     </a>
-                </li>
+                </li> */}
                 <li className="nav-item">
                     <a
                     href="/messages"
@@ -43,7 +43,7 @@ function Header({loggedIn,setLoggedIn}) {
                     MESSAGES
                     </a>
                 </li>
-                <li className="nav-item nav-profile">
+                <li className="nav-item">
                     <a
                     href={`/profile/${curUser}`}
                     className={pathname === `/profile/${curUser}` ? 'nav-link active' : 'nav-link'}
@@ -51,11 +51,11 @@ function Header({loggedIn,setLoggedIn}) {
                     PROFILE
                     </a>
                 </li>
-                <li className="nav-time login">
+                <li className="nav-item login">
                 {loggedIn ? (
-                    <a href="/" onClick={handleLogout}>LOGOUT</a>
+                    <a href="/" onClick={handleLogout} className="nav-link">LOGOUT</a>
                 ) : (
-                    <a href="/">LOGIN</a>
+                    <a href="/" className="nav-link">LOGIN</a>
                     
                 )}
                 </li>

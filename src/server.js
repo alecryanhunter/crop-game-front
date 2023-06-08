@@ -1,5 +1,5 @@
 const { Server, Origins } = require('boardgame.io/server')
-const { CropGame } = require('./pages/Test')
+const { CropGame } = require('./components/Game')
 
 const server = Server({
     games: [CropGame],
