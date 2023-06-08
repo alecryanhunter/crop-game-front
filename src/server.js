@@ -7,8 +7,9 @@ const { GAME_PORT, APP_PRODUCTION } = require("./config")
 
 const server = Server({
     games: [CropGame],
-    // origins: APP_PRODUCTION ? "https://cropposition.herokuapp.com/" : [Origins.LOCALHOST],
+    origins: APP_PRODUCTION ? "https://cropposition.herokuapp.com/" : [Origins.LOCALHOST],
 });
+
 
 
 // Build path relative to the server.js file
