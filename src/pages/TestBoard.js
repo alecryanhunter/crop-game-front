@@ -9,7 +9,7 @@ export function CropGameBoard({ ctx, G, moves, events }) {
         events.endTurn();
     }
 
-    function onTileClick(y,x) {
+    function handleTileClick(y,x,w) {
         console.log(mode)
         if (G.tiles[y][x].valid===true) {
             if(mode==="tile") {
@@ -18,10 +18,12 @@ export function CropGameBoard({ ctx, G, moves, events }) {
             }
         } else if (G.tiles[y][x].edges.length!==0) {
             if(mode==="setup") {
-                moves.placeWorkerSetup(y,x,0)
+                moves.placeWorkerToggle(y,x,w)
                 setMode("worker");
             } else if (mode==="worker") {
-                console.log("place worker");
+                console.log("place worker",w);
+                moves.placeWorker(y,x,w);
+                moves.placeWorkerToggle(y,x,w);
             }
         }
     };
@@ -59,7 +61,7 @@ export function CropGameBoard({ ctx, G, moves, events }) {
                         x={colIndex} 
                         edgeArr={tile.edges}
                         valid={tile.valid}
-                        onClick={onTileClick}
+                        handleTileClick={handleTileClick}
                         workers={tile.workers}
                         workersActive={tile.workersActive}
                         />

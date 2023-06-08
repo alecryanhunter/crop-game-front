@@ -180,18 +180,6 @@ section.row {
     display: flex
 }
 
-.worker {
-    height: 25px;
-    width: 25px;
-    background: white;
-    color: black;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-}
-
 .game {
     display: inline-block;
 }
@@ -214,6 +202,7 @@ section.row {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .start {
@@ -233,21 +222,19 @@ section.row {
 .sq {
     width: 100px;
     height: 100px;
-    margin: 5px;
     position: relative;
-    display: flex;
+    flex-shrink: 0;
 }
 
 .sq .line {
-    background: red;
     position: absolute;
     border-radius: 5px;
 }
 
-.sq > div:nth-child(1),
-.sq > div:nth-child(3) {
-    width: 33%;
-    height: 33%;
+.sq > div.north,
+.sq > div.south {
+    width: 33px;
+    height: 33px;
     background: yellow;
     right: 0;
     left: 0;
@@ -255,18 +242,18 @@ section.row {
     margin-right: auto;
 }
 
-.sq > div:nth-child(1) {
+.sq > div.north {
     top: 0px;
 }
 
-.sq > div:nth-child(3) {
+.sq > div.south {
     bottom: 0px;
 }
 
-.sq > div:nth-child(2),
-.sq > div:nth-child(4) {
-    width: 33%;
-    height: 33%;
+.sq > div.east,
+.sq > div.west {
+    width: 33px;
+    height: 33px;
     background: yellowgreen;
     top: 0;
     bottom: 0;
@@ -274,14 +261,15 @@ section.row {
     margin-bottom: auto;
 }
 
-.sq > div:nth-child(2) {
+.sq > div.east {
     right: 0px;
 }
 
-.sq > div:nth-child(4) {
+.sq > div.west {
     left: 0px;
 }
 
-.sq .line:hover {
+.sq .line:hover:not(.worker) {
     background: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }

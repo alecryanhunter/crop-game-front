@@ -41,12 +41,19 @@ export const CropGame = {
             events.endTurn();
         },
         // Y is the Y-Axis, X is X-Axis, and W is edge (0-N,1-E,2-S,3-W)
-        placeWorkerSetup: ({ G },y,x,w) => {
-            if (G.tiles[y][x].workers === undefined) {
-                // G.tiles[y][x].workers = {}
+        placeWorkerToggle: ({ G },y,x,w) => {
+            if (G.tiles[y][x].workersActive) {
+                G.tiles[y][x].workersActive = false
+            } else {
+                G.tiles[y][x].workersActive = true;
             }
-            G.tiles[y][x].workersActive = true;
         },
+        placeWorker: ({ G, playerID },y,x,w) => {
+            if (G.tiles[y][x].workers === undefined) {
+                G.tiles[y][x].workers = {}
+            }
+            G.tiles[y][x].workers[w] = {playerID: playerID}
+        }
     },
     turn: {
         stages: {
