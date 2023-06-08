@@ -43,8 +43,8 @@ export default function HostGame({socket}) {
     return (
         <div className="gameChat d-flex justify-content-center align-items-center">
           <Lobby
-            gameServer={GAME_SERVER_PORT}
-            lobbyServer={GAME_SERVER_PORT}
+            gameServer={GAME_SERVER}
+            lobbyServer={GAME_SERVER}
             gameComponents={[{ game: CropGame, board: CropGameBoard }]}
           />
           {/* {!showChat ? (
