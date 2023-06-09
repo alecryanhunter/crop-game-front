@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,workersActive}) {
+function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,workersActive,workersRemove}) {
     // const [edges,setEdges] = useState(edgeArr)
 
     // This function takes an array and returns a space sepearted list of colors
@@ -22,14 +22,20 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
         switch (num) {
             case 0 :
                 return "gray";
+            // Tile Colors
             case 1 :
-                return "crimson";
+                return "#6AB04A"; // Green - Alfalfa
             case 2 :
-                return "navy";
+                return "#E7CB36"; // Yellow - Corn
             case 3 :
-                return "goldenrod";
+                return "#FF8900"; // Orange - Oranges
             case 4 :
-                return "darkgreen";
+                return "#D8C3A5"; // Beige - Hay
+            // Player Colors
+            case 10 :
+                return "crimson";
+            case 11 :
+                return "navy";
             default:
                 return "black";
         }
@@ -46,6 +52,34 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
         <>
         {workersActive ? (
             // Worker Placement Mode
+            workersRemove ? (
+                <div className='sq'>
+                    {workers[0] ? (
+                        <div 
+                        className='line north' 
+                        style={{background: colorSelect(Number(workers[0].playerID)+10)}}
+                        onClick={()=>handleTileClick(y,x,0)}
+                    />) : null}
+                    {workers[1] ? (
+                        <div 
+                        className='line east' 
+                        style={{background: colorSelect(Number(workers[1].playerID)+10)}}
+                        onClick={()=>handleTileClick(y,x,1)}
+                    />) : null}
+                    {workers[2] ? (
+                        <div 
+                        className='line south' 
+                        style={{background: colorSelect(Number(workers[2].playerID)+10)}}
+                        onClick={()=>handleTileClick(y,x,2)}
+                    />) : null}
+                    {workers[3] ? (
+                        <div 
+                        className='line west' 
+                        style={{background: colorSelect(Number(workers[3].playerID)+10)}}
+                        onClick={()=>handleTileClick(y,x,3)}
+                    />) : null}
+                </div>
+            ) : (
             <div className='sq'>
                 <div 
                     className='line north' 
@@ -68,6 +102,7 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
                     onClick={()=>handleTileClick(y,x,3)}
                 />
             </div>
+            )
         ) : (
             // General Tile Mode
             <button
@@ -83,22 +118,22 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
                 {workers[0] ? (
                     <div 
                         className='line north worker' 
-                        style={{background: colorSelect(Number(workers[0].playerID)+1)}}
+                        style={{background: colorSelect(Number(workers[0].playerID)+10)}}
                     />) : null}
                 {workers[1] ? (
                     <div 
                         className='line east worker' 
-                        style={{background: colorSelect(Number(workers[1].playerID)+1)}}
+                        style={{background: colorSelect(Number(workers[1].playerID)+10)}}
                     />) : null}
                 {workers[2] ? (
                     <div 
                         className='line south worker' 
-                        style={{background: colorSelect(Number(workers[2].playerID)+1)}}
+                        style={{background: colorSelect(Number(workers[2].playerID)+10)}}
                     />) : null}
                 {workers[3] ? (
                     <div 
                         className='line west worker' 
-                        style={{background: colorSelect(Number(workers[3].playerID)+1)}}
+                        style={{background: colorSelect(Number(workers[3].playerID)+10)}}
                     />) : null}
                 </div>
                 ) : null }

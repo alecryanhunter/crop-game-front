@@ -35,7 +35,7 @@ function Messages() {
             .catch((error) => {
                 console.error("Error fetching messages:", error);
             });
-    }, );
+    }, []);
 
     return (
         <section className="messages container">
@@ -52,7 +52,7 @@ function Messages() {
                                     title={item.receiver_current_title}
                                     message={item.message}
                                     sender={"current"}
-                                    img={PIC_URL_PREFIX_SM + item.receiver_profile_pic}
+                                    profile_pic={PIC_URL_PREFIX_SM + item.receiver_profile_pic}
                                 />
                             </a>
                         } else {
@@ -62,7 +62,7 @@ function Messages() {
                                     username={item.sender_name}
                                     title={item.sender_current_title}
                                     message={item.message}
-                                    img={PIC_URL_PREFIX_SM + item.sender_profile_pic}
+                                    profile_pic={PIC_URL_PREFIX_SM + item.sender_profile_pic}
                                 />
                             </a>
                         } 
@@ -79,7 +79,7 @@ function Messages() {
                                     title={item.receiver_current_title}
                                     message={item.message}
                                     sender={"current"}
-                                    img={PIC_URL_PREFIX_SM + item.receiver_profile_pic}
+                                    profile_pic={PIC_URL_PREFIX_SM + item.receiver_profile_pic}
                                     />
                             </a>
                         } else {
@@ -89,7 +89,7 @@ function Messages() {
                                     username={item.sender_name}
                                     title={item.sender_current_title}
                                     message={item.message}
-                                    img={PIC_URL_PREFIX_SM + item.sender_profile_pic}
+                                    profile_pic={PIC_URL_PREFIX_SM + item.sender_profile_pic}
                                     friendBtn={true}
                                 />
                             </a>

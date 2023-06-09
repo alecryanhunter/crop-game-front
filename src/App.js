@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu'
+import API from "./utils/API"
 // import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
@@ -21,10 +22,10 @@ import "./style.css";
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
 import { Local } from 'boardgame.io/multiplayer'
-import { CropGame } from './pages/Test'
-import { CropGameBoard } from "./pages/TestBoard";
+import { CropGame } from './components/Game'
+import { CropGameBoard } from "./components/Board";
 
-const TestGame = Client({ 
+const Game = Client({ 
   game: CropGame,
   numPlayers: 2,
   board: CropGameBoard,
@@ -40,12 +41,19 @@ function App() {
   // const socket = io.connect("http://localhost:3001"); // Local
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
-  const [loggedIn,setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
+
+
+  async function tokenCheck(token, curUser) {
+    return await API.verifyToken(token, curUser)
+  }
 
   // Checks if user is logged in on page load
   useEffect(()=>{
-    if(localStorage.getItem("token")) {
-      setLoggedIn(true);
+    const token = localStorage.getItem("token");
+    const curUser = localStorage.getItem("username");
+    if(token && curUser) {
+      setLoggedIn(tokenCheck(token, curUser))
     }
   },[])
   
@@ -58,20 +66,15 @@ function App() {
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
-            {/*}
-            <Route path="/lobby" element={<Lobby socket={socket}/>}/>
-            <Route path="/game" element={<Game socket={socket} />}/>
-            */}
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
-            {/* <Route path="/joinGame" element={<JoinGame socket={socket}/>}/> */}
             <Route path="/play" element={<Play />}/>
             <Route path="/shop" element={<Shop />}/>
-            <Route path="/testGame" element={
+            <Route path="/game" element={
               <section style={{display: "flex"}}>
-                <TestGame playerID="0"/>
-                <TestGame playerID="1"/>
+                <Game playerID="0"/>
+                <Game playerID="1"/>
               </section >
             } />
             <Route path="/*" element={<NotFound />} />

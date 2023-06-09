@@ -25,9 +25,9 @@ function Profile() {
     const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
 
-    const PIC_URL_PREFIX_MED = "https://upcdn.io/12a1yJg/m"
+    const PIC_URL_PREFIX_LG = "https://upcdn.io/12a1yJg/lg"
     const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
-    
+
     function handleEdit(e) {
         e.preventDefault();
         if (edit===true) {
@@ -40,7 +40,6 @@ function Profile() {
             profileUpdate(json)
         } else {
             setEdit(true);
-            console.log("Edit Mode");
         }
     }
 
@@ -66,8 +65,7 @@ function Profile() {
     }
 
     useEffect(()=>{
-        profileData()
-        .then(data=>{
+        profileData().then(data=>{
             setUsername(data.username);
             setTitle(data.current_title);
             setTitleArr(data.Bundles.filter(bundleObj => bundleObj.type === "Title"));
@@ -79,7 +77,7 @@ function Profile() {
             setForfeits(data.forfeits);
             setFriends(data.Friendships);
         })
-    }, );
+    }, []);
 
     // Input Control Function
     function handleInputChange(e) {
@@ -94,7 +92,6 @@ function Profile() {
     
     // Uploader for profile_pic
     const uploader = Uploader({ apiKey: process.env.REACT_APP_UPLOADIO_API_KEY });
-    // TODO: https://www.freecodecamp.org/news/how-to-access-secret-api-keys-using-netlify-functions-in-a-react-app/
     const uploaderOptions = {
         multi: false,
         styles: {
@@ -132,11 +129,11 @@ function Profile() {
                             <div className="profilePge-pic col col-md-4">
                                 {edit ? (
                                     <>
-                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_LG + pic} alt="profile_pic"/>
                                     <PicUploadBtn setPic={setPic}/>
                                     </>
                                 ) : (
-                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_LG + pic} alt="profile_pic"/>
                                 )}
                             </div>
                             <div className="col col-md-4 d-flex align-self-center">
@@ -201,7 +198,7 @@ function Profile() {
                             <User
                                 username={friend.Users[0].username} 
                                 title={friend.Users[0].current_title}
-                                img={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
+                                profile_pic={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
                             /></a>
                             </div>
                         })}
