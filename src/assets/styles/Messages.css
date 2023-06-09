@@ -84,19 +84,22 @@
 
 .send-msg {
     margin: 2%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1%;
 }
 
 .send-msg input {
-    margin: 1%;
-    height: fit-content;
+    margin: 1em;
+    max-height: fit-content;
     min-height: 2rem;
     border-radius: 8px;
-    width: 30rem;
+    max-width: 30rem;
 }
 
 .send-msg button {
-    padding: 1%;
+    padding: .3em;
     border: 2px solid var(--dark);
     border-radius: 10px;
     font-weight: 500;
@@ -108,4 +111,11 @@
     background-color: var(--dark);
     border: 2px solid var(--accent);
     color: white;
+}
+
+
+@media (min-width: 768px) {
+    .send-msg input {
+        width: 30rem;
+    }
 }

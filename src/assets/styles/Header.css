@@ -21,7 +21,7 @@ header {
     color: var(--tertiary);
     margin: 1%;
     font-weight: 900;
-    text-shadow: 1px 1px 3px var(--accent);
+    text-shadow: 1.5px 1.5px 3.5px var(--accent);
 }
 
 .nav {
