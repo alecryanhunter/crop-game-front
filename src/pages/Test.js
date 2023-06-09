@@ -60,7 +60,7 @@ export const CropGame = {
             // TODO: add events.endTurn() once other game aspects are complete
         },
         scorePoints: ({ G },y,x,w) => {
-            helpers.getPoints(G.tiles,y,x,w,5)
+            helpers.newPoints(G.tiles,y,x,w,5)
         }
     },
     turn: {

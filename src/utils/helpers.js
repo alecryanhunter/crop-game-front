@@ -195,6 +195,101 @@ getPoints: (board,y,x,w,sideNum,done,impPoints) => {
     console.log(y,x,w,points);
     return points;
 },
+// Create it resembling a BFS (idk, maybe a DFS)
+newPoints: (board,y,x,w,sideNum) => {
+    // Create a queue array of y,x,w coords !!!
+    // Insert starting quadrant into queue !!!
+    // Create a results array whose length will be the points scored !!!
+    // WHILE queue has items,
+        // Analyze 1st queue quadrant with queue.shift();
+        // Push to results array
+
+    // All quadrants must be stored as strings for comparison
+    const start = `${y}-${x}-${w}`;
+    const queue = [start];
+    const results = [];
+
+    // Returns the counter-clockwise, clockwise, and opposite index for 4-length edge arrays
+    const prev = (index) => (index === 0 ? 3 : index - 1);
+    const next = (index) => (index === 3 ? 0 : index + 1);
+    const opp = (index) => (index === 1 ? 3 : index === 0 ? 2 : index - 2);
+
+    while (queue.length) {
+        const cur = queue.shift().split("-").map(i=>Number(i));
+        console.log("queue",queue);
+        results.push(`${cur[0]}-${cur[1]}-${cur[2]}`);
+        console.log("results",results);
+        const type = board[cur[0]][cur[1]].edges[cur[2]]
+
+        // Checks the three adjacent quadrants: counter-clockwise, clockwise, and across
+        // Counter-Clockwise
+        const counCWIndex = prev(cur[2])
+        const counCW =`${cur[0]}-${cur[1]}-${counCWIndex}`
+        if (board[cur[0]][cur[1]].edges[counCWIndex] === type) {
+            if (queue.indexOf(counCW) === -1 && results.indexOf(counCW) === -1) {
+                queue.push(counCW);
+            }
+        }
+        
+        // Clockwise
+        const cwIndex = next(cur[2])
+        const cw =`${cur[0]}-${cur[1]}-${cwIndex}`
+        if (board[cur[0]][cur[1]].edges[cwIndex] === type) {
+            if (queue.indexOf(cw) === -1 && results.indexOf(cw) === -1) {
+                queue.push(cw);
+            }
+        }
+
+        // Across
+        // this will be complicated, depends on the facing of the quadrant
+        const top = Number(cur[0])-1;
+        const right = Number(cur[1])+1;
+        const bottom = Number(cur[0])+1;
+        const left = Number(cur[1])-1;
+        // ===============
+        const acrossIndex = opp(cur[2])
+            // Want some way to dynamically assign
+            // 0 - top , cur
+            // 1 - cur, right
+            // 2 - bottom, cur
+            // 3 - cur, left
+        
+        switch(cur[2]) {
+            case 0:
+                if (cur[0]!==0 && board[top][cur[1]].edges[acrossIndex] === type) {
+                    const across =`${top}-${cur[1]}-${acrossIndex}`
+                    queue.push(across)
+                }
+                break;
+            case 1:
+                if (cur[1]+1!==sideNum && board[cur[0]][right].edges[acrossIndex] === type) {
+                    const across =`${cur[0]}-${right}-${acrossIndex}`
+                    queue.push(across)
+                }
+                break;
+            case 2:
+                if (cur[0]+1!==sideNum && board[bottom][cur[1]].edges[acrossIndex] === type) {
+                    const across =`${bottom}-${cur[1]}-${acrossIndex}`
+                    queue.push(across)
+                }
+                break;
+            case 3:
+                if (left !== 0 && board[cur[0]][left].edges[acrossIndex] === type) {
+                    const across =`${cur[0]}-${left}-${acrossIndex}`
+                    queue.push(across)
+                }
+                break;
+            default:
+                console.log("invalid edge number");
+        }
+        
+        // const across =`${acrossY}-${acrossX}-${acrossIndex}`
+
+    }
+
+    console.log("points",results.length);
+    return results.length
+},
 checkValid: (board,active,sideNum)=>{
     const boardCopy = JSON.parse(JSON.stringify(board))
     for (let y = 0;y<boardCopy.length;y++){
