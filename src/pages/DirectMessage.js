@@ -66,26 +66,32 @@ function DirectMessage() {
                 <a className="justify-content-start" href="/messages">Back</a>
                 <h2>{friend}</h2>
             </div>
-            <section className="chat">
-                <section className="msg-container w-100">
+            <section className="chat w-100">
+                <section className="msg-container">
                     {messageHistory.map(message=>{
                         return (
-                        <p 
+                        <div 
                         key={message.id} 
                         className={curUser===message.sender_name ? "msg sent" : "msg received"}>
-                            {message.message}
-                        </p>
+                            <div className="message-content message-bubble">
+                                <p>{message.message}</p>
+                            </div>
+                        </div>
                     )})}
                 </section>
                 <form className="send-msg">
                     <input
                         name="message"
                         value={message}
+                        placeholder="Hey..."
                         onChange={handleInputChange}
+                        onKeyPress={(e) => {
+                            e.key === "Enter" && messageSend();
+                        }}
                     />
                     <button
                         onClick={handleSend}
-                    >Send</button>
+                    > &#8593;</button>
                 </form>
             </section>
         </section>
