@@ -22,10 +22,10 @@ import "./style.css";
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
 import { Local } from 'boardgame.io/multiplayer'
-import { CropGame } from './pages/Test'
-import { CropGameBoard } from "./pages/TestBoard";
+import { CropGame } from './components/Game'
+import { CropGameBoard } from "./components/Board";
 
-const TestGame = Client({ 
+const Game = Client({ 
   game: CropGame,
   numPlayers: 2,
   board: CropGameBoard,
@@ -66,20 +66,15 @@ function App() {
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
-            {/*}
-            <Route path="/lobby" element={<Lobby socket={socket}/>}/>
-            <Route path="/game" element={<Game socket={socket} />}/>
-            */}
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
-            {/* <Route path="/joinGame" element={<JoinGame socket={socket}/>}/> */}
             <Route path="/play" element={<Play />}/>
             <Route path="/shop" element={<Shop />}/>
-            <Route path="/testGame" element={
+            <Route path="/game" element={
               <section style={{display: "flex"}}>
-                <TestGame playerID="0"/>
-                <TestGame playerID="1"/>
+                <Game playerID="0"/>
+                <Game playerID="1"/>
               </section >
             } />
             <Route path="/*" element={<NotFound />} />

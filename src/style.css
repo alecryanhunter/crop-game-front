@@ -105,6 +105,11 @@ body {
     height: 100px;
 }
 
+.market {
+    background: #182124;
+    color: white;
+}
+
 .active {
     cursor: grab;
 }
