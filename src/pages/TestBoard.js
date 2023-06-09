@@ -22,7 +22,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
         } else if (clicked.workers && mode === "remove") {
 
             if (clicked.workersActive){
-                console.log("remove worker",y,x,w)
+                moves.removeWorker(y,x,w)
                 setMode("")
             }
             moves.workerToggle(y,x,true)

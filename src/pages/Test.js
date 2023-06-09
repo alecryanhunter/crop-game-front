@@ -65,9 +65,15 @@ export const CropGame = {
             G.workers[playerID]--
             // TODO: add events.endTurn() once other game aspects are complete
         },
-        scorePoints: ({ G },y,x,w) => {
-            helpers.newPoints(G.tiles,y,x,w,5)
-        }
+        removeWorker: ({ G, ctx, playerID },y,x,w) => {
+            // Checks if the worker you're trying to remove is yours or not
+            if (G.tiles[y][x].workers[w].playerID !== ctx.currentPlayer) {
+                return;
+            }
+            console.log(helpers.getPoints(G.tiles,y,x,w,5))
+            delete G.tiles[y][x].workers[w]
+            G.workers[playerID]++
+        },
     },
     turn: {
         stages: {
@@ -86,4 +92,15 @@ export const CropGame = {
             },
         },
     },
+    endIf: ({ G }) => {
+        let noValid = true
+        for (let i = 0; i<G.tiles.length;i++) {
+            for (let j =0; j<G.tiles[i].length;j++){
+                if (G.tiles[i][j].valid) {
+                    noValid = false
+                }
+            }
+        }
+        return noValid;
+    }
 };
