@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,workersActive}) {
+function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,workersActive,workersRemove}) {
     // const [edges,setEdges] = useState(edgeArr)
 
     // This function takes an array and returns a space sepearted list of colors
@@ -46,6 +46,34 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
         <>
         {workersActive ? (
             // Worker Placement Mode
+            workersRemove ? (
+                <div className='sq'>
+                    {workers[0] ? (
+                        <div 
+                        className='line north' 
+                        style={{background: colorSelect(edgeArr[0])}}
+                        onClick={()=>handleTileClick(y,x,0)}
+                    />) : null}
+                    {workers[1] ? (
+                        <div 
+                        className='line east' 
+                        style={{background: colorSelect(edgeArr[1])}}
+                        onClick={()=>handleTileClick(y,x,1)}
+                    />) : null}
+                    {workers[2] ? (
+                        <div 
+                        className='line south' 
+                        style={{background: colorSelect(edgeArr[2])}}
+                        onClick={()=>handleTileClick(y,x,2)}
+                    />) : null}
+                    {workers[3] ? (
+                        <div 
+                        className='line west' 
+                        style={{background: colorSelect(edgeArr[3])}}
+                        onClick={()=>handleTileClick(y,x,3)}
+                    />) : null}
+                </div>
+            ) : (
             <div className='sq'>
                 <div 
                     className='line north' 
@@ -68,6 +96,7 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
                     onClick={()=>handleTileClick(y,x,3)}
                 />
             </div>
+            )
         ) : (
             // General Tile Mode
             <button
