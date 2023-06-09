@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
 import "../assets/styles/Chat.css";
 
 
@@ -57,8 +56,8 @@ export default function Chat({ socket }) {
 
   return (
     <div className="chat container-fluid">
-      <div className="chat-body">
-        <ScrollToBottom className="message-container">
+      <div className="chat-body w-100">
+        <div className="message-container">
           {messageList.map((messageContent, i) => {
             return (
               <div
@@ -77,7 +76,7 @@ export default function Chat({ socket }) {
               </div>
             );
           })}
-        </ScrollToBottom>
+        </div>
       </div>
       <div className="chat-footer">
         <input
