@@ -5,20 +5,23 @@ export const CropGame = {
     setup: ( {ctx} ) => {
         // Setup for elements that depend on the number of players
         const scores = []
+        const workers = []
         for (let i = 0; i < ctx.numPlayers;i++){
             const playerScore = {
-                red: 0,
-                blue: 0
+                green: 0,
+                yellow: 0,
+                orage: 0,
+                tan: 0
             }
             scores.push(playerScore);
+            workers.push(5)
         }
-        console.log(scores)
 
         return {
             active: {edges: [2,2,1,1]},
             tiles: helpers.checkValid(helpers.boardGen(5,5,()=>({edges:[]})),{edges:[2,2,1,1]},5),
             score: scores,
-            workers: [5,5]
+            workers: workers
         }
     },
     moves: {
@@ -81,7 +84,20 @@ export const CropGame = {
             if (G.tiles[y][x].workers[w].playerID !== ctx.currentPlayer) {
                 return;
             }
-            console.log(helpers.getPoints(G.tiles,y,x,w,5))
+            // Finds the color the worker is one, and increments the corresponding point value
+            const type = G.tiles[y][x].edges[w]
+            function color(num) {
+                switch (num) {
+                    case 1 : return "green";
+                    case 2 : return "yellow";
+                    case 3 : return "orange";
+                    case 4 : return "beige";
+                    default: return "black";
+                }
+            }
+            G.score[playerID][color(type)] += helpers.getPoints(G.tiles,y,x,w,5)
+
+            // Removes the worker and increments the player's worker count
             delete G.tiles[y][x].workers[w]
             G.workers[playerID]++
         },

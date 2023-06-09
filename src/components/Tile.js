@@ -24,13 +24,13 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
                 return "gray";
             // Tile Colors
             case 1 :
-                return "#6AB04A";
+                return "#6AB04A"; // Green - Alfalfa
             case 2 :
-                return "#E7CB36";
+                return "#E7CB36"; // Yellow - Corn
             case 3 :
-                return "#FF8900";
+                return "#FF8900"; // Orange - Oranges
             case 4 :
-                return "#D8C3A5";
+                return "#D8C3A5"; // Beige - Hay
             // Player Colors
             case 10 :
                 return "crimson";

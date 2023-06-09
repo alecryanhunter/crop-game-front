@@ -70,8 +70,8 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                     name='remove'
                     onClick={handleModeToggle}
                 >Remove Worker</button>
-                <h4>Red Workers: {G.workers[0]}</h4>
-                <h4>Blue Workers: {G.workers[1]}</h4>
+                <h4>Player One Workers: {G.workers[0]}</h4>
+                <h4>Player Two Workers: {G.workers[1]}</h4>
             </section>
             <section className="board">
                 {G.tiles.map((row,rowIndex) => 
@@ -99,13 +99,13 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                 <section>
                     <section>
                         <h3>Player One</h3>
-                        <p>Red Score: {G.score[0].red}</p>
-                        <p>Blue Score: {G.score[0].blue}</p>
+                        <p>Green Score: {G.score[0].green}</p>
+                        <p>Yellow Score: {G.score[0].yellow}</p>
                     </section>
                     <section>
                         <h3>Player Two</h3>
-                        <p>Red Score: {G.score[1].red}</p>
-                        <p>Blue Score: {G.score[1].blue}</p>
+                        <p>Green Score: {G.score[1].green}</p>
+                        <p>Yellow Score: {G.score[1].yellow}</p>
                     </section>
                     <p>Mode: {mode}</p>
                     <p>Click on the tile, and then click a valid tile</p>
