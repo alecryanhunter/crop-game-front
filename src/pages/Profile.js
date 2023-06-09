@@ -27,7 +27,7 @@ function Profile() {
 
     const PIC_URL_PREFIX_MED = "https://upcdn.io/12a1yJg/m"
     const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
-    
+
     function handleEdit(e) {
         e.preventDefault();
         if (edit===true) {
@@ -66,8 +66,7 @@ function Profile() {
     }
 
     useEffect(()=>{
-        profileData()
-        .then(data=>{
+        profileData().then(data=>{
             setUsername(data.username);
             setTitle(data.current_title);
             setTitleArr(data.Bundles.filter(bundleObj => bundleObj.type === "Title"));
@@ -79,7 +78,7 @@ function Profile() {
             setForfeits(data.forfeits);
             setFriends(data.Friendships);
         })
-    }, );
+    }, []);
 
     // Input Control Function
     function handleInputChange(e) {
@@ -94,7 +93,6 @@ function Profile() {
     
     // Uploader for profile_pic
     const uploader = Uploader({ apiKey: process.env.REACT_APP_UPLOADIO_API_KEY });
-    // TODO: https://www.freecodecamp.org/news/how-to-access-secret-api-keys-using-netlify-functions-in-a-react-app/
     const uploaderOptions = {
         multi: false,
         styles: {
