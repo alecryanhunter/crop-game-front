@@ -3,8 +3,33 @@
 import { BACKEND_URL } from "../config"
 
 const API = {
-    getProfile: async (username) => {
+    verifyToken: async (token, username) => {
+        const data = await fetch(`${BACKEND_URL}/api/users/verify`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
+        }})
+        .then((res)=>{
+            if (!res.ok) {
+                localStorage.removeItem("token")
+                localStorage.removeItem("username")
+                window.location.href="/"
+            }
+            return res.json();
+        })
+        .then((json)=>{
+            if (username.toLowerCase() !== json.username.toLowerCase()) {
+                localStorage.removeItem("token")
+                localStorage.removeItem("username")
+                window.location.href="/"
+            }
+            return;
+        })
+        return true;
 
+    },
+    getProfile: async (username) => {
         const data = await fetch(`${BACKEND_URL}/api/users/${username}`,{
             method: "GET",
             headers: {
@@ -29,6 +54,7 @@ const API = {
                 "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
+            console.log(res)
             return res.json();
         })
         .then((json)=>{

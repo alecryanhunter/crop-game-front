@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu'
+import API from "./utils/API"
 // import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
@@ -40,12 +41,26 @@ function App() {
   // const socket = io.connect("http://localhost:3001"); // Local
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
-  const [loggedIn,setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [authenticate, setAuthenticate] = useState(false);
+
+
+
+  async function tokenCheck(token, curUser) {
+    return await API.verifyToken(token, curUser)
+  }
 
   // Checks if user is logged in on page load
   useEffect(()=>{
-    if(localStorage.getItem("token")) {
-      setLoggedIn(true);
+    const token = localStorage.getItem("token");
+    const curUser = localStorage.getItem("username");
+    if(token && curUser) {
+      setLoggedIn(tokenCheck(token, curUser))
+      // .then(verified => {
+      //   console.log(verified)
+      // })
+      // console.log("logged in")
+      // setLoggedIn(true);
     }
   },[])
   
