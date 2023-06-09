@@ -80,7 +80,6 @@ function DirectMessage() {
                 <form className="send-msg">
                     <input
                         name="message"
-                        placeholder="Write your message"
                         value={message}
                         onChange={handleInputChange}
                     />
