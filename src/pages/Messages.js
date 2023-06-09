@@ -35,11 +35,11 @@ function Messages() {
             .catch((error) => {
                 console.error("Error fetching messages:", error);
             });
-    }, []);
+    }, );
 
     return (
-        <section className="page container">
-            <section className="messages subpage">
+        <section className="messages container">
+            <section className="all-msgs w-100">
                 <h2>Messages</h2>
                 <hr />
                 {messagesList.length === 0 ? <p>No Messages</p> : null}

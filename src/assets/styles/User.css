@@ -1,0 +1,44 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124; 
+}
+
+.userbar {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 3px solid var(--secondary);
+    border-radius: 8px;
+    padding: 2%;
+    margin: 2%;
+    text-decoration: none;
+}
+
+.userbar:hover {
+    background-color: var(--accent);
+}
+
+.userbar img {
+    border-radius: 100%;
+    border: 3px solid var(--accent);
+    margin: 1%;
+}
+
+.userInfo {
+    background-color: white;
+    text-decoration: none;
+    padding: 2%;
+    margin: 1%;
+}
+
+.userinfo h3,
+.userinfo p {
+    text-decoration: none;
+    font-variant: small-caps;
+    font-weight: 600;
+    color: var(--dark);
+}

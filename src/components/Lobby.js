@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import CropGame from "./Game";
+=======
+import Game from "./ZZZ_Game";
+>>>>>>> dev
 import User from "./User";
 import Chat from "./Chat";
 import "../assets/styles/Lobby.css";

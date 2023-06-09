@@ -10,7 +10,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* background-color: var(--primary); */
+}
+
+
+body {
+    background-image: url("./assets/images/light-green-bg.png");
+}
+
+
+.userbar,
+.userinfo,
+.userinfo h3,
+.userinfo p {
+    background-color: transparent;
+    text-decoration: none;
 }
 
 
@@ -24,7 +37,7 @@
     width: 300px;
 }
 
-/*
+
 .page {
     display: flex;
     flex-direction: column;
@@ -39,54 +52,11 @@
     margin: 2%;
 }
 
-.userbar {
-    display: flex;
-    align-items: center;
-    border: 3px solid var(--tertiary);
-    padding: 5px;
-}
-
-.userbar img {
-    border-radius: 100%;
-    padding: 10px;
-}
-
 .lobby {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-
-.chat {
-    margin: 10px;
-    padding: 10px;
-    border: 3px solid var(--dark);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--secondary);
-}
-
-
-.msg {
-    font-size: 150%;
-    padding: 5px;
-    margin: 10px 0;
-}
-
-.sent {
-    background-color: var(--tertiary);
-    align-self: flex-end;
-}
-
-.received {
-    background-color: var(--accent);
-    align-self: flex-start;
-}
-*/
-
-
 
 
 /* GAME STYLING */  
