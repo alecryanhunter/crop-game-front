@@ -3,6 +3,8 @@ import helpers from "../utils/helpers"
 
 export const CropGame = {
     setup: ( {ctx} ) => {
+        // CHANGE BOARD SIZE HERE (Also need to update CSS grid styling)
+        const bSize = 5
         // Setup for elements that depend on the number of players
         const scores = []
         const workers = []
@@ -19,9 +21,10 @@ export const CropGame = {
 
         return {
             active: {edges: [2,2,1,1]},
-            tiles: helpers.checkValid(helpers.boardGen(5,5,()=>({edges:[]})),{edges:[2,2,1,1]},5),
+            tiles: helpers.checkValid(helpers.boardGen(bSize,bSize,()=>({edges:[]})),{edges:[2,2,1,1]},bSize),
             score: scores,
-            workers: workers
+            workers: workers,
+            bSize: bSize
         }
     },
     moves: {
@@ -42,7 +45,7 @@ export const CropGame = {
             G.active = {edges: helpers.tileGen(2)};
 
             // Changes the board state with the new valid locations
-            const validCheck = helpers.checkValid( G.tiles , G.active , 5)
+            const validCheck = helpers.checkValid( G.tiles , G.active , G.bSize)
             G.tiles = validCheck
             // events.setStage("choice");
             events.endTurn();
@@ -95,7 +98,7 @@ export const CropGame = {
                     default: return "black";
                 }
             }
-            G.score[playerID][color(type)] += helpers.getPoints(G.tiles,y,x,w,5)
+            G.score[playerID][color(type)] += helpers.getPoints(G.tiles,y,x,w,G.bSize)
 
             // Removes the worker and increments the player's worker count
             delete G.tiles[y][x].workers[w]
