@@ -42,8 +42,6 @@ function App() {
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
   const [loggedIn, setLoggedIn] = useState(false)
-  const [authenticate, setAuthenticate] = useState(false);
-
 
 
   async function tokenCheck(token, curUser) {
@@ -56,11 +54,6 @@ function App() {
     const curUser = localStorage.getItem("username");
     if(token && curUser) {
       setLoggedIn(tokenCheck(token, curUser))
-      // .then(verified => {
-      //   console.log(verified)
-      // })
-      // console.log("logged in")
-      // setLoggedIn(true);
     }
   },[])
   
