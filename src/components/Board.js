@@ -60,19 +60,36 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
 
     return (
         <section className="game">
+
+            <section className='game-left'>
+                
+            {/* PLAYER INFO */}
             <section>
-                {/* TODO: move these onClick to the more interactive moments like the tile or workers */}
+                <section>
+                    <section className='player-info'>
+                        <h3>Player One</h3>
+                        <p>Green Score: {G.inventory[0].green}</p>
+                        <p>Yellow Score: {G.inventory[0].yellow}</p>
+                        <h4>Player One Workers: {G.workers[0]}</h4>
+                    </section>
+                    <section className='player-info'>
+                        <h3>Player Two</h3>
+                        <p>Green Score: {G.inventory[1].green}</p>
+                        <p>Yellow Score: {G.inventory[1].yellow}</p>
+                        <h4>Player Two Workers: {G.workers[1]}</h4>
+                    </section>
+                </section>
                 <button
                     name='worker'
                     onClick={handleModeToggle}
-                >Place Worker</button>
+                    >Place Worker</button>
                 <button
                     name='remove'
                     onClick={handleModeToggle}
-                >Remove Worker</button>
-                <h4>Player One Workers: {G.workers[0]}</h4>
-                <h4>Player Two Workers: {G.workers[1]}</h4>
+                    >Remove Worker</button>
             </section>
+
+            {/* BOARD */}
             <section className="board">
                 {G.tiles.map((row,rowIndex) => 
                     row.map((tile,colIndex)=> (
@@ -87,36 +104,31 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                         workersActive={tile.workersActive}
                         workersRemove={tile.workersRemove}
                         />
-                    ))
-                )}
+                        ))
+                        )}
             </section>
-            <aside>
-                <Tile
-                    name={'tile'}
-                    edgeArr={G.active.edges}
-                    handleModeToggle={handleModeToggle}
-                    />
-                <section>
-                    <section className='silo'>
-                        <h3>Player One</h3>
-                        <p>Green Score: {G.inventory[0].green}</p>
-                        <p>Yellow Score: {G.inventory[0].yellow}</p>
-                    </section>
-                    <section className='silo'>
-                        <h3>Player Two</h3>
-                        <p>Green Score: {G.inventory[1].green}</p>
-                        <p>Yellow Score: {G.inventory[1].yellow}</p>
-                    </section>
-                    <p>Mode: {mode}</p>
-                    <p>Click on the tile, and then click a valid tile</p>
-                </section>
+            </section>
+
+
+            <section className='game-right'>
                 <section className='market'>
                         <h3>Market</h3>
                         <p>Player One:</p>
                         <p>Player Two:</p>
                 </section>
+                <Tile
+                    name={'tile'}
+                    edgeArr={G.active.edges}
+                    handleModeToggle={handleModeToggle}
+                    />
+                <aside className='mode'>
+                    <h4>Mode</h4>
+                    <p>Click on the tile, and then click a valid tile</p>
+                    <p>{mode}</p> {/* tile, worker, remove*/}
+                </aside>
                 <button onClick={endTurn}>End Turn</button>
-            </aside>
+            </section>
+
         </section>
     );
 }

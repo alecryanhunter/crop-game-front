@@ -74,7 +74,7 @@ function App() {
             <Route path="/game" element={
               <section style={{display: "flex"}}>
                 <Game playerID="0"/>
-                <Game playerID="1"/>
+                {/* <Game playerID="1"/> */}
               </section >
             } />
             <Route path="/*" element={<NotFound />} />

@@ -1,5 +1,6 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 import helpers from "../utils/helpers"
+import "../assets/styles/Game.css"
 
 export const CropGame = {
     name: "Cropposition",
