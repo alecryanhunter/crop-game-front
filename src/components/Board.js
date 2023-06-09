@@ -65,41 +65,45 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                 
             {/* PLAYER INFO */}
             <section>
-                <section>
+                <section className='player-info'>
 
-                    <section className='player-card'>
-                        <h3>Player One</h3>
-                        <h4>Coins: {G.coins[0]}</h4>
+                    {[...Array(ctx.numPlayers)].map((e,i)=> (
+                    <section className={`player-card player-${i}`} key={i}>
+                        <h3>Player {i+1}</h3>
+                        <h5>Coins: {G.coins[0]}</h5>
                         {/* FARMHOUSE */}
                         <h5>Workers</h5>
                         <section className='farmhouse'>
-                            {/* <h4>Workers: {G.workers[0]}</h4> */}
-                            {[...Array(G.workers[0])].map((e,i)=> (
+                            {[...Array(G.workers[i])].map((e,i)=> (
                                 <div
-                                    key={i}>Hi!
-                                </div>
+                                    key={i}
+                                    className={`farm-worker`}
+                                />
                             ))}
                         </section>
                         {/* SILO */}
                         <section className='silo'>
-                            <p>Green Score: {G.inventory[0].green}</p>
-                            <p>Yellow Score: {G.inventory[0].yellow}</p>
+                            <h5>Crops</h5>
+                            <section className='crops'>
+                                {[...Array(G.inventory[i].green)].map((e,i)=> (
+                                    <div
+                                        key={i}
+                                        className='crop crop-green'
+                                    />
+                                ))}
+                            </section>
+                            <section className='crops'>
+                                {[...Array(G.inventory[i].yellow)].map((e,i)=> (
+                                    <div
+                                        key={i}
+                                        className='crop crop-yellow'
+                                    />
+                                ))}
+                            </section>
                         </section>
                     </section>
-                    {/* TODO: Convert to loop based on numPlayers */}
-                    <section className='player-card'>
-                        <h3>Player Two</h3>
-                        <h4>Coins: {G.coins[1]}</h4>
-                        {/* FARMHOUSE */}
-                        <section className='farmhouse'>
-                            <h4>Workers: {G.workers[1]}</h4>
-                        </section>
-                        {/* SILO */}
-                        <section className='silo'>
-                            <p>Green Score: {G.inventory[1].green}</p>
-                            <p>Yellow Score: {G.inventory[1].yellow}</p>
-                        </section>
-                    </section>
+                    ))}
+                    
                 </section>
             </section>
 

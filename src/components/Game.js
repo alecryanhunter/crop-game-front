@@ -10,7 +10,7 @@ export const CropGame = {
         const inventory = []
         const workers = []
         const coins = []
-        console.log(ctx);
+
         for (let i = 0; i < ctx.numPlayers;i++){
             const playerScore = {
                 green: 0,
@@ -103,7 +103,7 @@ export const CropGame = {
                     default: return "black";
                 }
             }
-            G.inventory[playerID][color(type)] += helpers.getPoints(G.tiles,y,x,w,G.bSize)
+            G.inventory[playerID][color(type)] += helpers.getPoints(G.tiles,y,x,w,G.bSize)+100
 
             // Removes the worker and increments the player's worker count
             delete G.tiles[y][x].workers[w]

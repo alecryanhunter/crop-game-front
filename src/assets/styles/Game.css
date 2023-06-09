@@ -12,9 +12,25 @@ section.game-right {
 }
 
 /* PLAYER CARD STYLING */
+section.player-info {
+    display: flex;
+}
+
 section.player-card {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0;
+    margin: 5px;
+    padding: 5px;
     border: 1px solid black;
+}
+
+section.player-card.player-0 {
+    background: rgba(220, 20, 60, 0.5);
+}
+
+section.player-card.player-1 {
+    background: rgba(0, 0, 128, 0.5);
 }
 
 section.farmhouse {
@@ -25,8 +41,39 @@ section.farmhouse * {
     padding: 5px;
 }
 
-section.silo p {
-    line-height: 0;
+div.farm-worker {
+    width: 25px;
+    height: 25px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+section.silo {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0;
+}
+
+section.crops {
+    display: flex;
+    flex: 0;
+    max-width: 140px;
+    flex-wrap: wrap;
+}
+
+section.silo div.crop {
+    width: 10px;
+    height: 10px;
+    margin: 2px;
+}
+
+div.crop-green {
+    background: #6AB04A;
+}
+div.crop-yellow {
+    background: #E7CB36;
 }
 
 section.board {
