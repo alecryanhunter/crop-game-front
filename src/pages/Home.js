@@ -83,9 +83,8 @@ function Home({loggedIn,setLoggedIn}) {
 
     return (
         <section className="page home">
-            <h2>Welcome!</h2>
             <div className="home-logo">
-            <img src={circleLogo} alt="farm with cropposition across the top" style={{width: "auto", height: "15em"}} />
+                <img src={circleLogo} alt="farm with cropposition across the top" style={{width: "auto", height: "15em"}} />
             </div>
             <section className="home subpage">
                 {loggedIn ? (

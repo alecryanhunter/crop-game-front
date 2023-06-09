@@ -126,7 +126,6 @@ function Profile() {
 
     return (
         <section className="page profile">
-            <h2>{username}'s Profile</h2>
             <section className="main-profile container flex-wrap">
                     <section className="about row">
                         <section className="profile-top d-flex justify-content-center">
@@ -176,7 +175,7 @@ function Profile() {
                         </section>
                         <section className="profile-bio row w-75">
                             {edit ? (
-                                <input
+                                <textarea
                                     name="bio"
                                     value={bio}
                                     onChange={handleInputChange}
@@ -194,7 +193,7 @@ function Profile() {
                             </ul>
                         </section>
                     </section>
-                    <section className="friends subpage container">
+                    <section className="friends container">
                         <h3 className="row">Friends</h3>
                         {friends.map(friend=>{
                             return <div className="friend">
