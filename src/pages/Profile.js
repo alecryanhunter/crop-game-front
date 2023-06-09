@@ -25,7 +25,7 @@ function Profile() {
     const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
 
-    const PIC_URL_PREFIX_MED = "https://upcdn.io/12a1yJg/m"
+    const PIC_URL_PREFIX_LG = "https://upcdn.io/12a1yJg/lg"
     const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
 
     function handleEdit(e) {
@@ -40,7 +40,6 @@ function Profile() {
             profileUpdate(json)
         } else {
             setEdit(true);
-            console.log("Edit Mode");
         }
     }
 
@@ -130,11 +129,11 @@ function Profile() {
                             <div className="profilePge-pic col col-md-4">
                                 {edit ? (
                                     <>
-                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_LG + pic} alt="profile_pic"/>
                                     <PicUploadBtn setPic={setPic}/>
                                     </>
                                 ) : (
-                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_LG + pic} alt="profile_pic"/>
                                 )}
                             </div>
                             <div className="col col-md-4 d-flex align-self-center">
@@ -199,7 +198,7 @@ function Profile() {
                             <User
                                 username={friend.Users[0].username} 
                                 title={friend.Users[0].current_title}
-                                img={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
+                                profile_pic={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
                             /></a>
                             </div>
                         })}
