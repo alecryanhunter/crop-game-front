@@ -97,18 +97,23 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                     handleModeToggle={handleModeToggle}
                     />
                 <section>
-                    <section>
+                    <section className='silo'>
                         <h3>Player One</h3>
-                        <p>Green Score: {G.score[0].green}</p>
-                        <p>Yellow Score: {G.score[0].yellow}</p>
+                        <p>Green Score: {G.inventory[0].green}</p>
+                        <p>Yellow Score: {G.inventory[0].yellow}</p>
                     </section>
-                    <section>
+                    <section className='silo'>
                         <h3>Player Two</h3>
-                        <p>Green Score: {G.score[1].green}</p>
-                        <p>Yellow Score: {G.score[1].yellow}</p>
+                        <p>Green Score: {G.inventory[1].green}</p>
+                        <p>Yellow Score: {G.inventory[1].yellow}</p>
                     </section>
                     <p>Mode: {mode}</p>
                     <p>Click on the tile, and then click a valid tile</p>
+                </section>
+                <section className='market'>
+                        <h3>Market</h3>
+                        <p>Player One:</p>
+                        <p>Player Two:</p>
                 </section>
                 <button onClick={endTurn}>End Turn</button>
             </aside>

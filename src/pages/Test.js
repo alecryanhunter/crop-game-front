@@ -6,8 +6,9 @@ export const CropGame = {
         // CHANGE BOARD SIZE HERE (Also need to update CSS grid styling)
         const bSize = 5
         // Setup for elements that depend on the number of players
-        const scores = []
+        const inventory = []
         const workers = []
+        const coins = []
         for (let i = 0; i < ctx.numPlayers;i++){
             const playerScore = {
                 green: 0,
@@ -15,14 +16,16 @@ export const CropGame = {
                 orage: 0,
                 tan: 0
             }
-            scores.push(playerScore);
+            inventory.push(playerScore);
             workers.push(5)
+            coins.push(0)
         }
 
         return {
             active: {edges: [2,2,1,1]},
             tiles: helpers.checkValid(helpers.boardGen(bSize,bSize,()=>({edges:[]})),{edges:[2,2,1,1]},bSize),
-            score: scores,
+            coins: coins,
+            inventory: inventory,
             workers: workers,
             bSize: bSize
         }
