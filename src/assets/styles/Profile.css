@@ -70,16 +70,13 @@
     background-color: var(--tertiary);
 }
 
-.profile-bio textarea {
+.profile-bio textarea,
+.profile-bio p {
     background-color: white;
     border: 3px solid var(--secondary);
     border-radius: 8px;
-    height: 4rem;
+    height: 2rem;
     margin: 2%;
-}
-
-.profile-bio p {
-    background-color: transparent;
     color: var(--dark);
 }
 
