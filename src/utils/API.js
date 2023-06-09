@@ -54,7 +54,6 @@ const API = {
                 "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
-            console.log(res)
             return res.json();
         })
         .then((json)=>{
@@ -72,7 +71,6 @@ const API = {
                 "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
-            console.log(res);
             if (res.status===204) {
                 const none = {
                     msg: "no messages"
