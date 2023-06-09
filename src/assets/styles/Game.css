@@ -1,9 +1,3 @@
-/* GAME STYLING */
-/* ==================== */
-* {
-    box-sizing: border-box;
-}
-
 .game {
     display: flex;
     background-color: var(--primary);
@@ -17,8 +11,22 @@ section.game-right {
     display: inline-block;
 }
 
-section.player-info {
+/* PLAYER CARD STYLING */
+section.player-card {
+    display: inline-block;
+    border: 1px solid black;
+}
+
+section.farmhouse {
     display: flex;
+}
+
+section.farmhouse * {
+    padding: 5px;
+}
+
+section.silo p {
+    line-height: 0;
 }
 
 section.board {

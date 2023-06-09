@@ -1,6 +1,5 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 import helpers from "../utils/helpers"
-import "../assets/styles/Game.css"
 
 export const CropGame = {
     name: "Cropposition",
@@ -11,7 +10,7 @@ export const CropGame = {
         const inventory = []
         const workers = []
         const coins = []
-        console.log(ctx.numPlayers);
+        console.log(ctx);
         for (let i = 0; i < ctx.numPlayers;i++){
             const playerScore = {
                 green: 0,

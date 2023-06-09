@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Tile from "./Tile"
-import "../style.css"
+import "../assets/styles/Game.css"
 
 export function CropGameBoard({ ctx, G, moves, events, playerID }) {
     const [mode, setMode] = useState("");
@@ -66,27 +66,41 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
             {/* PLAYER INFO */}
             <section>
                 <section>
-                    <section className='player-info'>
+
+                    <section className='player-card'>
                         <h3>Player One</h3>
-                        <p>Green Score: {G.inventory[0].green}</p>
-                        <p>Yellow Score: {G.inventory[0].yellow}</p>
-                        <h4>Player One Workers: {G.workers[0]}</h4>
+                        <h4>Coins: {G.coins[0]}</h4>
+                        {/* FARMHOUSE */}
+                        <h5>Workers</h5>
+                        <section className='farmhouse'>
+                            {/* <h4>Workers: {G.workers[0]}</h4> */}
+                            {[...Array(G.workers[0])].map((e,i)=> (
+                                <div
+                                    key={i}>Hi!
+                                </div>
+                            ))}
+                        </section>
+                        {/* SILO */}
+                        <section className='silo'>
+                            <p>Green Score: {G.inventory[0].green}</p>
+                            <p>Yellow Score: {G.inventory[0].yellow}</p>
+                        </section>
                     </section>
-                    <section className='player-info'>
+                    {/* TODO: Convert to loop based on numPlayers */}
+                    <section className='player-card'>
                         <h3>Player Two</h3>
-                        <p>Green Score: {G.inventory[1].green}</p>
-                        <p>Yellow Score: {G.inventory[1].yellow}</p>
-                        <h4>Player Two Workers: {G.workers[1]}</h4>
+                        <h4>Coins: {G.coins[1]}</h4>
+                        {/* FARMHOUSE */}
+                        <section className='farmhouse'>
+                            <h4>Workers: {G.workers[1]}</h4>
+                        </section>
+                        {/* SILO */}
+                        <section className='silo'>
+                            <p>Green Score: {G.inventory[1].green}</p>
+                            <p>Yellow Score: {G.inventory[1].yellow}</p>
+                        </section>
                     </section>
                 </section>
-                <button
-                    name='worker'
-                    onClick={handleModeToggle}
-                    >Place Worker</button>
-                <button
-                    name='remove'
-                    onClick={handleModeToggle}
-                    >Remove Worker</button>
             </section>
 
             {/* BOARD */}
@@ -104,8 +118,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                         workersActive={tile.workersActive}
                         workersRemove={tile.workersRemove}
                         />
-                        ))
-                        )}
+                )))}
             </section>
             </section>
 
@@ -121,6 +134,14 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                     edgeArr={G.active.edges}
                     handleModeToggle={handleModeToggle}
                     />
+                <button
+                    name='worker'
+                    onClick={handleModeToggle}
+                    >Place Worker</button>
+                <button
+                    name='remove'
+                    onClick={handleModeToggle}
+                    >Remove Worker</button>
                 <aside className='mode'>
                     <h4>Mode</h4>
                     <p>Click on the tile, and then click a valid tile</p>
