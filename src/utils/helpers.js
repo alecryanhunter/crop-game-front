@@ -107,7 +107,6 @@ getPoints: (board,y,x,w,sideNum) => {
         
     }
 
-    console.log("points",results.length);
     return results.length
 },
 checkValid: (board,active,sideNum)=>{

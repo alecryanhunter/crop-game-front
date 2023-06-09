@@ -97,8 +97,16 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                     handleModeToggle={handleModeToggle}
                     />
                 <section>
-                    <h3>Red Score: {G.score[0]}</h3>
-                    <h3>Blue Score: {G.score[1]}</h3>
+                    <section>
+                        <h3>Player One</h3>
+                        <p>Red Score: {G.score[0].red}</p>
+                        <p>Blue Score: {G.score[0].blue}</p>
+                    </section>
+                    <section>
+                        <h3>Player Two</h3>
+                        <p>Red Score: {G.score[1].red}</p>
+                        <p>Blue Score: {G.score[1].blue}</p>
+                    </section>
                     <p>Mode: {mode}</p>
                     <p>Click on the tile, and then click a valid tile</p>
                 </section>

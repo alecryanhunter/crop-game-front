@@ -2,11 +2,22 @@ import { INVALID_MOVE } from "boardgame.io/core";
 import helpers from "../utils/helpers"
 
 export const CropGame = {
-    setup: () => {
+    setup: ( {ctx} ) => {
+        // Setup for elements that depend on the number of players
+        const scores = []
+        for (let i = 0; i < ctx.numPlayers;i++){
+            const playerScore = {
+                red: 0,
+                blue: 0
+            }
+            scores.push(playerScore);
+        }
+        console.log(scores)
+
         return {
             active: {edges: [2,2,1,1]},
             tiles: helpers.checkValid(helpers.boardGen(5,5,()=>({edges:[]})),{edges:[2,2,1,1]},5),
-            score: [0,0],
+            score: scores,
             workers: [5,5]
         }
     },
