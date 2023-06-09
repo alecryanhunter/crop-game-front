@@ -21,9 +21,9 @@ export function CropGameBoard({ ctx, G, moves, events }) {
                 moves.placeWorkerToggle(y,x,w)
                 setMode("worker");
             } else if (mode==="worker" && G.tiles[y][x].workersActive) {
-                moves.scorePoints(y,x,w)
-                // moves.placeWorker(y,x,w);
-                // moves.placeWorkerToggle(y,x,w);
+                // moves.scorePoints(y,x,w)
+                moves.placeWorker(y,x,w);
+                moves.placeWorkerToggle(y,x,w);
                 setMode("");
             }
         }

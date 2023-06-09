@@ -27,14 +27,6 @@ export const CropGame = {
             G.tiles[y][x].edges = G.active.edges
             G.active = {edges: helpers.tileGen(2)};
 
-            const points = helpers.pointCalc(G.tiles,y,x,5);
-            if (points[1] !== undefined) {
-                G.score[0] = G.score[0] + points[1]
-            }
-            if (points[2] !== undefined) {
-                G.score[1] = G.score[1] + points[2]
-            }
-
             // Changes the board state with the new valid locations
             const validCheck = helpers.checkValid( G.tiles , G.active , 5)
             G.tiles = validCheck

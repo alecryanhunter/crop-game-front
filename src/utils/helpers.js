@@ -69,7 +69,7 @@ getPoints: (board,y,x,w,sideNum) => {
         
         // Switch depending on quadrant orientation
         switch(cur[2]) {
-            case 0:
+            case 0: // North
                 if (cur[0]!==0 && board[top][cur[1]].edges[acrossIndex] === type) {
                     const across =`${top}-${cur[1]}-${acrossIndex}`
                     if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
@@ -77,7 +77,7 @@ getPoints: (board,y,x,w,sideNum) => {
                     }
                 }
                 break;
-            case 1:
+            case 1: // East
                 if (cur[1]+1!==sideNum && board[cur[0]][right].edges[acrossIndex] === type) {
                     const across =`${cur[0]}-${right}-${acrossIndex}`
                     if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
@@ -85,7 +85,7 @@ getPoints: (board,y,x,w,sideNum) => {
                     }
                 }
                 break;
-            case 2:
+            case 2: // South
                 if (cur[0]+1!==sideNum && board[bottom][cur[1]].edges[acrossIndex] === type) {
                     const across =`${bottom}-${cur[1]}-${acrossIndex}`
                     if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
@@ -93,7 +93,7 @@ getPoints: (board,y,x,w,sideNum) => {
                     }
                 }
                 break;
-            case 3:
+            case 3: // West
                 if (left !== 0 && board[cur[0]][left].edges[acrossIndex] === type) {
                     const across =`${cur[0]}-${left}-${acrossIndex}`
                     if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
