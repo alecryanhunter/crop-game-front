@@ -66,6 +66,7 @@ body {
 
 .game {
     display: inline-block;
+    background-color: var(--primary);
 }
 
 .game aside{
@@ -87,6 +88,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 
 .start {

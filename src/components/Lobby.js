@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
+import CropGame from "./Game";
+=======
 import Game from "./ZZZ_Game";
+>>>>>>> dev
 import User from "./User";
 import Chat from "./Chat";
 import "../assets/styles/Lobby.css";
@@ -64,7 +68,8 @@ function Lobby({socket, room, username, host }) {
                 </section>
             </section>
             ) : (
-                <Game socket={socket} username={username} players={players} room={room} isHost={isHost} host={host} />
+                <></>
+                // <Game socket={socket} username={username} players={players} room={room} isHost={isHost} host={host} />
             )}
         </div>
     )

@@ -27,14 +27,6 @@ export const CropGame = {
             G.tiles[y][x].edges = G.active.edges
             G.active = {edges: helpers.tileGen(2)};
 
-            const points = helpers.pointCalc(G.tiles,y,x,5);
-            if (points[1] !== undefined) {
-                G.score[0] = G.score[0] + points[1]
-            }
-            if (points[2] !== undefined) {
-                G.score[1] = G.score[1] + points[2]
-            }
-
             // Changes the board state with the new valid locations
             const validCheck = helpers.checkValid( G.tiles , G.active , 5)
             G.tiles = validCheck
@@ -49,11 +41,18 @@ export const CropGame = {
             }
         },
         placeWorker: ({ G, playerID },y,x,w) => {
+            if (G.workers[playerID]===0) {
+                return;
+            }
             if (G.tiles[y][x].workers === undefined) {
                 G.tiles[y][x].workers = {}
             }
             G.tiles[y][x].workers[w] = {playerID: playerID}
+            G.workers[playerID]--
             // TODO: add events.endTurn() once other game aspects are complete
+        },
+        scorePoints: ({ G },y,x,w) => {
+            helpers.newPoints(G.tiles,y,x,w,5)
         }
     },
     turn: {
