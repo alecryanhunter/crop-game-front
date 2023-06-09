@@ -33,7 +33,7 @@ function User(props) {
                 <div>
                 {/* Renders a message if one is passed */}
                 {props.message ? (
-                    <p>{props.sender ? "You sent: " : "They sent: "}{props.message}</p>
+                    <p>{props.sender ? "Last Sent: " : "Last Received: "}"{props.message}"</p>
                 ) : null}
                 </div>
                 {/* Renders a button if one is passed */}
