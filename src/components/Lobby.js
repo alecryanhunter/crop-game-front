@@ -20,9 +20,24 @@ import "../assets/styles/Lobby.css";
 export class CropLobby extends Lobby {
     render() {
         this.state.playerName = localStorage.getItem("username");
+        const playerNameObj = { playerName: this.state.playerName };
+        
+        async function handleJoinMatch(matchID) {
+            console.log(playerNameObj)
+            console.log(matchID)
+            const playerCredentials = await fetch(`${GAME_SERVER}/games/Cropposition/${matchID}/join`, {
+                method: "POST",
+                body: JSON.stringify(playerNameObj),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }).then((res)=>{
+                return res.json();
+            })
+            console.log(playerCredentials)
+        };
 
-        function handleNewMatch () {
-            console.log("start a new match");
+        function handleNewMatch() {
                 fetch(`${GAME_SERVER}/games/Cropposition/create`, {
                     method: "POST",
                     body: JSON.stringify({
@@ -38,28 +53,39 @@ export class CropLobby extends Lobby {
                 })
         };
         
+
         
         return (
             <div>
-                 <p>state.phase: {this.state.phase}</p>
-                 <p>state.playerName: {this.state.playerName}</p>
-                <button type="button" onClick={handleNewMatch}>Host new game</button>
-                 <p>connection.matches:</p>
-                 {this.connection.matches.map(matchObj => {
-                     return (
-                        <ul>
-                            <li key={matchObj.matchID}>[i].matchID: {matchObj.matchID}</li>
-                            <li>[i].players:</li>
+                <p>state.phase: {this.state.phase}</p>
+                <p>state.playerName: {this.state.playerName}</p>
+                <ul>
+                    {this.connection.matches.map((matchObj, i) => {
+                        return (<>
+                            <li key={matchObj.matchID}>Room: {++i}</li>
                             <ul>
                                 {matchObj.players.map(playerObj => {
                                     return(
-                                        <li>{playerObj.id}:{playerObj.name}</li>
+                                        <li key={playerObj.id}>
+                                            {playerObj.name ? (
+                                                <a href={`/profile/${playerObj.name}`} target="_blank">{playerObj.name}</a>
+                                            ):(
+                                                "_________"
+                                            )}
+                                        </li>
                                     )
                                 })}
+                                <button 
+                                    type="button" 
+                                    onClick={ ()=>{
+                                        handleJoinMatch(matchObj.matchID)
+                                    }}
+                                >Join</button>
                             </ul>
-                        </ul>
-                     )
-                 })}
+                        </>)
+                    })}
+                    <li><button type="button" onClick={handleNewMatch}>Host new game</button></li>
+                </ul>
 
             </div>
         );
