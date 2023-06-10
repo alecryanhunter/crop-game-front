@@ -133,22 +133,33 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                         <p>Player One:</p>
                         <p>Player Two:</p>
                 </section>
-                <Tile
-                    name={'tile'}
-                    edgeArr={G.active.edges}
-                    handleModeToggle={handleModeToggle}
+                <section className='commands'>
+                    <Tile
+                        name={'tile'}
+                        edgeArr={G.active.edges}
+                        handleModeToggle={handleModeToggle}
                     />
-                <button
-                    name='worker'
-                    onClick={handleModeToggle}
+                    <p>Click on the tile, and then click a valid tile</p>
+                    <button
+                        name='worker'
+                        onClick={handleModeToggle}
                     >Place Worker</button>
-                <button
-                    name='remove'
-                    onClick={handleModeToggle}
+                    <p>Click a placed tile, then click the desired quadrant</p>
+                    <button
+                        name='remove'
+                        onClick={handleModeToggle}
                     >Remove Worker</button>
+                    <p>Click a tile with a worker, then click the worker</p>
+                    <button
+                        name='market'
+                        onClick={handleModeToggle}
+                    >Send Worker to Market</button>
+                    <p>Click the button, then click the desired crop to sell</p>
+                </section>
+
+                {/* DELETE THIS SHIT ONCE GAME IS DONE */}
                 <aside className='mode'>
                     <h4>Mode</h4>
-                    <p>Click on the tile, and then click a valid tile</p>
                     <p>{mode}</p> {/* tile, worker, remove*/}
                 </aside>
                 <button onClick={endTurn}>End Turn</button>

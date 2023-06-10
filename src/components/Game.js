@@ -5,7 +5,7 @@ export const CropGame = {
     name: "Cropposition",
     setup: ( {ctx} ) => {
         // CHANGE BOARD SIZE HERE (Also need to update CSS grid styling)
-        const bSize = 5
+        const bSize = 9
         // Setup for elements that depend on the number of players
         const inventory = []
         const workers = []

@@ -9,6 +9,9 @@ section.game-left {
 
 section.game-right {
     display: inline-block;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 5px;
 }
 
 /* PLAYER CARD STYLING */
@@ -23,6 +26,7 @@ section.player-card {
     margin: 5px;
     padding: 5px;
     border: 1px solid black;
+    border-radius: 5px;
 }
 
 section.player-card.player-0 {
@@ -78,7 +82,8 @@ div.crop-yellow {
 
 section.board {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    /* CHANGE THE NUMBER HERE FOR INCREASED BOARD SIZE */
+    grid-template-columns: repeat(9, 1fr);
 }
 
 .tile {
@@ -111,10 +116,30 @@ section.board {
 .market {
     background: #182124;
     color: white;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
-.active {
+.commands {
+    display: flex;
+    flex-direction: column;
+}
+
+.commands button {
+    margin: 5px 15px;
+}
+
+.commands button+p {
+    max-width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    color:gainsboro;
+}
+
+.commands button.active {
     cursor: grab;
+    margin: 5px auto;
 }
 
 .active:hover {
