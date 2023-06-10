@@ -11,6 +11,7 @@
     "concurrently": "^8.2.0",
     "dotenv": "^16.1.4",
     "esm": "^3.2.25",
+    "hamburger-react": "^2.5.0",
     "koa-static": "^5.0.0",
     "react": "^18.2.0",
     "react-burger-menu": "^3.0.9",
