@@ -1,0 +1,221 @@
+.game {
+    display: flex;
+    background-color: var(--primary);
+}
+
+section.game-left {
+    display: inline-block;
+}
+
+section.game-right {
+    display: inline-block;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 5px;
+}
+
+div.game-right-scroll {
+    position: sticky;
+    top: 10px;
+}
+
+/* PLAYER CARD STYLING */
+section.player-info {
+    display: flex;
+}
+
+section.player-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+section.player-card.player-0 {
+    background: rgba(220, 20, 60, 0.5);
+}
+
+section.player-card.player-1 {
+    background: rgba(0, 0, 128, 0.5);
+}
+
+section.farmhouse {
+    display: flex;
+}
+
+section.farmhouse * {
+    padding: 5px;
+}
+
+div.farm-worker {
+    width: 25px;
+    height: 25px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+section.silo {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0;
+}
+
+section.crops {
+    display: flex;
+    flex: 0;
+    max-width: 140px;
+    flex-wrap: wrap;
+}
+
+div.crop {
+    width: 10px;
+    height: 10px;
+    margin: 2px;
+}
+
+div.crop-green {
+    background: #6AB04A;
+}
+div.crop-yellow {
+    background: #E7CB36;
+}
+
+section.board {
+    display: grid;
+    /* CHANGE THE NUMBER HERE FOR INCREASED BOARD SIZE */
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.tile {
+    width: 50px;
+    height: 50px;
+    background-color: grey;
+    margin: 5px;
+    border: 50px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.start {
+    border-top: 50px solid crimson;
+    border-right: 50px solid crimson;
+    border-bottom: 50px solid navy;
+    border-left: 50px solid navy;
+}
+
+.valid {
+    background-color: white;
+    border: 5px dashed grey;
+    width: 100px;
+    height: 100px;
+}
+
+.market {
+    background: #182124;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+.commands {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.commands button:not(.active) {
+    width: 80%;
+    margin: 5px 15px;
+}
+
+.commands button.crop-btn {
+    width: 60%;
+    margin: 5px auto;
+}
+
+.commands button+p {
+    max-width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    color:gainsboro;
+}
+
+.commands button.active {
+    cursor: grab;
+    margin: 5px auto;
+}
+
+.active:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.sq {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.sq .line {
+    position: absolute;
+    border-radius: 5px;
+}
+
+.sq > div.north,
+.sq > div.south {
+    width: 33px;
+    height: 33px;
+    background: yellow;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sq > div.north {
+    top: 0px;
+}
+
+.sq > div.south {
+    bottom: 0px;
+}
+
+.sq > div.east,
+.sq > div.west {
+    width: 33px;
+    height: 33px;
+    background: yellowgreen;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.sq > div.east {
+    right: 0px;
+}
+
+.sq > div.west {
+    left: 0px;
+}
+
+.sq .line:hover:not(.worker) {
+    background: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.line.worker {
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 100%;
+    margin: 3px;
+}
