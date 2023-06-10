@@ -2,12 +2,22 @@ import { useState } from 'react'
 import Tile from "./Tile"
 import "../assets/styles/Game.css"
 
-export function CropGameBoard({ ctx, G, moves, events, playerID }) {
+export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
     const [mode, setMode] = useState("");
 
-    function endTurn() {
-        events.endTurn();
-    }
+    function workerToggle (G,y,x,remove)  {
+    // remove is a flag telling this move whether you're removing or placing
+    if (G.tiles[y][x].workersActive) {
+        G.tiles[y][x].workersActive = false
+        if (remove) {
+            G.tiles[y][x].workersRemove = false
+        }
+    } else {
+        G.tiles[y][x].workersActive = true;
+        if (remove) {
+            G.tiles[y][x].workersRemove = true
+        }
+    }}
 
     // Handles Tile Clicks Conditionally
     function handleTileClick(y,x,w) {
@@ -25,7 +35,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                 moves.removeWorker(y,x,w)
                 setMode("")
             }
-            moves.workerToggle(y,x,true)
+            workerToggle(G,y,x,true)
 
         // Worker Placemenet
         } else if (clicked.edges.length!==0 && mode === "worker") {
@@ -34,9 +44,14 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                 moves.placeWorker(y,x,w);
                 setMode("");
             }
-            moves.workerToggle(y,x,false);
+            workerToggle(G,y,x,false);
         }
     };
+
+    // Send Workers to Market
+    function handleMarketSell(type) {
+        moves.marketSell(type);
+    }
 
     // Mode Toggle
     function handleModeToggle(e) {
@@ -50,7 +65,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
             for (let i = 0; i<G.tiles.length;i++) {
                 for (let j =0; j<G.tiles[i].length;j++){
                     if (G.tiles[i][j].workersActive) {
-                        moves.workerToggle(i,j,false);
+                        moves.workerToggle(G,i,j,false);
                     }
                 }
             }
@@ -128,10 +143,43 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
 
 
             <section className='game-right'>
+                <div className='game-right-scroll'>
                 <section className='market'>
                         <h3>Market</h3>
                         <p>Player One:</p>
+                        <section className='crops'>
+                            {[...Array(G.market[0].green.amount)].map((e,i)=> (
+                                <div
+                                    key={i}
+                                    className='crop crop-green'
+                                />
+                            ))}
+                        </section>
+                        <section className='crops'>
+                            {[...Array(G.market[0].yellow.amount)].map((e,i)=> (
+                                <div
+                                    key={i}
+                                    className='crop crop-yellow'
+                                />
+                            ))}
+                        </section>
                         <p>Player Two:</p>
+                        <section className='crops'>
+                            {[...Array(G.market[1].green.amount)].map((e,i)=> (
+                                <div
+                                    key={i}
+                                    className='crop crop-green'
+                                />
+                            ))}
+                        </section>
+                        <section className='crops'>
+                            {[...Array(G.market[1].yellow.amount)].map((e,i)=> (
+                                <div
+                                    key={i}
+                                    className='crop crop-yellow'
+                                />
+                            ))}
+                        </section>
                 </section>
                 <section className='commands'>
                     <Tile
@@ -139,7 +187,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                         edgeArr={G.active.edges}
                         handleModeToggle={handleModeToggle}
                     />
-                    <p>Click on the tile, and then click a valid tile</p>
+                    <p>Click to place a tile on a valid location, then choose one of the following three options</p>
                     <button
                         name='worker'
                         onClick={handleModeToggle}
@@ -154,15 +202,21 @@ export function CropGameBoard({ ctx, G, moves, events, playerID }) {
                         name='market'
                         onClick={handleModeToggle}
                     >Send Worker to Market</button>
+                    {mode==="market" ? (
+                        <>
+                        <button 
+                            className='crop-btn'
+                            onClick={()=>handleMarketSell("green")}
+                        >Green</button>
+                        <button 
+                            className='crop-btn'
+                            onClick={()=>handleMarketSell("yellow")}
+                        >Yellow</button>
+                        </>
+                    ) : null }
                     <p>Click the button, then click the desired crop to sell</p>
                 </section>
-
-                {/* DELETE THIS SHIT ONCE GAME IS DONE */}
-                <aside className='mode'>
-                    <h4>Mode</h4>
-                    <p>{mode}</p> {/* tile, worker, remove*/}
-                </aside>
-                <button onClick={endTurn}>End Turn</button>
+                </div>
             </section>
 
         </section>

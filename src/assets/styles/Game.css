@@ -14,6 +14,11 @@ section.game-right {
     margin: 5px;
 }
 
+div.game-right-scroll {
+    position: sticky;
+    top: 10px;
+}
+
 /* PLAYER CARD STYLING */
 section.player-info {
     display: flex;
@@ -67,7 +72,7 @@ section.crops {
     flex-wrap: wrap;
 }
 
-section.silo div.crop {
+div.crop {
     width: 10px;
     height: 10px;
     margin: 2px;
@@ -121,13 +126,21 @@ section.board {
     border-radius: 5px;
 }
 
+
 .commands {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.commands button {
+.commands button:not(.active) {
+    width: 80%;
     margin: 5px 15px;
+}
+
+.commands button.crop-btn {
+    width: 60%;
+    margin: 5px auto;
 }
 
 .commands button+p {
