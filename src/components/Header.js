@@ -1,67 +1,39 @@
+import React, { useState, useEffect } from "react";
+import Hamburger from 'hamburger-react';
+import Navbar from "./nav/Navbar";
+import NavDropdown from "./nav/NavDropdown";
 import "../assets/styles/Header.css";
 
-function Header({loggedIn,setLoggedIn}) {
-    // Disables rendering the header if on the game path
-    const pathname = window.location.pathname
-    if (pathname==="/game"){
-        return null;
-    }
+export default function Header({ loggedIn, setLoggedIn }) {
+  const [isMobile, setIsMobile] = useState(true);
+  const [isOpen, setOpen] = useState(false);
 
-    const curUser = localStorage.getItem("username");
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
 
-    function handleLogout() {
-        localStorage.removeItem("token");
-        setLoggedIn(false);
-        return;
-    }
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-    return (
-        <header>
-            <h1 className="cropposition-title">CROPPOSITION</h1>
-            <ul className="nav">
-                <li className="nav-item">
-                    <a
-                    href="/"
-                    className={pathname === '/home' ? 'nav-link active' : 'nav-link'}
-                    >
-                    HOME
-                    </a>
-                </li>
-                {/* <li className="nav-item">
-                    <a
-                    href="/shop"
-                    className={pathname === '/shop' ? 'nav-link active' : 'nav-link'}
-                    >
-                    SHOP
-                    </a>
-                </li> */}
-                <li className="nav-item">
-                    <a
-                    href="/messages"
-                    className={pathname === '/messages' ? 'nav-link active' : 'nav-link'}
-                    >
-                    MESSAGES
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a
-                    href={`/profile/${curUser}`}
-                    className={pathname === `/profile/${curUser}` ? 'nav-link active' : 'nav-link'}
-                    >
-                    PROFILE
-                    </a>
-                </li>
-                <li className="nav-item login">
-                {loggedIn ? (
-                    <a href="/" onClick={handleLogout} className="nav-link">LOGOUT</a>
-                ) : (
-                    <a href="/" className="nav-link">LOGIN</a>
-                    
-                )}
-                </li>
-            </ul>
-        </header>
-    )
+  const pathname = window.location.pathname;
+  if (pathname === "/game") {
+    return null; 
+  }
+
+  return (
+    <header>
+      <h1 className="cropposition-title">CROPPOSITION</h1>
+      {isMobile ? (
+        <Hamburger color="#fff" label="Show menu" toggled={isOpen} toggle={setOpen}/> 
+      ) : (
+        <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+      )}
+      {isMobile && isOpen && <NavDropdown loggedIn={loggedIn} setLoggedIn={setLoggedIn} /> }
+    </header>
+  );
 }
-
-export default Header;
