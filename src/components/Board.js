@@ -11,6 +11,17 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
         setChoices(G.choices)
     },[G.choices])
 
+    // This function de-toggles any straggling worker selection boxes
+    function deToggleWorker() {
+        for (let i = 0; i<G.tiles.length;i++) {
+            for (let j =0; j<G.tiles[i].length;j++){
+                if (G.tiles[i][j].workersActive) {
+                    moves.workerToggle(i,j,false);
+                }
+            }
+        }
+    }
+
     // Handles Tile Clicks Conditionally
     function handleTileClick(y,x,w) {
         const clicked = G.tiles[y][x]
@@ -27,7 +38,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                 moves.removeWorker(y,x,w)
                 setMode("")
                 moves.marketReturn();
-                moves.workerToggle(y,x,true);
+                deToggleWorker();
                 events.endTurn();
             } else {
                 moves.workerToggle(y,x,true);
@@ -40,7 +51,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                 moves.placeWorker(y,x,w);
                 setMode("");
                 moves.marketReturn();
-                moves.workerToggle(y,x,false);
+                deToggleWorker();
                 events.endTurn();
             } else {
                 moves.workerToggle(y,x,false);
@@ -63,18 +74,11 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
     function handleModeToggle(e) {
         e.preventDefault();
         const { name } = e.target
-        if (ctx.currentPlayer !== playerID) {
-            return;
-        }
+        // if (ctx.currentPlayer !== playerID) {
+        //     return;
+        // }
         if (mode==="worker" || mode==="remove") {
-            // This for loop will de-toggle any active worker placement on mode toggle
-            for (let i = 0; i<G.tiles.length;i++) {
-                for (let j =0; j<G.tiles[i].length;j++){
-                    if (G.tiles[i][j].workersActive) {
-                        moves.workerToggle(i,j,false);
-                    }
-                }
-            }
+            deToggleWorker();
         }
         setMode(name);
     }

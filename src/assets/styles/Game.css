@@ -5,7 +5,7 @@
 
 .game {
     display: flex;
-    background-color: var(--primary);
+    background-color: rgba(121, 183, 93, 0.4);
 }
 
 section.game-left {
@@ -101,7 +101,7 @@ section.board {
     height: 50px;
     background-color: grey;
     margin: 5px;
-    border: 50px solid grey;
+    border: 50px solid rgba(128, 128, 128, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,11 +180,13 @@ section.board {
     height: 100px;
     position: relative;
     flex-shrink: 0;
+    margin: 5px;
 }
 
 .sq .line {
     position: absolute;
     border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
 .sq > div.north,
