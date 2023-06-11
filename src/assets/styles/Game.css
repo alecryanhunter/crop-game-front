@@ -1,3 +1,7 @@
+* {
+    transition: all ease 1s;
+}
+
 .game {
     display: flex;
     background-color: var(--primary);
@@ -153,6 +157,17 @@ section.board {
 .commands button.active {
     cursor: grab;
     margin: 5px auto;
+}
+
+.commands button.choices {
+    background-color: dimgrey;
+    border-color: grey;
+    border-style: outset;
+    color: dimgrey;
+}
+
+.commands button.active.inactive {
+    opacity: 50%;
 }
 
 .active:hover {

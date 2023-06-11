@@ -1,23 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Tile from "./Tile"
 import "../assets/styles/Game.css"
 
 export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
     const [mode, setMode] = useState("");
+    const [choices,setChoices] = useState(G.choices);
 
-    function workerToggle (G,y,x,remove)  {
-    // remove is a flag telling this move whether you're removing or placing
-    if (G.tiles[y][x].workersActive) {
-        G.tiles[y][x].workersActive = false
-        if (remove) {
-            G.tiles[y][x].workersRemove = false
-        }
-    } else {
-        G.tiles[y][x].workersActive = true;
-        if (remove) {
-            G.tiles[y][x].workersRemove = true
-        }
-    }}
+    // Keeps the choices state updated (NECESSARY??)
+    useEffect(()=>{
+        setChoices(G.choices)
+    },[G.choices])
 
     // Handles Tile Clicks Conditionally
     function handleTileClick(y,x,w) {
@@ -31,26 +23,40 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
         // Worker Removal
         } else if (clicked.workers && mode === "remove") {
 
-            if (clicked.workersActive){
+            if (clicked.workersActive && G.choices === true){
                 moves.removeWorker(y,x,w)
                 setMode("")
+                moves.marketReturn();
+                moves.workerToggle(y,x,true);
+                events.endTurn();
+            } else {
+                moves.workerToggle(y,x,true);
             }
-            workerToggle(G,y,x,true)
 
         // Worker Placemenet
         } else if (clicked.edges.length!==0 && mode === "worker") {
 
-            if(clicked.workersActive) {
+            if(clicked.workersActive && G.choices === true) {
                 moves.placeWorker(y,x,w);
                 setMode("");
+                moves.marketReturn();
+                moves.workerToggle(y,x,false);
+                events.endTurn();
+            } else {
+                moves.workerToggle(y,x,false);
             }
-            workerToggle(G,y,x,false);
         }
     };
 
     // Send Workers to Market
     function handleMarketSell(type) {
-        moves.marketSell(type);
+        if (G.choices === true) {
+            console.log("sell")
+            moves.marketSell(type);
+            setMode("");
+            moves.marketReturn();
+            events.endTurn();
+        }
     }
 
     // Mode Toggle
@@ -65,7 +71,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
             for (let i = 0; i<G.tiles.length;i++) {
                 for (let j =0; j<G.tiles[i].length;j++){
                     if (G.tiles[i][j].workersActive) {
-                        moves.workerToggle(G,i,j,false);
+                        moves.workerToggle(i,j,false);
                     }
                 }
             }
@@ -85,7 +91,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                     {[...Array(ctx.numPlayers)].map((e,i)=> (
                     <section className={`player-card player-${i}`} key={i}>
                         <h3>Player {i+1}</h3>
-                        <h5>Coins: {G.coins[0]}</h5>
+                        <h5>Coins: {G.coins[i]}</h5>
                         {/* FARMHOUSE */}
                         <h5>Workers</h5>
                         <section className='farmhouse'>
@@ -183,24 +189,28 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                 </section>
                 <section className='commands'>
                     <Tile
-                        name={'tile'}
+                        name={"tile"}
                         edgeArr={G.active.edges}
                         handleModeToggle={handleModeToggle}
+                        inactive={G.choices}
                     />
                     <p>Click to place a tile on a valid location, then choose one of the following three options</p>
                     <button
                         name='worker'
                         onClick={handleModeToggle}
+                        className={G.choices ? null : "choices"}
                     >Place Worker</button>
                     <p>Click a placed tile, then click the desired quadrant</p>
                     <button
                         name='remove'
                         onClick={handleModeToggle}
+                        className={G.choices ? null : "choices"}
                     >Remove Worker</button>
                     <p>Click a tile with a worker, then click the worker</p>
                     <button
                         name='market'
                         onClick={handleModeToggle}
+                        className={G.choices ? null : "choices"}
                     >Send Worker to Market</button>
                     {mode==="market" ? (
                         <>
