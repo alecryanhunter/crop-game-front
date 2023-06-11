@@ -247,3 +247,8 @@ section.board {
     border-radius: 100%;
     margin: 3px;
 }
+
+/* GAME OVER SCREEN STYLING */
+.player-name {
+    font-weight: bolder;
+}
