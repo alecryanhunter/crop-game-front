@@ -3,7 +3,7 @@ import API from "../utils/API"
 
 import "../assets/styles/Game.css"
 
-function EndScreen({coins, matchData}) {
+function EndScreen({coins, matchData ,playerID}) {
 
     function winnerFinder(arr) {
         let bigNum = 0
@@ -24,12 +24,10 @@ function EndScreen({coins, matchData}) {
 
     useEffect(()=>{
         const winner = winnerFinder(coins);
-        for (let i = 0;i<matchData.length;i++) {
-            if (i === winner){
-                API.updateStats(matchData[i].name,"wins",coins[i])
-            } else {
-                API.updateStats(matchData[i].name,"losses",coins[i])
-            }
+        if (playerID === winner){
+            API.updateStats(matchData[playerID].name,"wins",coins[playerID])
+        } else {
+            API.updateStats(matchData[playerID].name,"losses",coins[playerID])
         }
     },[])
 

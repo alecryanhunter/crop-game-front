@@ -86,7 +86,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages, matchDa
 
     return (
         <section className="game">
-            {ctx.gameover ? <EndScreen coins={G.coins} matchData={matchData}/> :
+            {ctx.gameover ? <EndScreen coins={G.coins} matchData={matchData} playerID={playerID}/> :
             (<>
             <section className='game-left'>
                 
