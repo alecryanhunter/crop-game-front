@@ -45,13 +45,6 @@ export default function Play() {
     return (
       <>
         <div className="gameChat d-flex justify-content-center align-items-center">
-          <Lobby
-            gameServer={GAME_SERVER}
-            lobbyServer={GAME_SERVER}
-            gameComponents={[{ game: CropGame, board: CropGameBoard }]}
-          />
-        </div>
-        <div className="gameChat d-flex justify-content-center align-items-center">
           <CropLobby
             gameServer={GAME_SERVER}
             lobbyServer={GAME_SERVER}
