@@ -42,7 +42,6 @@ function Home({loggedIn,setLoggedIn}) {
             }
             helpers.postUser(signupJSON)
             .then(status=>{
-                console.log(status)
                 setLoggedIn(status);
                 return;
             })

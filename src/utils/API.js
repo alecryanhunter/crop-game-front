@@ -137,9 +137,7 @@ const API = {
             headers: {
                 "Content-Type": "application/json"
         }})
-        console.log(res)
         const data = await res.json();
-        console.log(data)
         if (!res.ok) {
             alert(`${data.msg}: ${data.err.errors[0].message}`);
             return false
@@ -241,17 +239,13 @@ const API = {
     },
     postBundle: async (user, bundleId, token) => {
 
-        const data = await fetch(`${BACKEND_URL}/api/users/${user}/bundles/${bundleId}`,{
+        const res = await fetch(`${BACKEND_URL}/api/users/${user}/bundles/${bundleId}`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer: ${token}`
         }})
-        .then((res)=>{
-            return res.json();        
-        })
-        return data;
-
+        return res
     },
 }
 
