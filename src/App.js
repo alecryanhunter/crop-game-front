@@ -53,7 +53,14 @@ function App() {
     const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
     if(token && curUser) {
-      setLoggedIn(tokenCheck(token, curUser))
+      tokenCheck(token, curUser).then(status => {
+        if (status) {
+          setLoggedIn(status);
+          return;
+        }
+      });
+    } else if (window.location.pathname !== "/") {
+      window.location.href="/"
     }
   },[])
   
@@ -69,7 +76,7 @@ function App() {
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
-            <Route path="/play" element={<Play />}/>
+            <Route path="/play" element={<Play /> }/>
             <Route path="/shop" element={<Shop />}/>
             <Route path="/game" element={
               <section style={{display: "flex"}}>

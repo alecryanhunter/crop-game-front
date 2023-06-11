@@ -25,6 +25,8 @@ const API = {
                 window.location.href="/"
             }
             return;
+        }).catch(err => {
+            return false
         })
         return true;
 

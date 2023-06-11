@@ -49,7 +49,6 @@ function Profile() {
 
     function handleAddFriend(e) {
         e.preventDefault();
-        console.log("Add Friend");
         addFriend()
         .then(data=>{
             console.log(data);
