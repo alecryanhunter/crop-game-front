@@ -41,11 +41,8 @@ function Home({loggedIn,setLoggedIn}) {
                 bio: "Hey everyone! I'm a brand-new Farmer!",
             }
             helpers.postUser(signupJSON)
-            .then(data=>{
-                localStorage.removeItem("token");
-                localStorage.setItem("token",data.token);
-                localStorage.setItem("username",data.user.username);
-                setLoggedIn(true);
+            .then(status=>{
+                setLoggedIn(status);
                 return;
             })
 
@@ -57,10 +54,8 @@ function Home({loggedIn,setLoggedIn}) {
                 password: password
             }
             helpers.postLogin(loginJSON)
-            .then(data=>{
-                localStorage.setItem("token",data.token);
-                localStorage.setItem("username",data.user.username);
-                setLoggedIn(true);
+            .then(status=>{
+                setLoggedIn(status);
                 return;
             })
 
