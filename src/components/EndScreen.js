@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import API from "../utils/API"
 
-function EndScreen({coins}) {
+import "../assets/styles/Game.css"
+
+function EndScreen({coins, matchData ,playerID}) {
 
     function winnerFinder(arr) {
         let bigNum = 0
@@ -13,20 +16,40 @@ function EndScreen({coins}) {
             }
         }
         if (equal) {
-            return "Draw"
+            return -1
         }
 
-        return `Player ${winDex=1} Wins!`;
+        return winDex;
     }
 
     useEffect(()=>{
-        winnerFinder(coins);
+        const winner = winnerFinder(coins);
+        if (playerID === winner){
+            API.updateStats(matchData[playerID].name,"wins",coins[playerID])
+        } else {
+            API.updateStats(matchData[playerID].name,"losses",coins[playerID])
+        }
     },[])
 
     return (
         <section className="game-over">
             <h3>GAME OVER</h3>
-            <p>{winnerFinder(coins)}</p>
+            {winnerFinder(coins) === -1 ? (
+                <>
+                <p>The game ended in a draw...</p>
+                {[...Array(coins.length)].map((e,i)=> (
+                    <p key={i}><span className="player-name">{matchData[i].name}</span> earned {coins[i]} coins.</p>
+                ))}
+                </>
+            ) : (
+                <>
+                <p><span className="player-name">{matchData[winnerFinder(coins)].name}</span> won the game, earning {coins[winnerFinder(coins)]} coins.</p>
+                {[...Array(coins.length)].map((e,i)=> (
+                    (i === winnerFinder(coins) ? null : (
+                        <p key={i}><span className="player-name">{matchData[i].name}</span> lost, earning {coins[i]} coins.</p>
+                ))))}
+                </>
+            )}
         </section>
     );
 }

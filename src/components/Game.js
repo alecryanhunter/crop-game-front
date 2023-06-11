@@ -194,7 +194,10 @@ export const CropGame = {
     },
     endIf: ({ G, ctx }) => {
         let noValid = true
-        if (ctx.turn > (20*ctx.numPlayers)) {
+        // Edit the value here to get number of turns per person
+        // DEFAULT is 20*ctx.numPlayers
+        // DEMO is 5*ctx.numPlayers
+        if (ctx.turn > (5*ctx.numPlayers)) {
             return true;
         }
         for (let i = 0; i<G.tiles.length;i++) {
