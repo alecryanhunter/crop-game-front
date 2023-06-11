@@ -9,7 +9,6 @@ import { CropGameBoard } from "../components/Board";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Lobby } from "boardgame.io/react";
 import { CropLobby } from "../components/Lobby";
-import { TempLobby } from "../components/tempLobby";
 import { GAME_SERVER } from "../config"
 
 
@@ -20,7 +19,7 @@ const CropClient = Client({
 })
 
 
-export default function Play({loggedIn}) {
+export default function Play() {
 
     // const [username, setUsername] = useState("");
     // const [room, setRoom] = useState("");
