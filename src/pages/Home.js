@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import helpers from "../utils/API";
 import circleLogo from "../assets/images/circle-logo.png";
 import "../assets/styles/Home.css";
@@ -11,7 +11,7 @@ function Home({loggedIn,setLoggedIn}) {
     const [passwordVerify, setPasswordVerify] = useState("");
     const [samePass,setSamePass] = useState(false);
     // const [isEmail, setIsEmail] = useState(false);
-    
+
     // Toggles Signup/Login State
     function handleSignupToggle() {
         signup ? setSignup(false) : setSignup(true)

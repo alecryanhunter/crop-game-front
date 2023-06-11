@@ -8,90 +8,111 @@ import User from "./User";
 import Chat from "./Chat";
 import "../assets/styles/Lobby.css";
 
-// state.playerName
-// state.phase: list, play
-// state.runingMatch: {.app, .crendentials, .matchID, .playerID}
-// LobbyCreateMatchForm
-    // props.games: [{}]
-    // state.numPlayer
-    // selectedGame
-// LobbyMatchInstance
+export class CropLobby extends Lobby{
+    handleNewMatch(){
+        this._createMatch('Cropposition', 2).then(()=> {
+            const newestMatchArr = this.connection.matches.slice(-1)
+            this.handleJoinMatch(newestMatchArr[0].matchID, "0")
+        })
+    }
+    handleJoinMatch(matchID, playerID){
+        this._joinMatch('Cropposition', matchID, `${playerID}`);
+    }
+    handleLeaveMatch(matchID){
+        this._leaveMatch('Cropposition', matchID);
+    }
+    handleEnterLobby(){
+        this._enterLobby(localStorage.getItem("username"));
+    }
+    handleStartMatch(matchID, playerID){
+        console.log({numPlayers: 2, matchID: matchID, playerID: `${playerID}`})
+        this._startMatch('Cropposition', {numPlayers: 2, matchID: matchID, playerID: `${playerID}`});
+    }
 
-export class CropLobby extends Lobby {
-    render() {
-        this.state.playerName = localStorage.getItem("username");
-        const playerNameObj = { playerName: this.state.playerName };
-        
-        async function handleJoinMatch(matchID) {
-            console.log(playerNameObj)
-            console.log(matchID)
-            const playerCredentials = await fetch(`${GAME_SERVER}/games/Cropposition/${matchID}/join`, {
-                method: "POST",
-                body: JSON.stringify(playerNameObj),
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }).then((res)=>{
-                return res.json();
-            })
-            console.log(playerCredentials)
+    render(){
+        // fetch all running matches
+        const allMatchesArr = this.connection.matches;
+        let myMatchesArr = [];
+        // for each match, find the next empty slot, whether the game is full, and if the current user has already joined
+        allMatchesArr.forEach((matchObj, i) => {
+            matchObj.roomID = ++i
+            const missingPlayerArr = matchObj.players.filter(playerObj => !playerObj.name)
+            if (missingPlayerArr.length===0) {
+                matchObj.isFull = true
+            } else {
+                matchObj.fillNextPlayer = matchObj.players.length - missingPlayerArr.length
+            }
+            const isSelfArr = matchObj.players.filter(playerObj => playerObj.name === this.state.playerName)
+            if (isSelfArr.length > 0) { 
+                myMatchesArr.push(matchObj) 
+                matchObj.myPlayerID = isSelfArr[0].id
+            }
+        });
+        // if the current user has joined a match, show only that match
+        if (myMatchesArr.length !== 1) {
+            myMatchesArr = allMatchesArr
         };
+        // var errMsg = this.state.errorMsg !== '' ? 'Error: ' + this.state.errorMsg:'';
+        const showMatchesDiv = myMatchesArr.map((matchObj, i) => {
+            return(
+                <>
+                    <li key={matchObj.matchID}>
+                        Room {matchObj.roomID}: {!matchObj.isFull ? ("(Waiting for additional players)"):null}
+                    </li>
+                    <ul>
+                        {matchObj.players.map(playerObj => {
+                            return(
+                                <>
+                                {playerObj.name ? (
+                                    <li key={playerObj.id}><a href={"/profile/" + playerObj.name} target="_blank">{playerObj.name}</a></li>
+                                ):(
+                                    <li key={playerObj.id}>___________</li>
+                                )}
+                                </>
+                            )
+                        })}
+                        {matchObj.myPlayerID >= 0 ? (
+                            <button type="button" onClick={() => this.handleLeaveMatch(matchObj.matchID)}>Leave</button>
+                        ):(
+                            <button type="button" onClick={() => this.handleJoinMatch(matchObj.matchID, matchObj.fillNextPlayer )}>Join</button>
+                        )}
+                        {matchObj.isFull && matchObj.myPlayerID >=0  ? (
+                            <button type="button" onClick={() => this.handleStartMatch(matchObj.matchID, matchObj.myPlayerID)}>Play</button>
+                        ):(
+                            null
+                        )}         
+                    </ul>
+                </> 
+            )
+        })
 
-        function handleNewMatch() {
-                fetch(`${GAME_SERVER}/games/Cropposition/create`, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        numPlayers: 2,
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                }).then((res)=>{
-                    return res.json();
-                }).then(json => {
-                    console.log(json)
-                })
-        };
-        
+        if (this.state.phase === 'enter'){
+            this.handleEnterLobby() //this throws a warning, but it works as intended
+        }
+        else if (this.state.phase === 'list'){
+            return (
+                <div>
+                    <ul>
+                        {showMatchesDiv}
+                    </ul>
+                    {(myMatchesArr[0]?.myPlayerID == null) && <button type="button" onClick={() => this.handleNewMatch()}>Host a new game</button>}
+                </div>
+            );
+        }
+        else if (this.state.phase === 'play'){
+            const myGameBoard = React.createElement(this.state.runningMatch.app, {
+                matchID: this.state.runningMatch.matchID,
+                playerID: this.state.runningMatch.playerID,
+                credentials: this.state.runningMatch.credentials
+            });
+            return (
+                <div>
+                    {myGameBoard}
+                </div>
+            );
+        }
 
-        
-        return (
-            <div>
-                <p>state.phase: {this.state.phase}</p>
-                <p>state.playerName: {this.state.playerName}</p>
-                <ul>
-                    {this.connection.matches.map((matchObj, i) => {
-                        return (<>
-                            <li key={matchObj.matchID}>Room: {++i}</li>
-                            <ul>
-                                {matchObj.players.map(playerObj => {
-                                    return(
-                                        <li key={playerObj.id}>
-                                            {playerObj.name ? (
-                                                <a href={`/profile/${playerObj.name}`} target="_blank">{playerObj.name}</a>
-                                            ):(
-                                                "_________"
-                                            )}
-                                        </li>
-                                    )
-                                })}
-                                <button 
-                                    type="button" 
-                                    onClick={ ()=>{
-                                        handleJoinMatch(matchObj.matchID)
-                                    }}
-                                >Join</button>
-                            </ul>
-                        </>)
-                    })}
-                    <li><button type="button" onClick={handleNewMatch}>Host new game</button></li>
-                </ul>
-
-            </div>
-        );
-      }
-    
-
+    }
 }
 
 // function Lobby({socket, room, username, host }) {

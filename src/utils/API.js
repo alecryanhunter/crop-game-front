@@ -14,6 +14,7 @@ const API = {
             if (!res.ok) {
                 localStorage.removeItem("token")
                 localStorage.removeItem("username")
+                console.log("not logged in")
                 window.location.href="/"
             }
             return res.json();
@@ -25,6 +26,8 @@ const API = {
                 window.location.href="/"
             }
             return;
+        }).catch(err => {
+            return false
         })
         return true;
 
