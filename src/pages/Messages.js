@@ -20,7 +20,6 @@ function Messages() {
     useEffect(() => {
         messagesData()
             .then((data) => {
-                console.log(data);
                 if (data.msg === "no messages") {
                 console.log("No Messages");
                 } else {
