@@ -18,6 +18,7 @@ function Profile() {
     const [losses, setLosses] = useState('');
     const [forfeits, setForfeits] = useState('');
     const [friends, setFriends] = useState([]);
+    const [isCurFriend, setIsCurFriend] = useState(false);
     const [edit, setEdit] = useState(false);
 
     let { user } = useParams();
@@ -55,7 +56,7 @@ function Profile() {
         })
     }
 
-    async function profileData() {
+    async function profileData(user) {
         return await API.getProfile(user);
     }
 
@@ -64,7 +65,7 @@ function Profile() {
     }
 
     useEffect(()=>{
-        profileData().then(data=>{
+        profileData(user).then(data=>{
             setUsername(data.username);
             setTitle(data.current_title);
             setTitleArr(data.Bundles.filter(bundleObj => bundleObj.type === "Title"));
@@ -75,6 +76,14 @@ function Profile() {
             setLosses(data.losses);
             setForfeits(data.forfeits);
             setFriends(data.Friendships);
+        });
+        profileData(curUser).then(data=>{
+            setIsCurFriend(()=>{
+                const myFriendsArr = data.Friendships.map(friendshipObj => {
+                    return friendshipObj.Users.filter(userObj => userObj.username !== curUser)[0].username
+                })
+                if (myFriendsArr.includes(user)) { return true }
+            })
         })
     }, []);
 
@@ -120,6 +129,16 @@ function Profile() {
             }
         </UploadButton>
 
+
+    let multiBtn
+    if (curUser===user) {
+        multiBtn = <button onClick={handleEdit}>{edit ? "Save Edits" : "Edit Profile"}</button>
+    } else if (isCurFriend){
+        multiBtn = <button onClick={()=>window.location.href=`/messages/${user}`}>Message</button>
+    } else {
+        multiBtn = <button onClick={handleAddFriend}>Add Friend</button>
+    }
+
     return (
         <section className="page profile">
             <section className="main-profile container flex-wrap">
@@ -157,16 +176,7 @@ function Profile() {
                                 </div>
                             </div>
                             <div className="col col-md-4">
-                            {(curUser===user) ? (
-                                <button
-                                    onClick={handleEdit}
-                                >{edit ? "Save Edits" : "Edit Profile"}</button>
-                                ) : (
-                                // TODO: Add DM button and remove friend button if already friends
-                                <button
-                                    onClick={handleAddFriend}
-                                >Add Friend</button>
-                            )}
+                                {multiBtn}
                             </div>
                         </section>
                         <section className="profile-bio row w-75">
