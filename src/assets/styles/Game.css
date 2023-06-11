@@ -130,12 +130,17 @@ section.board {
 
 .market {
     background: #182124;
-    color: white;
+    color: gainsboro;
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
 }
 
+.turn-indicator {
+    color: gainsboro;
+    text-align: center;
+    transition: all 1s ease;
+}
 
 .commands {
     display: flex;

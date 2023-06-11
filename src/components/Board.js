@@ -3,13 +3,14 @@ import Tile from "./Tile"
 import EndScreen from './EndScreen';
 import "../assets/styles/Game.css"
 
-export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
+export function CropGameBoard({ ctx, G, moves, events, playerID, stages, matchData }) {
     const [mode, setMode] = useState("");
     const [choices,setChoices] = useState(G.choices);
 
     // Keeps the choices state updated (NECESSARY??)
     useEffect(()=>{
         setChoices(G.choices)
+        console.log(matchData)
     },[G.choices])
 
     // This function de-toggles any straggling worker selection boxes
@@ -85,7 +86,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
 
     return (
         <section className="game">
-            {ctx.gameover ? <EndScreen coins={G.coins}/> :
+            {ctx.gameover ? <EndScreen coins={G.coins} matchData={matchData}/> :
             (<>
             <section className='game-left'>
                 
@@ -95,7 +96,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
 
                     {[...Array(ctx.numPlayers)].map((e,i)=> (
                     <section className={`player-card player-${i}`} key={i}>
-                        <h3>Player {i+1}</h3>
+                        <h3>{matchData[i].name}</h3>
                         <h5>Coins: {G.coins[i]}</h5>
                         {/* FARMHOUSE */}
                         <h5>Workers</h5>
@@ -157,7 +158,8 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                 <div className='game-right-scroll'>
                 <section className='market'>
                         <h3>Market</h3>
-                        <p>Player One:</p>
+                        {/* TODO: Change to be array-based so it scales with more players */}
+                        <p>{matchData[0].name}</p>
                         <section className='crops'>
                             {[...Array(G.market[0].green.amount+G.marketSell[0].green.amount)].map((e,i)=> (
                                 <div
@@ -174,7 +176,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                                 />
                             ))}
                         </section>
-                        <p>Player Two:</p>
+                        <p>{matchData[1].name}</p>
                         <section className='crops'>
                             {[...Array(G.market[1].green.amount+G.marketSell[1].green.amount)].map((e,i)=> (
                                 <div
@@ -192,6 +194,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                             ))}
                         </section>
                 </section>
+                {playerID === ctx.currentPlayer ? <h3 className='turn-indicator'>Your Turn!</h3> : null}
                 <section className='commands'>
                     <Tile
                         name={"tile"}

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import API from "../utils/API"
 
-function EndScreen({coins}) {
+function EndScreen({coins, matchData}) {
 
     function winnerFinder(arr) {
         let bigNum = 0
@@ -21,6 +21,7 @@ function EndScreen({coins}) {
     }
 
     useEffect(()=>{
+        console.log(matchData);
         winnerFinder(coins);
     },[])
 
