@@ -1,5 +1,6 @@
-* {
-    transition: all ease 1s;
+.tile,
+.commands button {
+    transition: all ease .5s;
 }
 
 .game {
