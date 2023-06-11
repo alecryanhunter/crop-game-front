@@ -96,14 +96,13 @@ export const CropGame = {
             // remove is a flag telling this move whether you're removing or placing
             if (G.tiles[y][x].workersActive) {
                 G.tiles[y][x].workersActive = false
-                if (remove) {
-                    G.tiles[y][x].workersRemove = false
-                }
             } else {
                 G.tiles[y][x].workersActive = true;
-                if (remove) {
-                    G.tiles[y][x].workersRemove = true
-                }
+            }
+            if (remove && G.tiles[y][x].workersRemove === false) {
+                G.tiles[y][x].workersRemove = true
+            } else {
+                G.tiles[y][x].workersRemove = false
             }
         },
         marketReturn: ({G, playerID}) => {
@@ -193,8 +192,11 @@ export const CropGame = {
     },
     turn: {
     },
-    endIf: ({ G }) => {
+    endIf: ({ G, ctx }) => {
         let noValid = true
+        if (ctx.turn > (20*ctx.numPlayers)) {
+            return true;
+        }
         for (let i = 0; i<G.tiles.length;i++) {
             for (let j =0; j<G.tiles[i].length;j++){
                 if (G.tiles[i][j].valid) {

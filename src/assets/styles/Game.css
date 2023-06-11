@@ -8,6 +8,11 @@
     background-color: rgba(121, 183, 93, 0.4);
 }
 
+.game-over {
+    align-self: center;
+    background-color: rgba(121, 183, 93, 0.7);
+}
+
 section.game-left {
     display: inline-block;
 }

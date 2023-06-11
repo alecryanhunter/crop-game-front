@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Tile from "./Tile"
+import EndScreen from './EndScreen';
 import "../assets/styles/Game.css"
 
 export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
@@ -62,7 +63,6 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
     // Send Workers to Market
     function handleMarketSell(type) {
         if (G.choices === true) {
-            console.log("sell")
             moves.marketSell(type);
             setMode("");
             moves.marketReturn();
@@ -85,7 +85,8 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
 
     return (
         <section className="game">
-
+            {ctx.gameover ? <EndScreen coins={G.coins}/> :
+            (<>
             <section className='game-left'>
                 
             {/* PLAYER INFO */}
@@ -158,7 +159,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                         <h3>Market</h3>
                         <p>Player One:</p>
                         <section className='crops'>
-                            {[...Array(G.market[0].green.amount)].map((e,i)=> (
+                            {[...Array(G.market[0].green.amount+G.marketSell[0].green.amount)].map((e,i)=> (
                                 <div
                                     key={i}
                                     className='crop crop-green'
@@ -166,7 +167,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                             ))}
                         </section>
                         <section className='crops'>
-                            {[...Array(G.market[0].yellow.amount)].map((e,i)=> (
+                            {[...Array(G.market[0].yellow.amount+G.marketSell[0].yellow.amount)].map((e,i)=> (
                                 <div
                                     key={i}
                                     className='crop crop-yellow'
@@ -175,7 +176,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                         </section>
                         <p>Player Two:</p>
                         <section className='crops'>
-                            {[...Array(G.market[1].green.amount)].map((e,i)=> (
+                            {[...Array(G.market[1].green.amount+G.marketSell[1].green.amount)].map((e,i)=> (
                                 <div
                                     key={i}
                                     className='crop crop-green'
@@ -183,7 +184,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                             ))}
                         </section>
                         <section className='crops'>
-                            {[...Array(G.market[1].yellow.amount)].map((e,i)=> (
+                            {[...Array(G.market[1].yellow.amount+G.marketSell[1].yellow.amount)].map((e,i)=> (
                                 <div
                                     key={i}
                                     className='crop crop-yellow'
@@ -232,7 +233,7 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages }) {
                 </section>
                 </div>
             </section>
-
+            </>)}
         </section>
     );
 }
