@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import API from "../utils/API";
 import User from "../components/User";
 import "../assets/styles/Messages.css";
+import "../assets/styles/Titles.css";
 
 function Messages() {
     const [messagesList, setMessagesList] = useState([]);

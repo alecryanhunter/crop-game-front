@@ -1,0 +1,84 @@
+#cropposition-founder-and-cmo,
+#cropposition-founder-and-cto,
+#cropposition-founder-and-ceo {
+    background-color: black;
+    color: crimson;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#grainee {
+    background-color: #C67D30;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+#farmhand {
+    background: linear-gradient(90deg,firebrick 10%,navy 10%,navy 30%,firebrick 30%,firebrick 70%, navy 70%,navy 90%,firebrick 90%);
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+}
+
+#corn-husker {
+    background-color: #FFCC00;
+    border-radius: 5px;
+    padding: 3px;
+}
+#corn-husker:after,
+#corn-husker:before {
+    content: "🌽";
+}
+
+#spud-bud {
+    background-color: #B6A68E;
+    border-radius: 5px;
+    padding: 3px;
+}
+#spud-bud:after,
+#spud-bud:before {
+    content: "🥔";
+}
+
+#tear-inducer {
+    background-color: #F1AE70;
+    border-radius: 5px;
+    padding: 3px;
+}
+#tear-inducer:after,
+#tear-inducer:before {
+    content: "🧅";
+}
+
+#harvest-jester {
+    background: linear-gradient(70deg,green 50%, purple 50%);
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+#pastoralist {
+    background-image: url("../images/Field.png");
+    background-position: 0% 50%;
+    padding: 3px;
+    border-radius: 5px;
+    background-size: cover;
+    color: white;
+    text-shadow: 0 0 3px black;
+}
+
+#crop-queen,
+#crop-king {
+    background: linear-gradient(130deg, gold,  rgb(247, 237, 182), gold);
+    background-size: 200% 200%;
+    border-radius: 5px;
+    padding: 3px;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {background-position: 0% 0%;}
+    50% {background-position: 110% 0%;}
+    100% {background-position: 0% 0%;}
+
+}

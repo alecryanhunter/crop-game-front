@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import User from "../components/User";
 import API from "../utils/API"
+import helpers from "../utils/helpers";
 import { Uploader } from "uploader"; 
 import { UploadButton } from "react-uploader";
 import "../assets/styles/Profile.css";
+import "../assets/styles/Titles.css";
 
 
 function Profile() {
@@ -153,7 +155,7 @@ function Profile() {
                                 )}
                             </div>
                             <div className="col col-md-4 d-flex align-self-center">
-                                <h3>{username}</h3>
+                                <h3 id={helpers.f(title)}>{username}</h3>
                                 <div className="title">
                                 {edit ? (
                                     <select 
@@ -169,7 +171,7 @@ function Profile() {
                                         ))}
                                   </select>
                                 ) : (
-                                    <p>{title}</p>
+                                    <p id={helpers.f(title)}>{title}</p>
                                 )}
                                 </div>
                             </div>

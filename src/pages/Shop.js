@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import API from "../utils/API";
+import helpers from "../utils/helpers";
 import "../assets/styles/Shop.css";
+import "../assets/styles/Titles.css"
 
 
 function Shop() {
@@ -67,7 +69,7 @@ function Shop() {
                             titleArr.map((titleObj) => (
                                 <li key={titleObj.id}>
                                     <span>
-                                        <span className="title-option">{titleObj.name}:</span> {titleObj.price} <i>coins</i>
+                                        <span className="title-option" id={helpers.f(titleObj.name)}>{titleObj.name}:</span> {titleObj.price} <i>coins</i>
                                     </span>
                                     <span className="d-flex-inline align-items-flex-end">
                                         <button className="buyBtn" type="button" onClick={(e)=>handlePurchase(e, titleObj.id)}>Buy</button>

@@ -154,6 +154,10 @@ checkValid: (board,active,sideNum)=>{
     }
 
     return boardCopy
+},
+f: (string) => {
+    const newString = string.split(" ").join("-").toLowerCase()
+    return newString;
 }
 
 }
