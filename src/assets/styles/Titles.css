@@ -1,29 +1,44 @@
-.grainee {
+#cropposition-founder-and-cmo,
+#cropposition-founder-and-cto,
+#cropposition-founder-and-ceo {
+    background-color: black;
+    color: crimson;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#trainee {
     background-color: #C67D30;
     border-radius: 5px;
     padding: 3px;
 }
 
-.farmhand {
+#grainee {
     background-color: #C67D30;
     border-radius: 5px;
     padding: 3px;
 }
 
-.corn-husker {
+#farmhand {
     background-color: #C67D30;
     border-radius: 5px;
     padding: 3px;
 }
 
-.harvest-jester {
+#corn-husker {
     background-color: #C67D30;
     border-radius: 5px;
     padding: 3px;
 }
 
-.crop-queen,
-.crop-king {
+#harvest-jester {
+    background-color: #C67D30;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+#crop-queen,
+#crop-king {
     background: linear-gradient(130deg, gold,  rgb(247, 237, 182), gold);
     background-size: 200% 200%;
     border-radius: 5px;
@@ -33,7 +48,7 @@
 
 @keyframes shimmer {
     0% {background-position: 0% 0%;}
-    50% {background-position: 90% 100%;}
+    50% {background-position: 150% 0%;}
     100% {background-position: 0% 0%;}
 
 }
