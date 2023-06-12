@@ -18,7 +18,6 @@ boardGen: (rows, cols, filler) => {
             .fill()
             .map(filler)
         )
-    // TODO: Have initial square be fed into function
     board[Math.floor(rows/2)][Math.floor(cols/2)].edges = [1,1,2,2]
     return board
 },

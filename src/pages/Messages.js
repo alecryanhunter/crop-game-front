@@ -6,6 +6,7 @@ import "../assets/styles/Messages.css";
 function Messages() {
     const [messagesList, setMessagesList] = useState([]);
     const [friendRequests, setFriendRequests] = useState([]);
+    const [updateFriend,setUpdateFriend] = useState("")
 
 
     const token = localStorage.getItem("token");
@@ -15,6 +16,22 @@ function Messages() {
 
     async function messagesData() {
         return await API.getAllDMs(curUser,token);
+    }
+
+    async function confirmFriend(user, friend, token, body) {
+        return await API.confirmFriend(user, friend, token, body)
+    }
+
+    // handles updating a friend status
+    function handleFriendConfirm(e) {
+        e.preventDefault();
+        const json = {
+            status: "confirmed"
+        }
+        confirmFriend(curUser, e.target.name, token, json)
+        .then(data=>{
+            setUpdateFriend(data)
+        })
     }
 
     useEffect(() => {
@@ -34,7 +51,7 @@ function Messages() {
             .catch((error) => {
                 console.error("Error fetching messages:", error);
             });
-    }, []);
+    }, [updateFriend]);
 
     return (
         <section className="messages container">
@@ -89,6 +106,7 @@ function Messages() {
                                     title={item.sender_current_title}
                                     message={item.message}
                                     profile_pic={PIC_URL_PREFIX_SM + item.sender_profile_pic}
+                                    handleFriendConfirm={handleFriendConfirm}
                                     friendBtn={true}
                                 />
                             </a>
