@@ -1,0 +1,59 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-image: url("../images/light-green-bg.png");
+}
+
+
+.userbar,
+.userinfo,
+.userinfo h3,
+.userinfo p {
+    background-color: transparent;
+    text-decoration: none;
+}
+
+
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.not-found img {
+    width: 300px;
+}
+
+
+.page {
+    display: flex;
+    flex-direction: column;
+}
+
+.subpage {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 5px solid var(--tertiary);
+    padding: 1%;
+    margin: 2%;
+}
+
+.lobby {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

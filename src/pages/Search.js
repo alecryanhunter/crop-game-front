@@ -6,6 +6,8 @@ import "../assets/styles/Search.css";
 function Search() {
     const [searchData, setSearchData] = useState([]);
     const [searchField, setSearchField] = useState("");
+
+    const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
     
     function handleInputChange(e) {
         const { name, value } = e.target
@@ -16,11 +18,12 @@ function Search() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        search(searchField)
-        .then(data=>{
-            console.log(data);
-            setSearchData(data);
-        })
+        if (searchField) {
+            search(searchField)
+            .then(data=>{
+                setSearchData(data);
+            })
+        }
     }
 
     async function search(query) {
@@ -43,10 +46,9 @@ function Search() {
                 >Search</button>
             </form>
             {searchData.map(user=>{
-                // TODO: Add friend status to this, as well
-                return <div className="results"> 
+                return <div className="results" key={user.id}> 
                     <a href={`/profile/${user.username}`} key={user.id}>
-                        <User pic={user.profile_pic} username={user.username} title={user.current_title}/>
+                        <User profile_pic={PIC_URL_PREFIX_SM + user.profile_pic} username={user.username} title={user.current_title} />
                     </a>
                 </div>
             })}

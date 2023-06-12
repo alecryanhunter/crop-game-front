@@ -18,71 +18,95 @@ boardGen: (rows, cols, filler) => {
             .fill()
             .map(filler)
         )
-    // TODO: Have initial square be fed into function
     board[Math.floor(rows/2)][Math.floor(cols/2)].edges = [1,1,2,2]
     return board
 },
-// Calculates points based on edge adjacency only
-// TODO: Cascade to all matching edges? like merge sort, call during a concat()?
-pointCalc: (board,y,x,sideNum) => {
-    // Declaring variables at top
-    const top = Number(y)-1;
-    const right = Number(x)+1;
-    const bottom = Number(y)+1;
-    const left = Number(x)-1;
-    const edges = board[y][x].edges;
-    const points = {}
+// Propagating point calculation. 1 quadrant = 1 point
+getPoints: (board,y,x,w,sideNum) => {
+    // All quadrants must be stored as strings for comparison
+    const start = `${y}-${x}-${w}`;
+    const queue = [start];
+    const results = [];
 
-    // Top - [0]
-    // Right - [1]
-    // Bottom - [2]
-    // Left - [3]
+    // Returns the counter-clockwise, clockwise, and opposite index for 4-length edge arrays
+    const prev = (index) => (index === 0 ? 3 : index - 1);
+    const next = (index) => (index === 3 ? 0 : index + 1);
+    const opp = (index) => (index === 1 ? 3 : index === 0 ? 2 : index - 2);
 
-    // Detects Top Edge
-    if (top >= 0) {
-        if (edges[0] === board[top][x].edges[2]){
-            // console.log("top edge matches")
-            if (edges[0] in points) {
-                points[edges[0]]++;
-            } else {
-                points[edges[0]] =1;
+    // As long as the queue has something, will run this
+    while (queue.length) {
+        const cur = queue.shift().split("-").map(i=>Number(i));
+        results.push(`${cur[0]}-${cur[1]}-${cur[2]}`);
+        const type = board[cur[0]][cur[1]].edges[cur[2]]
+
+        // Checks the three adjacent quadrants: counter-clockwise, clockwise, and across
+        // Counter-Clockwise
+        const counCWIndex = prev(cur[2])
+        const counCW =`${cur[0]}-${cur[1]}-${counCWIndex}`
+        if (board[cur[0]][cur[1]].edges[counCWIndex] === type) {
+            if (queue.indexOf(counCW) === -1 && results.indexOf(counCW) === -1) {
+                queue.push(counCW);
             }
         }
-    }
-    // Detects Right Edge
-    if (right !== sideNum) {
-        if (edges[1] === board[y][right].edges[3]){
-            // console.log("right edge matches")
-            if (edges[1] in points) {
-                points[edges[1]]++;
-            } else {
-                points[edges[1]] =1;
+        
+        // Clockwise
+        const cwIndex = next(cur[2])
+        const cw =`${cur[0]}-${cur[1]}-${cwIndex}`
+        if (board[cur[0]][cur[1]].edges[cwIndex] === type) {
+            if (queue.indexOf(cw) === -1 && results.indexOf(cw) === -1) {
+                queue.push(cw);
             }
         }
-    }
-    // Detects Bottom Edge
-    if (bottom !== sideNum) {
-        if (edges[2] === board[bottom][x].edges[0]){
-            // console.log("bottom edge matches")
-            if (edges[2] in points) {
-                points[edges[2]]++;
-            } else {
-                points[edges[2]] =1;
-            }
+
+        // Across
+        // Necessary translations for finding the across quadrant
+        const top = Number(cur[0])-1;
+        const right = Number(cur[1])+1;
+        const bottom = Number(cur[0])+1;
+        const left = Number(cur[1])-1;
+        const acrossIndex = opp(cur[2])
+        
+        // Switch depending on quadrant orientation
+        switch(cur[2]) {
+            case 0: // North
+                if (cur[0]!==0 && board[top][cur[1]].edges[acrossIndex] === type) {
+                    const across =`${top}-${cur[1]}-${acrossIndex}`
+                    if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
+                        queue.push(across)
+                    }
+                }
+                break;
+            case 1: // East
+                if (cur[1]+1!==sideNum && board[cur[0]][right].edges[acrossIndex] === type) {
+                    const across =`${cur[0]}-${right}-${acrossIndex}`
+                    if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
+                        queue.push(across)
+                    }
+                }
+                break;
+            case 2: // South
+                if (cur[0]+1!==sideNum && board[bottom][cur[1]].edges[acrossIndex] === type) {
+                    const across =`${bottom}-${cur[1]}-${acrossIndex}`
+                    if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
+                        queue.push(across)
+                    }
+                }
+                break;
+            case 3: // West
+                if (left !== 0 && board[cur[0]][left].edges[acrossIndex] === type) {
+                    const across =`${cur[0]}-${left}-${acrossIndex}`
+                    if (queue.indexOf(across) === -1 && results.indexOf(across) === -1) {
+                        queue.push(across)
+                    }
+                }
+                break;
+            default:
+                console.log("invalid edge number");
         }
+        
     }
-    // Detects Left Edge
-    if (left >= 0) {
-        if (edges[3] === board[y][left].edges[1]){
-            // console.log("left edge matches")
-            if (edges[3] in points) {
-                points[edges[3]]++;
-            } else {
-                points[edges[3]] =1;
-            }
-        }
-    }
-    return points
+
+    return results.length
 },
 checkValid: (board,active,sideNum)=>{
     const boardCopy = JSON.parse(JSON.stringify(board))
@@ -130,6 +154,10 @@ checkValid: (board,active,sideNum)=>{
     }
 
     return boardCopy
+},
+f: (string) => {
+    const newString = string.split(" ").join("-").toLowerCase()
+    return newString;
 }
 
 }

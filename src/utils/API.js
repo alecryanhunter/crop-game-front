@@ -3,8 +3,35 @@
 import { BACKEND_URL } from "../config"
 
 const API = {
-    getProfile: async (username) => {
+    verifyToken: async (token, username) => {
+        const data = await fetch(`${BACKEND_URL}/api/users/verify`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
+        }})
+        .then((res)=>{
+            if (!res.ok) {
+                localStorage.removeItem("token")
+                localStorage.removeItem("username")
+                window.location.href="/"
+            }
+            return res.json();
+        })
+        .then((json)=>{
+            if (username.toLowerCase() !== json.username.toLowerCase()) {
+                localStorage.removeItem("token")
+                localStorage.removeItem("username")
+                window.location.href="/"
+            }
+            return;
+        }).catch(err => {
+            return false
+        })
+        return true;
 
+    },
+    getProfile: async (username) => {
         const data = await fetch(`${BACKEND_URL}/api/users/${username}`,{
             method: "GET",
             headers: {
@@ -46,7 +73,6 @@ const API = {
                 "Authorization": `Bearer: ${token}`
         }})
         .then((res)=>{
-            console.log(res);
             if (res.status===204) {
                 const none = {
                     msg: "no messages"
@@ -105,38 +131,41 @@ const API = {
     },
     postUser: async (json) => {
 
-        const data = await fetch(`${BACKEND_URL}/api/users`,{
+        const res = await fetch(`${BACKEND_URL}/api/users`,{
             method: "POST",
             body: JSON.stringify(json),
             headers: {
                 "Content-Type": "application/json"
         }})
-        .then((res)=>{
-            return res.json();
-        })
-        .then((json)=>{
-            return json;
-        })
-        return data;
-
+        const data = await res.json();
+        if (!res.ok) {
+            alert(`${data.msg}: ${data.err.errors[0].message}`);
+            return false
+        } else {
+            localStorage.removeItem("token");
+            localStorage.setItem("token",data.token);
+            localStorage.setItem("username",data.user.username);
+            return true
+        }
     },
     // JSON object needs username and password
     postLogin: async (json) => {
 
-        const data = await fetch(`${BACKEND_URL}/api/users/login`,{
+        const res = await fetch(`${BACKEND_URL}/api/users/login`,{
             method: "POST",
             body: JSON.stringify(json),
             headers: {
                 "Content-Type": "application/json"
         }})
-        .then((res)=>{
-            return res.json();
-        })
-        .then((json)=>{
-            return json;
-        })
-        return data;
-
+        if (!res.ok) {
+            alert("Invalid Login");
+            return false
+        } else {
+            const data = await res.json();
+            localStorage.setItem("token",data.token);
+            localStorage.setItem("username",data.user.username);
+            return true
+        }
     },
     search: async (username) => {
 
@@ -206,7 +235,27 @@ const API = {
         })
         return data;
 
-    }
+    },
+    postBundle: async (user, bundleId, token) => {
+
+        const res = await fetch(`${BACKEND_URL}/api/users/${user}/bundles/${bundleId}`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${token}`
+        }})
+        return res
+    },
+    updateStats: async (user, stat, coins) => {
+
+        const res = await fetch(`${BACKEND_URL}/api/users/${user}/${stat}/${coins}`,{
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${process.env.REACT_APP_ADMIN_TOKEN}`
+        }})
+        return res
+    },
 }
 
 export default API;
