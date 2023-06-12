@@ -20,9 +20,10 @@
 }
 
 #farmhand {
-    background-color: #C67D30;
+    background: linear-gradient(90deg,firebrick 10%,navy 10%,navy 30%,firebrick 30%,firebrick 70%, navy 70%,navy 90%,firebrick 90%);
     border-radius: 5px;
     padding: 3px;
+    color: white;
 }
 
 #corn-husker {
@@ -35,11 +36,41 @@
     content: "🌽";
 }
 
+#spud-bud {
+    background-color: #B6A68E;
+    border-radius: 5px;
+    padding: 3px;
+}
+#spud-bud:after,
+#spud-bud:before {
+    content: "🥔";
+}
+
+#tear-inducer {
+    background-color: #F1AE70;
+    border-radius: 5px;
+    padding: 3px;
+}
+#tear-inducer:after,
+#tear-inducer:before {
+    content: "🧅";
+}
+
 #harvest-jester {
     background: linear-gradient(70deg,green 50%, purple 50%);
     color: white;
     border-radius: 5px;
     padding: 3px;
+}
+
+#pastoralist {
+    background-image: url("../images/Field.png");
+    background-position: 0% 50%;
+    padding: 3px;
+    border-radius: 5px;
+    background-size: cover;
+    color: white;
+    text-shadow: 0 0 3px black;
 }
 
 #crop-queen,
