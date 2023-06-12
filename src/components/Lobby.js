@@ -19,7 +19,6 @@ export class CropLobby extends Lobby{
         this._enterLobby(localStorage.getItem("username"));
     }
     handleStartMatch(matchID, playerID){
-        console.log({numPlayers: 2, matchID: matchID, playerID: `${playerID}`})
         this._startMatch('Cropposition', {numPlayers: 2, matchID: matchID, playerID: `${playerID}`});
     }
 
