@@ -68,6 +68,7 @@ function App() {
         <Router>
           <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           <Routes>
+            {/* PATHS */}
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
