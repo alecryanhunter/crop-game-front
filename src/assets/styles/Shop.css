@@ -1,0 +1,82 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124; 
+}
+
+.shop h2 {
+    font-variant: small-caps;
+    margin: 1em auto;
+    font-size: 220%;
+    font-weight: 700;
+    color: var(--tertiary);
+    text-shadow: -1px -1px white;
+    background-color:  rgb(24, 33, 36, .3);
+    width: fit-content;
+    padding: 1%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.shop .subpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 5px solid var(--tertiary);
+    border-radius: 15px;
+    justify-content: center;
+    padding: 2%;
+    width: 90%;
+    min-width: fit-content;
+    margin: 2%;
+    flex-wrap: wrap;
+}
+
+.titles {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.titles:before,
+.titles:after {
+    content: '';
+    border-top: 1px solid;
+    margin: 0 20px 0 0;
+    flex: 1 0 20px;
+}
+
+.titles:after {
+    margin: 0 0 0 20px;
+}
+
+.game-titles {
+    list-style-type: square;
+    flex-wrap: wrap;
+    display: inline;
+    width: 100%;
+    align-items: center;
+}
+
+.title-option {
+    font-weight: 600;
+    font-size: large;
+    font-variant: small-caps;
+}
+
+.buyBtn {
+    margin: 1%;
+    padding: .2em;
+    background-color: var(--tertiary);
+    border-radius: 10px;
+}
+
+.game-titles button:hover {
+    background-color: var(--primary);
+}
