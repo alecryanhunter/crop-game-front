@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import API from "../utils/API"
+import API from "../utils/API";
+import "../assets/styles/Shop.css";
 
 
 function Shop() {
@@ -50,45 +51,51 @@ function Shop() {
     }
 
     return (
-        <section className="page">
+        <section className="shop container">
             <h2>Shop</h2>
             <section className="shop subpage">
-                <h3>Your Coins: {coins}</h3>
-                <p><i>Level up your farm by using your in-game winnings to "purchase" Titles, Skins, and Expansions </i></p>
-                <h3>Titles</h3>
+                <div className="coins text-center">
+                    <h3><strong>Your Coins:</strong> {coins}</h3>
+                    <p><i>Level up your farm by using your in-game winnings to "purchase" Titles, Skins, and Expansions </i></p>
+                </div>
                 <hr/>
-                <p><i>NEW! </i>Titles purchased here in the shop will be available to select when editing your profile.</p>
-                <ul>
-                    {titleArr.length!==0 ? (
-                        titleArr.map((titleObj) => (
+                <div className="title-section w-75">
+                    <h3 className="titles">Titles</h3>
+                    <p className="text-center"><i>NEW! </i>Titles purchased here in the shop will be available to select when editing your profile.</p>
+                    <ul className="game-titles">
+                        {titleArr.length!==0 ? (
+                            titleArr.map((titleObj) => (
+                                <li key={titleObj.id}>
+                                    <span>
+                                        <span className="title-option">{titleObj.name}:</span> {titleObj.price} <i>coins</i>
+                                    </span>
+                                    <span className="d-flex-inline align-items-flex-end">
+                                        <button className="buyBtn" type="button" onClick={(e)=>handlePurchase(e, titleObj.id)}>Buy</button>
+                                    </span>
+                                </li>
+                            ))
+                        ):(
+                            <li>WHOA NELLIE! Looks like you already own all the titles! Check back later for new additions.</li>
+                        )
+                        }
+                        {ownedTitleArr.map((titleObj) => (
                             <li key={titleObj.id}>
-                                <span>
-                                    {titleObj.name}: {titleObj.price} coins
-                                </span>
-                                <span>
-                                    <button type="button" onClick={(e)=>handlePurchase(e, titleObj.id)}>Purchase</button>
-                                </span>
+                                <span>{titleObj.name}: {titleObj.price} coins</span>
+                                <span><i> Purchased </i></span>
                             </li>
-                        ))
-                    ):(
-                        <li>WHOA NELLIE! Looks like you already own all the titles! Check back later for new additions.</li>
-                    )
-                    }
-                    {ownedTitleArr.map((titleObj) => (
-                        <li key={titleObj.id}>
-                            <span>{titleObj.name}: {titleObj.price} coins</span>
-                            <span><i> Purchased </i></span>
-                        </li>
-                    ))}
-                </ul>
-                <h3>Skins</h3>
-                <hr/>
-                <p><i>Coming Soon! </i> Tired of boring potatoes? Change up your in-game crops by purchasing Skins. </p>
-
-                <h3>Expansions</h3>
-                <hr/>
-                <p><i>Coming Soon! </i> Upgrade your gameplay! Expansions purchased here in the shop will be available to select when hosting a game.</p>
-
+                        ))}
+                    </ul>
+                </div>
+                <hr />
+                <div className="skins w-75 text-center" >
+                    <h3 className="titles">Skins</h3>
+                    <p><i>Coming Soon! </i> Tired of boring potatoes? Change up your in-game crops by purchasing Skins. </p>
+                    </div>
+                <hr />
+                <div className="expansions w-75 text-center">
+                    <h3 className="titles">Expansions</h3>
+                    <p><i>Coming Soon! </i> Upgrade your gameplay! Expansions purchased here in the shop will be available to select when hosting a game.</p>
+                </div>    
             </section>
         </section>
     )

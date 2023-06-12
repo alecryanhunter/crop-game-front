@@ -180,7 +180,6 @@ const API = {
         .then((json)=>{
             return json;
         })
-        console.log(data)
         return data;
 
     },
@@ -244,6 +243,16 @@ const API = {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer: ${token}`
+        }})
+        return res
+    },
+    updateStats: async (user, stat, coins) => {
+
+        const res = await fetch(`${BACKEND_URL}/api/users/${user}/${stat}/${coins}`,{
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer: ${process.env.REACT_APP_ADMIN_TOKEN}`
         }})
         return res
     },

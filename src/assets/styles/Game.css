@@ -6,11 +6,14 @@
 .game {
     display: flex;
     background-color: rgba(121, 183, 93, 0.4);
+    border-radius: 15px;
 }
 
 .game-over {
     align-self: center;
-    background-color: rgba(121, 183, 93, 0.7);
+    background-color: rgba(121, 183, 93);
+    padding: 15px;
+    border-radius: 15px;
 }
 
 section.game-left {
@@ -22,6 +25,7 @@ section.game-right {
     width: 300px;
     background: rgba(0, 0, 0, 0.5);
     margin: 5px;
+    border-radius: 5px;
 }
 
 div.game-right-scroll {
@@ -130,12 +134,17 @@ section.board {
 
 .market {
     background: #182124;
-    color: white;
+    color: gainsboro;
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
 }
 
+.turn-indicator {
+    color: gainsboro;
+    text-align: center;
+    transition: all 1s ease;
+}
 
 .commands {
     display: flex;
@@ -241,4 +250,9 @@ section.board {
     border: 5px solid rgba(255, 255, 255, 0.5);
     border-radius: 100%;
     margin: 3px;
+}
+
+/* GAME OVER SCREEN STYLING */
+.player-name {
+    font-weight: bolder;
 }

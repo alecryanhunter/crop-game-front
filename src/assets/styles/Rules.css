@@ -1,0 +1,53 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124; 
+}
+
+.rules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 5px solid var(--tertiary);
+    border-radius: 15px;
+    justify-content: center;
+    padding: 2em;
+    width: 90%;
+    margin: 2%;
+    flex-wrap: wrap;
+}
+
+.rules h3 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-variant: small-caps;
+    font-weight: 600;
+}
+
+.rules h3:before,
+.rules h3:after {
+    content: '';
+    border-top: 1px solid;
+    margin: 0 20px 0 0;
+    flex: 1 0 20px;
+}
+
+.rules h3:after {
+    margin: 0 0 0 20px;
+}
+
+.rules h4 {
+    font-variant: small-caps;
+    font-weight: 600;
+}
+
+.intro p,
+.win p {
+    text-align: center;
+}
+

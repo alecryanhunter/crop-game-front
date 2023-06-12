@@ -10,7 +10,7 @@
     - [Acceptance Criteria](#☑️-acceptance-criteria)
 - [Technologies Used](#🛠️-technologies-used)
 - [Usage](#🤳-usage) 
-    - [Screenshot](#📸-screenshot)
+    - [Screenshots](#📸-screenshots)
 - [Credits](#💻-credits)
 - [Links](#🔗-links)
 
@@ -87,13 +87,16 @@ THEN I am shown their profile, with a button to direct message them
 <a href="https://www.mysql.com/"><img height="50" src="https://user-images.githubusercontent.com/25181517/183896128-ec99105a-ec1a-4d85-b08b-1aa1620b2046.png"></a>
 </p>
 
-<!--
+
 ------------------------
 
 ## 🤳 Usage
 
-### 📸 Screenshot
--->
+To play Cropposition follow the deployed Heroku link below, create an account, join a game and have fun!
+
+### 📸 Screenshots
+
+![screenshot of app homepage](./src/assets/images/home.jpeg) ![screenshot of rules](./src/assets/images/rules.jpeg) ![screenshot of start of game](./src/assets/images/game.jpeg)
 
 -------------------------
 

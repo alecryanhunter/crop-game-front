@@ -53,7 +53,6 @@ function DirectMessage() {
         .then(data=>{
             if (data.msg === "no messages") {
                 console.log("No Messages");
-                // TODO: Add logic for sending a friend request instead of sending message
             } else {
             setMessageHistory(data);
             }

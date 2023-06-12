@@ -39,7 +39,6 @@ function Game({ socket, room, username, isHost, players }) {
         }
 
 
-        // TODO: remove dependency on data attributes
         // Turn an index of an array into matrix coordinates? based on board size
         const y = e.target.dataset.y
         const x = e.target.dataset.x
