@@ -198,16 +198,20 @@ function Profile() {
                     </section>
                     <section className="friends container">
                         <h3 className="row">Friends</h3>
-                        {friends.map(friend=>{
-                            return <div className="friend" key = {friend.id}>
+                        {friends.map(friend=>(
+                            <>
+                            {friend.status === "confirmed" ? (
+                                <div className="friend" key = {friend.id}>
                             <a href={friend.Users[0].username} >
                             <User
                                 username={friend.Users[0].username} 
                                 title={friend.Users[0].current_title}
                                 profile_pic={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
-                            /></a>
+                                /></a>
                             </div>
-                        })}
+                            ) : null}
+                            </>
+                        ))}
     
                     </section>
             </section>
