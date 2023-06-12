@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Lobby } from "boardgame.io/react";
-import { GAME_SERVER } from "../config"
-
-
-import CropGame from "./Game";
-import User from "./User";
-import Chat from "./Chat";
-import "../assets/styles/Lobby.css";
+import "../assets/styles/Play.css";
 
 export class CropLobby extends Lobby{
     handleNewMatch(){
@@ -52,51 +46,56 @@ export class CropLobby extends Lobby{
         if (myMatchesArr.length !== 1) {
             myMatchesArr = allMatchesArr
         };
-        // var errMsg = this.state.errorMsg !== '' ? 'Error: ' + this.state.errorMsg:'';
-        const showMatchesDiv = myMatchesArr.map((matchObj, i) => {
-            return(
-                <>
-                    <li key={matchObj.matchID}>
-                        Room {matchObj.roomID}: {!matchObj.isFull ? ("(Waiting for additional players)"):null}
-                    </li>
-                    <ul>
-                        {matchObj.players.map(playerObj => {
-                            return(
-                                <>
-                                {playerObj.name ? (
-                                    <li key={playerObj.id}><a href={"/profile/" + playerObj.name} target="_blank">{playerObj.name}</a></li>
-                                ):(
-                                    <li key={playerObj.id}>___________</li>
-                                )}
-                                </>
-                            )
-                        })}
-                        {matchObj.myPlayerID >= 0 ? (
-                            <button type="button" onClick={() => this.handleLeaveMatch(matchObj.matchID)}>Leave</button>
-                        ):(
-                            <button type="button" onClick={() => this.handleJoinMatch(matchObj.matchID, matchObj.fillNextPlayer )}>Join</button>
-                        )}
-                        {matchObj.isFull && matchObj.myPlayerID >=0  ? (
-                            <button type="button" onClick={() => this.handleStartMatch(matchObj.matchID, matchObj.myPlayerID)}>Play</button>
-                        ):(
-                            null
-                        )}         
-                    </ul>
-                </> 
-            )
-        })
 
+
+        // ------------------Page Rendering-------------
         if (this.state.phase === 'enter'){
             this.handleEnterLobby() //this throws a warning, but it works as intended
         }
         else if (this.state.phase === 'list'){
             return (
-                <div>
-                    <ul>
-                        {showMatchesDiv}
-                    </ul>
-                    {(myMatchesArr[0]?.myPlayerID == null) && <button type="button" onClick={() => this.handleNewMatch()}>Host a new game</button>}
-                </div>
+                <>
+                    {myMatchesArr.map((matchObj, i) => {
+                        return(
+                            <section className="room row" key={matchObj.matchID}>
+                                <h3>Room {matchObj.roomID}</h3>
+                                {!matchObj.isFull ? 
+                                    <p><i>(Waiting for additional players)</i></p>
+                                    :null}
+                                <section className="room-details">
+                                    <ul className="players col-md-6">
+                                        {matchObj.players.map(playerObj => {
+                                            return(
+                                                <li key={playerObj.id}>
+                                                {playerObj.name ? (
+                                                    <h4><a href={"/profile/" + playerObj.name} target="_blank">{playerObj.name}</a></h4>
+                                                ):(
+                                                    <p><i>empty player seat</i></p>
+                                                    )}
+                                                </li>
+                                            )
+                                        })}
+                                        {matchObj.myPlayerID >= 0 ? (
+                                            <button type="button" onClick={() => this.handleLeaveMatch(matchObj.matchID)}>Leave</button>
+                                        ):(
+                                            <button type="button" onClick={() => this.handleJoinMatch(matchObj.matchID, matchObj.fillNextPlayer )}>Join</button>
+                                        )}
+                                    </ul>
+                                    <div>
+                                        {matchObj.isFull && matchObj.myPlayerID >=0  ? (
+                                            <button type="button" onClick={() => this.handleStartMatch(matchObj.matchID, matchObj.myPlayerID)}>Play</button>
+                                        ):(
+                                            null
+                                        )}   
+                                    </div>
+                                </section>      
+                            </section> 
+                        )
+                    })}
+                    <section className="room container">
+                        {(myMatchesArr[0]?.myPlayerID == null) && <button type="button" onClick={() => this.handleNewMatch()}>Host a new game</button>}
+                    </section>
+                </>
             );
         }
         else if (this.state.phase === 'play'){

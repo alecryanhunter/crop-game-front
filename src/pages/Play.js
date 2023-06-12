@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from "react";
 //import { v4 as uuidv4 } from 'uuid';
-import "../assets/styles/NewGame.css";
 
 import { Client } from 'boardgame.io/react'
 import { CropGame } from "../components/Game";
@@ -10,7 +9,9 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import { Lobby } from "boardgame.io/react";
 import { CropLobby } from "../components/Lobby";
 import { GAME_SERVER } from "../config";
-import Chat from "../components/Chat";
+import Chat from "../components/Chat";import "../assets/styles/Play.css";
+
+
 
 const CropClient = Client({ 
   game: CropGame,
@@ -44,7 +45,7 @@ export default function Play({socket}) {
 
     return (
       <>
-        <div className="gameChat d-flex justify-content-center align-items-center">
+        <section className="main-lobby container">
           <CropLobby
             gameServer={GAME_SERVER}
             lobbyServer={GAME_SERVER}
@@ -71,7 +72,7 @@ export default function Play({socket}) {
             ) : (
               <Lobby socket={socket} username={username} room={room} host={host}/>
             )} */}
-        </div>
+        </section>
       </>
     );
   }
