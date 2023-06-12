@@ -44,7 +44,7 @@
 .message-content {
     position: relative;
     font-size: 100%;
-    width: auto;
+    width: 100%;
     height: auto;
     min-width: 3em;
     min-height: 2em;
@@ -134,6 +134,7 @@
     padding: 0 0.7em;
     font-size: 1em;
     outline: none;
+    overflow-x: auto;
 }
   
 .chat-footer button {
