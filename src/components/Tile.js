@@ -5,7 +5,6 @@ function Tile({handleTileClick,handleModeToggle,edgeArr,valid,name,x,y,workers,w
 
     // This function takes an array and returns a space sepearted list of colors
     // Used for generating border-colors automatically
-    // TODO: move these to helpers?
     function colorPicker(arr) {
         let colors = ""
         if (arr===undefined){
