@@ -67,6 +67,7 @@ header {
     width: 100%;
     min-width: fit-content;
     display: block;
+    overflow-x: auto;
 }
 
 
