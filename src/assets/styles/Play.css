@@ -49,7 +49,7 @@
     width: 90%;
 }
 
-.room button {
+.room button:not(.sendBtn) {
     padding: 4%;
     border: 2px solid var(--secondary);
     border-radius: 10px;
@@ -57,7 +57,7 @@
     font-weight: 500;
     width:50%
 }
-.room-details button {
+.room-details button:not(.sendBtn) {
     padding: 1%;
     border: 1px solid var(--secondary);
     border-radius: 10px;
@@ -66,7 +66,7 @@
     width:100px;
 }
 
-.play button {
+.play button:not(.sendBtn) {
     padding: 10%;
     border: 2px solid var(--secondary);
     border-radius: 10px;
