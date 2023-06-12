@@ -1,0 +1,39 @@
+.grainee {
+    background-color: #C67D30;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.farmhand {
+    background-color: #C67D30;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.corn-husker {
+    background-color: #C67D30;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.harvest-jester {
+    background-color: #C67D30;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.crop-queen,
+.crop-king {
+    background: linear-gradient(130deg, gold,  rgb(247, 237, 182), gold);
+    background-size: 200% 200%;
+    border-radius: 5px;
+    padding: 3px;
+    animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {background-position: 0% 0%;}
+    50% {background-position: 90% 100%;}
+    100% {background-position: 0% 0%;}
+
+}
