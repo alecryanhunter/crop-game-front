@@ -1,5 +1,6 @@
 import React from "react";
 import { Lobby } from "boardgame.io/react";
+import Chat from "./Chat";
 import "../assets/styles/Play.css";
 
 export class CropLobby extends Lobby{
@@ -73,9 +74,10 @@ export class CropLobby extends Lobby{
                                         })}
                                         {matchObj.myPlayerID >= 0 ? (
                                             <button type="button" onClick={() => this.handleLeaveMatch(matchObj.matchID)}>Leave</button>
-                                        ):(
+                                        ): (matchObj.isFull ? null : (
                                             <button type="button" onClick={() => this.handleJoinMatch(matchObj.matchID, matchObj.fillNextPlayer )}>Join</button>
-                                        )}
+                                        ))
+                                        }
                                     </ul>
                                     <div className="play">
                                         {!matchObj.isFull ? 
@@ -87,8 +89,10 @@ export class CropLobby extends Lobby{
                                             null
                                         )}   
                                     </div>
-                                </section>      
+                                </section>
+                                {matchObj.myPlayerID >= 0 ? (<Chat socket={this.props.socket} roomNo={matchObj.matchID}/>) : null }
                             </section> 
+                            
                         )
                     })}
                         {(myMatchesArr[0]?.myPlayerID == null) ? (
@@ -109,6 +113,7 @@ export class CropLobby extends Lobby{
             return (
                 <div>
                     {myGameBoard}
+                    <Chat socket={this.props.socket} roomNo={myGameBoard.matchID}/>
                 </div>
             );
         }
