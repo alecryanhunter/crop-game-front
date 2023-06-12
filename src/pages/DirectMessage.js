@@ -84,9 +84,6 @@ function DirectMessage() {
                         value={message}
                         placeholder="Hey..."
                         onChange={handleInputChange}
-                        onKeyPress={(e) => {
-                            e.key === "Enter" && messageSend();
-                        }}
                     />
                     <button
                         onClick={handleSend}
