@@ -43,9 +43,10 @@
     border: 3px solid var(--primary);
     border-radius: 8px;
     padding: 2%;
+    padding-top: 4%;
     margin: 2%;
     text-decoration: none;
-    width: 100%;
+    width: 90%;
 }
 
 .room button {
@@ -54,6 +55,7 @@
     border-radius: 10px;
     background-color: var(--accent);
     font-weight: 500;
+    width:50%
 }
 .room-details button {
     padding: 1%;
@@ -64,12 +66,27 @@
     width:100px;
 }
 
+.play button {
+    padding: 10%;
+    border: 2px solid var(--secondary);
+    border-radius: 10px;
+    background-color: var(--tertiary);
+    font-weight:900;
+}
+
+.play p{
+    width: 150px;
+    text-align: center;
+}
+
 h3 {
     font-variant: small-caps;
     font-weight: 700;
     font-size: 200%;
     color: var(--dark);
+    text-decoration-line: underline;
 }
+
 .room-details {
     background-color: transparent;
     display: flex;

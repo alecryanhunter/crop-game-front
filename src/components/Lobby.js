@@ -34,8 +34,8 @@ export class CropLobby extends Lobby{
             if (missingPlayerArr.length===0) {
                 matchObj.isFull = true
             } else {
-                matchObj.fillNextPlayer = matchObj.players.length - missingPlayerArr.length
-            }
+                matchObj.fillNextPlayer = missingPlayerArr[0].id
+            }   
             const isSelfArr = matchObj.players.filter(playerObj => playerObj.name === this.state.playerName)
             if (isSelfArr.length > 0) { 
                 myMatchesArr.push(matchObj) 
@@ -59,9 +59,6 @@ export class CropLobby extends Lobby{
                         return(
                             <section className="room row" key={matchObj.matchID}>
                                 <h3>Room {matchObj.roomID}</h3>
-                                {!matchObj.isFull ? 
-                                    <p><i>(Waiting for additional players)</i></p>
-                                    :null}
                                 <section className="room-details">
                                     <ul className="players col-md-6">
                                         {matchObj.players.map(playerObj => {
@@ -81,7 +78,10 @@ export class CropLobby extends Lobby{
                                             <button type="button" onClick={() => this.handleJoinMatch(matchObj.matchID, matchObj.fillNextPlayer )}>Join</button>
                                         )}
                                     </ul>
-                                    <div>
+                                    <div className="play">
+                                        {!matchObj.isFull ? 
+                                        <p><i>(Waiting for additional players)</i></p>
+                                        :null}
                                         {matchObj.isFull && matchObj.myPlayerID >=0  ? (
                                             <button type="button" onClick={() => this.handleStartMatch(matchObj.matchID, matchObj.myPlayerID)}>Play</button>
                                         ):(
@@ -92,9 +92,12 @@ export class CropLobby extends Lobby{
                             </section> 
                         )
                     })}
-                    <section className="room container">
-                        {(myMatchesArr[0]?.myPlayerID == null) && <button type="button" onClick={() => this.handleNewMatch()}>Host a new game</button>}
-                    </section>
+                        {(myMatchesArr[0]?.myPlayerID == null) ? (
+                            <section className="room row">
+                                <button type="button" onClick={() => this.handleNewMatch()}>Host a new game</button>
+                            </section>
+                        ): null
+                        }
                 </>
             );
         }
