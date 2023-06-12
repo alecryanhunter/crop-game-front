@@ -21,7 +21,6 @@ function Search() {
         if (searchField) {
             search(searchField)
             .then(data=>{
-                console.log(data);
                 setSearchData(data);
             })
         }

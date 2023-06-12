@@ -180,7 +180,6 @@ const API = {
         .then((json)=>{
             return json;
         })
-        console.log(data)
         return data;
 
     },
