@@ -44,7 +44,6 @@ function Shop() {
                 alert("Whoops! Looks like that's a bit out of your price range. \nPlay to earn more coins.")
             } else {
                 setPurchased(res.json().id);
-                console.log(purchased)
             }
         })
 
