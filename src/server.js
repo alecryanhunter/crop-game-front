@@ -10,7 +10,6 @@ const server = Server({
     origins: APP_PRODUCTION ? ["https://cropposition.herokuapp.com/"] : [Origins.LOCALHOST],
 });
 
-console.log(Server)
 
 // Build path relative to the server.js file
 const frontEndAppBuildPath = path.resolve(__dirname, '../build');
