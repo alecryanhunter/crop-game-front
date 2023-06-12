@@ -1,0 +1,108 @@
+:root {
+    --primary: #79b75d;
+    --secondary: #B3C280;
+    --tertiary: #F9E28C;
+    --accent: #A4D2FF;
+    --dark: #182124; 
+}
+
+
+.joiningPlayers {
+    padding: 2em;
+    border: 3px solid black;
+}
+
+.startGameBtn {
+    padding: 2em;
+    background-color: var(--tertiary);
+    color: var(--dark);
+}
+
+
+.main-lobby {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secondary);
+    border: 5px solid var(--tertiary);
+    border-radius: 15px;
+    justify-content: center;
+    padding: 2%;
+    width: 90%;
+    min-width: fit-content;
+    margin: 2%;
+    flex-wrap: wrap;
+}
+
+.room {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--primary);
+    border-radius: 8px;
+    padding: 2%;
+    padding-top: 4%;
+    margin: 2%;
+    text-decoration: none;
+    width: 90%;
+}
+
+.room button:not(.sendBtn) {
+    padding: 4%;
+    border: 2px solid var(--secondary);
+    border-radius: 10px;
+    background-color: var(--accent);
+    font-weight: 500;
+    width:50%
+}
+.room-details button:not(.sendBtn) {
+    padding: 1%;
+    border: 1px solid var(--secondary);
+    border-radius: 10px;
+    background-color: var(--accent);
+    font-weight: 500;
+    width:100px;
+}
+
+.play button:not(.sendBtn) {
+    padding: 10%;
+    border: 2px solid var(--secondary);
+    border-radius: 10px;
+    background-color: var(--tertiary);
+    font-weight:900;
+}
+
+.play p{
+    width: 150px;
+    text-align: center;
+}
+
+h3 {
+    font-variant: small-caps;
+    font-weight: 700;
+    font-size: 200%;
+    color: var(--dark);
+    text-decoration-line: underline;
+}
+
+.room-details {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    margin: 1%;
+    text-decoration: none;
+}
+
+.players {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    margin: 2%;
+    text-decoration: none;
+}

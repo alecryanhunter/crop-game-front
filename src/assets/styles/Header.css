@@ -21,7 +21,7 @@ header {
     color: var(--tertiary);
     margin: 1%;
     font-weight: 900;
-    text-shadow: 1px 1px 3px var(--accent);
+    text-shadow: 1.5px 1.5px 3.5px var(--accent);
 }
 
 .nav {
@@ -60,3 +60,32 @@ header {
     font-weight: 500;
 }
 
+
+.burger {
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    width: 100%;
+    min-width: fit-content;
+    display: block;
+    overflow-x: auto;
+}
+
+
+.burger .nav-item {
+    text-shadow: none;
+    width: 100%;
+    justify-content: center;
+    background-color: white;
+}
+
+.burger a {
+    color: var(--dark);
+    padding: 1rem;
+    text-decoration: none;
+    display: block;
+
+}
+
+.burger a:hover {
+    color: var(--accent);
+}

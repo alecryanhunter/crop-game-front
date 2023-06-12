@@ -6,20 +6,6 @@
     --dark: #182124;
 }
 
-.home h2 {
-    justify-content: flex-start;
-    align-items: center;
-    display: flex;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: var(--accent);
-    font-weight: 600;
-    margin: 1%;
-    font-size: 200%;
-    text-shadow: .5px .5px 2px var(--dark);
-    background-color: var(--primary);
-    width: fit-content; 
-}
-
 .home-logo {
     display: flex;
     justify-content: center;

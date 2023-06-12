@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import User from "../components/User";
 import API from "../utils/API"
+import helpers from "../utils/helpers";
 import { Uploader } from "uploader"; 
 import { UploadButton } from "react-uploader";
 import "../assets/styles/Profile.css";
+import "../assets/styles/Titles.css";
 
 
 function Profile() {
@@ -16,8 +18,8 @@ function Profile() {
     const [bio, setBio] = useState('');
     const [wins, setWins] = useState('');
     const [losses, setLosses] = useState('');
-    const [forfeits, setForfeits] = useState('');
     const [friends, setFriends] = useState([]);
+    const [isCurFriend, setIsCurFriend] = useState(false);
     const [edit, setEdit] = useState(false);
 
     let { user } = useParams();
@@ -25,9 +27,9 @@ function Profile() {
     const token = localStorage.getItem("token");
     const curUser = localStorage.getItem("username");
 
-    const PIC_URL_PREFIX_MED = "https://upcdn.io/12a1yJg/m"
+    const PIC_URL_PREFIX_LG = "https://upcdn.io/12a1yJg/lg"
     const PIC_URL_PREFIX_SM = "https://upcdn.io/12a1yJg/s"
-    
+
     function handleEdit(e) {
         e.preventDefault();
         if (edit===true) {
@@ -40,7 +42,6 @@ function Profile() {
             profileUpdate(json)
         } else {
             setEdit(true);
-            console.log("Edit Mode");
         }
     }
 
@@ -50,14 +51,12 @@ function Profile() {
 
     function handleAddFriend(e) {
         e.preventDefault();
-        console.log("Add Friend");
         addFriend()
         .then(data=>{
-            console.log(data);
         })
     }
 
-    async function profileData() {
+    async function profileData(user) {
         return await API.getProfile(user);
     }
 
@@ -66,8 +65,7 @@ function Profile() {
     }
 
     useEffect(()=>{
-        profileData()
-        .then(data=>{
+        profileData(user).then(data=>{
             setUsername(data.username);
             setTitle(data.current_title);
             setTitleArr(data.Bundles.filter(bundleObj => bundleObj.type === "Title"));
@@ -76,10 +74,17 @@ function Profile() {
             setBio(data.bio);
             setWins(data.wins);
             setLosses(data.losses);
-            setForfeits(data.forfeits);
             setFriends(data.Friendships);
+        });
+        profileData(curUser).then(data=>{
+            setIsCurFriend(()=>{
+                const myFriendsArr = data.Friendships.map(friendshipObj => {
+                    return friendshipObj.Users.filter(userObj => userObj.username !== curUser)[0].username
+                })
+                if (myFriendsArr.includes(user)) { return true }
+            })
         })
-    }, );
+    }, []);
 
     // Input Control Function
     function handleInputChange(e) {
@@ -94,7 +99,6 @@ function Profile() {
     
     // Uploader for profile_pic
     const uploader = Uploader({ apiKey: process.env.REACT_APP_UPLOADIO_API_KEY });
-    // TODO: https://www.freecodecamp.org/news/how-to-access-secret-api-keys-using-netlify-functions-in-a-react-app/
     const uploaderOptions = {
         multi: false,
         styles: {
@@ -124,24 +128,33 @@ function Profile() {
             }
         </UploadButton>
 
+
+    let multiBtn
+    if (curUser===user) {
+        multiBtn = <button onClick={handleEdit}>{edit ? "Save Edits" : "Edit Profile"}</button>
+    } else if (isCurFriend){
+        multiBtn = <button onClick={()=>window.location.href=`/messages/${user}`}>Message</button>
+    } else {
+        multiBtn = <button onClick={handleAddFriend}>Add Friend</button>
+    }
+
     return (
         <section className="page profile">
-            <h2>{username}'s Profile</h2>
             <section className="main-profile container flex-wrap">
                     <section className="about row">
                         <section className="profile-top d-flex justify-content-center">
                             <div className="profilePge-pic col col-md-4">
                                 {edit ? (
                                     <>
-                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_LG + pic} alt="profile_pic"/>
                                     <PicUploadBtn setPic={setPic}/>
                                     </>
                                 ) : (
-                                    <img src={PIC_URL_PREFIX_MED + pic} alt="profile_pic"/>
+                                    <img src={PIC_URL_PREFIX_LG + pic} alt="profile_pic"/>
                                 )}
                             </div>
                             <div className="col col-md-4 d-flex align-self-center">
-                                <h3>{username}</h3>
+                                <h3 id={helpers.f(title)}>{username}</h3>
                                 <div className="title">
                                 {edit ? (
                                     <select 
@@ -157,26 +170,17 @@ function Profile() {
                                         ))}
                                   </select>
                                 ) : (
-                                    <p>{title}</p>
+                                    <p id={helpers.f(title)}>{title}</p>
                                 )}
                                 </div>
                             </div>
                             <div className="col col-md-4">
-                            {(curUser===user) ? (
-                                <button
-                                    onClick={handleEdit}
-                                >{edit ? "Save Edits" : "Edit Profile"}</button>
-                                ) : (
-                                // TODO: Add DM button and remove friend button if already friends
-                                <button
-                                    onClick={handleAddFriend}
-                                >Add Friend</button>
-                            )}
+                                {multiBtn}
                             </div>
                         </section>
                         <section className="profile-bio row w-75">
                             {edit ? (
-                                <input
+                                <textarea
                                     name="bio"
                                     value={bio}
                                     onChange={handleInputChange}
@@ -190,22 +194,25 @@ function Profile() {
                                 <li>{coins} <b>Coins</b></li>
                                 <li><b>Wins:</b> {wins}</li>
                                 <li><b>Losses:</b> {losses}</li>
-                                <li><b>Forfeits:</b> {forfeits}</li>
                             </ul>
                         </section>
                     </section>
-                    <section className="friends subpage container">
+                    <section className="friends container">
                         <h3 className="row">Friends</h3>
-                        {friends.map(friend=>{
-                            return <div className="friend">
-                            <a href={friend.Users[0].username} key={friend.id} >
+                        {friends.map(friend=>(
+                            <>
+                            {friend.status === "confirmed" ? (
+                                <div className="friend" key = {friend.id}>
+                            <a href={friend.Users[0].username} >
                             <User
                                 username={friend.Users[0].username} 
                                 title={friend.Users[0].current_title}
-                                img={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
-                            /></a>
+                                profile_pic={PIC_URL_PREFIX_SM + friend.Users[0].profile_pic}
+                                /></a>
                             </div>
-                        })}
+                            ) : null}
+                            </>
+                        ))}
     
                     </section>
             </section>

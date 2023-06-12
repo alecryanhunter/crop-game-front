@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { slide as Menu } from 'react-burger-menu'
-// import io from "socket.io-client";
+import API from "./utils/API"
+import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
 import Home from "./pages/Home";
@@ -14,38 +14,51 @@ import Search from "./pages/Search"
 import Play from "./pages/Play";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
-import "./style.css";
+import "./assets/styles/style.css";
 
-// TEST BOARDGAME.IO STUFF
+// DEVELOPMENT BOARDGAME.IO STUFF
 // =========================
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
 import { Local } from 'boardgame.io/multiplayer'
-import { CropGame } from './pages/Test'
-import { CropGameBoard } from "./pages/TestBoard";
+import { CropGame } from './components/Game'
+import { CropGameBoard } from "./components/Board";
 
-const TestGame = Client({ 
+const Game = Client({ 
   game: CropGame,
   numPlayers: 2,
   board: CropGameBoard,
-  // multiplayer: SocketIO({ server: 'localhost:8000' }),
   multiplayer: Local(),
 })
 
 // =========================
-// END TEST BOARDGAME.IO STUFF
+// END DEVELOPMENT BOARDGAME.IO STUFF
 
 function App() {
 
   // const socket = io.connect("http://localhost:3001"); // Local
-  //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
+  const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
-  const [loggedIn,setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
+
+
+  async function tokenCheck(token, curUser) {
+    return await API.verifyToken(token, curUser)
+  }
 
   // Checks if user is logged in on page load
   useEffect(()=>{
-    if(localStorage.getItem("token")) {
-      setLoggedIn(true);
+    const token = localStorage.getItem("token");
+    const curUser = localStorage.getItem("username");
+    if(token && curUser) {
+      tokenCheck(token, curUser).then(status => {
+        if (status) {
+          setLoggedIn(status);
+          return;
+        }
+      });
+    } else if (window.location.pathname !== "/") {
+      window.location.href="/"
     }
   },[])
   
@@ -55,32 +68,28 @@ function App() {
         <Router>
           <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           <Routes>
+            {/* PATHS */}
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
-            {/*}
-            <Route path="/lobby" element={<Lobby socket={socket}/>}/>
-            <Route path="/game" element={<Game socket={socket} />}/>
-            */}
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
-            {/* <Route path="/joinGame" element={<JoinGame socket={socket}/>}/> */}
-            <Route path="/play" element={<Play />}/>
+            <Route path="/play" element={<Play socket={socket} /> }/>
             <Route path="/shop" element={<Shop />}/>
-            <Route path="/testGame" element={
+
+            {/* DEVELOPMENT GAME */}
+            {/* <Route path="/game" element={
               <section style={{display: "flex"}}>
-                <TestGame playerID="0"/>
-                <TestGame playerID="1"/>
+                <Game playerID="0"/>
+                <Game playerID="1"/>
               </section >
-            } />
+            } /> */}
+
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>
       </div>
-      {/* <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
-        
-      </Menu> */}
     </div>
   );
 }
