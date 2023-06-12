@@ -24,7 +24,8 @@ function EndScreen({coins, matchData ,playerID}) {
 
     useEffect(()=>{
         const winner = winnerFinder(coins);
-        if (playerID === winner){
+        console.log(Number(playerID)===winner)
+        if (Number(playerID) === winner){
             API.updateStats(matchData[playerID].name,"wins",coins[playerID])
         } else {
             API.updateStats(matchData[playerID].name,"losses",coins[playerID])
