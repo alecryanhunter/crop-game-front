@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../assets/styles/Chat.css";
 
 
-export default function Chat({ socket }) {
+export default function Chat({ socket, roomNo }) {
   const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState(roomNo);
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
@@ -15,18 +15,18 @@ export default function Chat({ socket }) {
 
   
     // setRoom to lobby or game here i think
-  useEffect(() => {
-    const curRoom = 1;
-    setRoom(curRoom);
-  }, []);
+  // useEffect(() => {
+    // const curRoom = 1;
+    // setRoom(roomNo);
+  // }, []);
 
-  /*
-  const joinRoom = () => {
-    if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
-    }
-  };
-  */
+  
+  // const joinRoom = () => {
+  //   if (username !== "" && roomNo !== "") {
+  //     socket.emit("join_room", roomNo);
+  //   }
+  // };
+
 
   socket.emit("join_room", room);
 

@@ -53,7 +53,6 @@ function Profile() {
         e.preventDefault();
         addFriend()
         .then(data=>{
-            console.log(data);
         })
     }
 

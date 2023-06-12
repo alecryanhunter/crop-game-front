@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { slide as Menu } from 'react-burger-menu'
 import API from "./utils/API"
 import io from "socket.io-client";
 
@@ -15,9 +14,9 @@ import Search from "./pages/Search"
 import Play from "./pages/Play";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
-import "./style.css";
+import "./assets/styles/style.css";
 
-// TEST BOARDGAME.IO STUFF
+// DEVELOPMENT BOARDGAME.IO STUFF
 // =========================
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
@@ -29,17 +28,16 @@ const Game = Client({
   game: CropGame,
   numPlayers: 2,
   board: CropGameBoard,
-  // multiplayer: SocketIO({ server: 'localhost:8000' }),
   multiplayer: Local(),
 })
 
 // =========================
-// END TEST BOARDGAME.IO STUFF
+// END DEVELOPMENT BOARDGAME.IO STUFF
 
 function App() {
 
-  const socket = io.connect("http://localhost:3001"); // Local
-  //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
+  // const socket = io.connect("http://localhost:3001"); // Local
+  const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
   const [loggedIn, setLoggedIn] = useState(false)
 
@@ -70,6 +68,7 @@ function App() {
         <Router>
           <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           <Routes>
+            {/* PATHS */}
             <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
             <Route path="/rules" element={<Rules/>}/>
             <Route path="/profile/:user" element={<Profile/>}/>
@@ -78,19 +77,19 @@ function App() {
             <Route path="/search" element={<Search/>}/>
             <Route path="/play" element={<Play socket={socket} /> }/>
             <Route path="/shop" element={<Shop />}/>
-            <Route path="/game" element={
+
+            {/* DEVELOPMENT GAME */}
+            {/* <Route path="/game" element={
               <section style={{display: "flex"}}>
                 <Game playerID="0"/>
                 <Game playerID="1"/>
               </section >
-            } />
+            } /> */}
+
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>
       </div>
-      {/* <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
-        
-      </Menu> */}
     </div>
   );
 }

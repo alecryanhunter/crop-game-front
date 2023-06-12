@@ -7,12 +7,6 @@ export function CropGameBoard({ ctx, G, moves, events, playerID, stages, matchDa
     const [mode, setMode] = useState("");
     const [choices,setChoices] = useState(G.choices);
 
-    // Keeps the choices state updated (NECESSARY??)
-    useEffect(()=>{
-        setChoices(G.choices)
-        console.log(matchData)
-    },[G.choices])
-
     // This function de-toggles any straggling worker selection boxes
     function deToggleWorker() {
         for (let i = 0; i<G.tiles.length;i++) {

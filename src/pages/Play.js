@@ -48,10 +48,10 @@ export default function Play({socket}) {
         <section className="main-lobby container">
           <CropLobby
             gameServer={GAME_SERVER}
+            socket={socket}
             lobbyServer={GAME_SERVER}
             gameComponents={[{ game: CropGame, board: CropGameBoard }]}
             />
-          <Chat socket={socket} />
           {/* {!showChat ? (
             <div className="newGameContainer">
             <input
