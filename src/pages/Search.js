@@ -47,7 +47,6 @@ function Search() {
                 >Search</button>
             </form>
             {searchData.map(user=>{
-                // TODO: Add friend status to this, as well
                 return <div className="results" key={user.id}> 
                     <a href={`/profile/${user.username}`} key={user.id}>
                         <User profile_pic={PIC_URL_PREFIX_SM + user.profile_pic} username={user.username} title={user.current_title} />
