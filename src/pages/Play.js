@@ -8,8 +8,8 @@ import { CropGameBoard } from "../components/Board";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Lobby } from "boardgame.io/react";
 import { CropLobby } from "../components/Lobby";
-import { GAME_SERVER } from "../config"
-import "../assets/styles/Play.css";
+import { GAME_SERVER } from "../config";
+import Chat from "../components/Chat";import "../assets/styles/Play.css";
 
 
 
@@ -20,7 +20,7 @@ const CropClient = Client({
 })
 
 
-export default function Play() {
+export default function Play({socket}) {
 
     // const [username, setUsername] = useState("");
     // const [room, setRoom] = useState("");
@@ -51,6 +51,7 @@ export default function Play() {
             lobbyServer={GAME_SERVER}
             gameComponents={[{ game: CropGame, board: CropGameBoard }]}
             />
+          <Chat socket={socket} />
           {/* {!showChat ? (
             <div className="newGameContainer">
             <input

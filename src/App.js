@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import API from "./utils/API"
-// import io from "socket.io-client";
+import io from "socket.io-client";
 
 import DirectMessage from "./pages/DirectMessage";
 import Home from "./pages/Home";
@@ -36,7 +36,7 @@ const Game = Client({
 
 function App() {
 
-  // const socket = io.connect("http://localhost:3001"); // Local
+  const socket = io.connect("http://localhost:3001"); // Local
   //const socket = io.connect("https://cropposition-socket.herokuapp.com"); // Deploy
 
   const [loggedIn, setLoggedIn] = useState(false)
@@ -75,7 +75,7 @@ function App() {
             <Route path="/messages" element={<Messages />}/>
             <Route path="/messages/:friend" element={<DirectMessage />}/>
             <Route path="/search" element={<Search/>}/>
-            <Route path="/play" element={<Play /> }/>
+            <Route path="/play" element={<Play socket={socket} /> }/>
             <Route path="/shop" element={<Shop />}/>
 
             {/* DEVELOPMENT GAME */}
