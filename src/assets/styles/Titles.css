@@ -26,13 +26,18 @@
 }
 
 #corn-husker {
-    background-color: #C67D30;
+    background-color: #FFCC00;
     border-radius: 5px;
     padding: 3px;
 }
+#corn-husker:after,
+#corn-husker:before {
+    content: "🌽";
+}
 
 #harvest-jester {
-    background-color: #C67D30;
+    background: linear-gradient(70deg,green 50%, purple 50%);
+    color: white;
     border-radius: 5px;
     padding: 3px;
 }
@@ -43,12 +48,12 @@
     background-size: 200% 200%;
     border-radius: 5px;
     padding: 3px;
-    animation: shimmer 2s linear infinite;
+    animation: shimmer 3s linear infinite;
 }
 
 @keyframes shimmer {
     0% {background-position: 0% 0%;}
-    50% {background-position: 150% 0%;}
+    50% {background-position: 110% 0%;}
     100% {background-position: 0% 0%;}
 
 }

@@ -158,7 +158,6 @@ checkValid: (board,active,sideNum)=>{
 },
 f: (string) => {
     const newString = string.split(" ").join("-").toLowerCase()
-    console.log(newString);
     return newString;
 }
 
