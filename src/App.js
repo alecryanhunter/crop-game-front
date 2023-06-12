@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { slide as Menu } from 'react-burger-menu'
 import API from "./utils/API"
 // import io from "socket.io-client";
 
@@ -15,9 +14,9 @@ import Search from "./pages/Search"
 import Play from "./pages/Play";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
-import "./style.css";
+import "./assets/styles/style.css";
 
-// TEST BOARDGAME.IO STUFF
+// DEVELOPMENT BOARDGAME.IO STUFF
 // =========================
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
@@ -29,12 +28,11 @@ const Game = Client({
   game: CropGame,
   numPlayers: 2,
   board: CropGameBoard,
-  // multiplayer: SocketIO({ server: 'localhost:8000' }),
   multiplayer: Local(),
 })
 
 // =========================
-// END TEST BOARDGAME.IO STUFF
+// END DEVELOPMENT BOARDGAME.IO STUFF
 
 function App() {
 
@@ -78,19 +76,19 @@ function App() {
             <Route path="/search" element={<Search/>}/>
             <Route path="/play" element={<Play /> }/>
             <Route path="/shop" element={<Shop />}/>
-            <Route path="/game" element={
+
+            {/* DEVELOPMENT GAME */}
+            {/* <Route path="/game" element={
               <section style={{display: "flex"}}>
                 <Game playerID="0"/>
                 <Game playerID="1"/>
               </section >
-            } />
+            } /> */}
+
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>
       </div>
-      {/* <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'}>
-        
-      </Menu> */}
     </div>
   );
 }
